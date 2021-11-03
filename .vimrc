@@ -1,0 +1,655 @@
+" Install vim-plug if not found
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+endif
+
+" Run PlugInstall if there are missing plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \| PlugInstall --sync | source $MYVIMRC
+\| endif
+
+" Specify a directory for plugins
+" - For Neovim: stdpath('data') . '/plugged'
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
+
+" IDE Features
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+Plug 'puremourning/vimspector'
+Plug 'vim-test/vim-test'
+Plug 'tpope/vim-dispatch'
+Plug 'neomake/neomake'
+
+" Project Management
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-projectionist'
+Plug 'airblade/vim-gitgutter'     " Show git diff of lines edited
+" Plug 'tpope/vim-rhubarb' " TODO configure
+
+" CTags
+" Plug 'ludovicchabant/vim-gutentags'
+" Plug 'majutsushi/tagbar'
+
+" Appearance
+Plug 'ryanoasis/vim-devicons'
+Plug 'morhetz/gruvbox'
+" Plug 'nightsense/seabird'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Plug 'itchyny/lightline.vim'
+
+" Syntax
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'maxmellon/vim-jsx-pretty'
+
+" Search
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'mileszs/ack.vim'
+
+" Navigation
+Plug 'preservim/nerdtree'
+" Plug 'tyok/nerdtree-ack'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'easymotion/vim-easymotion'
+Plug 'rhysd/accelerated-jk'
+Plug 'schickling/vim-bufonly' "close all but targeted buffer
+"Plug 'wellle/targets.vim' "lets learn default movements better first
+
+" Editing
+Plug 'tpope/vim-surround'
+" Plug 'jiangmiao/auto-pairs'
+" Plug 'AndrewRadev/splitjoin.vim'
+" Plug 'alvan/vim-closetag'
+Plug 'tpope/vim-commentary'
+Plug 'ahw/vim-pbcopy' "copy to os clipboard with cy in visual mode
+" Plug 'terryma/vim-multiple-cursors' "not configured
+" Plug 'Valloric/MatchTagAlways'
+" Plug 'coderifous/textobj-word-column.vim'
+" Plug 'junegunn/vim-easy-align'
+Plug 'matze/vim-move'
+
+" Plug 'tpope/vim-sensible'
+" Plug 'vimwiki/vimwiki'
+" Plug 'honza/vim-snippets'
+" Plug 'caksoylar/vim-mysticaltutor'
+" Plug 'vim-scripts/ZoomWin'
+" Plug 'terryma/vim-expand-region'
+
+"dependencies
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+
+" Initialize plugin system
+call plug#end()
+
+set nocompatible
+filetype indent on
+filetype plugin on
+filetype plugin indent on
+
+colorscheme gruvbox
+
+syntax on "previously was enabled
+set syn=auto
+
+set background=dark
+set wildmenu
+set ttyfast
+set lazyredraw
+set updatetime=300
+
+" Enable Mouse mode in all modes
+set mouse=a
+
+" paste mode
+nnoremap <F5> :set invpaste paste?<CR>
+set pastetoggle=<F5>
+set showmode
+
+" First lets fix the cursor
+" These are specific to iterm2
+" TODO set this based on env
+" https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
+" Set Line Numbers
+set number
+set numberwidth=4
+set ruler
+
+" Indentation
+set autoindent
+set cindent
+set smartindent
+
+" Folding
+" Enable folding
+set foldmethod=syntax
+set foldlevel=99
+
+" Tab Options
+set shiftwidth=2
+set tabstop=2
+set softtabstop=2 " Number of spaces a tab counts when editing
+set expandtab
+
+"This unsets the "last search pattern" register by hitting return
+nnoremap <CR> :noh<CR><CR>
+
+"add a colored column at 90 so our files don't get too wide
+set colorcolumn=120
+
+" Enable folding with the z key
+nmap z za
+
+" Source Vim configuration file and install plugins
+nnoremap <silent><leader>1 :source ~/.vimrc \| :PlugInstall<CR>
+
+" Delete empty space from the end of lines on every save
+autocmd BufWritePre * :%s/\s\+$//e
+
+set ignorecase " Ignore case when searching
+set smartcase  " When searching try to be smart about cases
+set nohlsearch " Don't highlight search term
+set incsearch  " Jumping search
+
+" Allow copy and paste from system clipboard
+set clipboard=unnamed
+
+" Spellcheck for markdown
+au BufRead,BufNewFile *.md setlocal spell
+
+" Delete characters outside of insert area
+set backspace=indent,eol,start
+
+"language features
+hi def link jsObjectKey Label
+
+"folding
+augroup javascript_folding
+    au!
+    au FileType javascript setlocal foldmethod=syntax
+augroup END
+set foldmethod=syntax
+set foldcolumn=1
+let javaScript_fold=1
+set foldlevelstart=99
+
+set display+=lastline
+
+" No bells on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+set history=1000
+
+"refresh buffer on external file write
+set autoread
+au CursorHold,CursorHoldI * checktime
+
+"highlight found words when searching
+set hlsearch
+
+"incremental search
+set incsearch
+
+"show matching parenthesis
+set showmatch
+
+"relative line numbers
+" set relativenumber
+
+"highlight current line:
+set cursorline
+
+"terminal colors
+"set t_Co=256
+set termguicolors
+
+"set hidden characters
+set list listchars=tab:>\ ,trail:-,eol:$
+set list!
+
+"disable lazy redraw
+"set nolazyredraw
+
+"NERDtree settings
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
+
+" Start NERDTree. If a file is specified, move the cursor to its window.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
+
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" Close the tab if NERDTree is the only window remaining in it.
+autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+
+"This unsets the "last search pattern" register by hitting return
+nnoremap <CR> :noh<CR><CR>
+
+"accelerated jk
+nmap j <Plug>(accelerated_jk_gj)
+nmap k <Plug>(accelerated_jk_gk)
+
+" Use recommended Coc.nvim settings
+" Set internal encoding of vim, not needed on neovim, since coc.nvim using some
+" unicode characters in the file autoload/float.vim
+set encoding=utf-8
+set termencoding=utf-8
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" TextEdit might fail if hidden is not set.
+set hidden
+
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of language server.
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+" CoC extensions
+let g:coc_global_extensions = ['coc-diagnostic', 'coc-tsserver', 'coc-json']
+
+" Add CoC Prettier if prettier is installed
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+  let g:coc_global_extensions += ['coc-prettier']
+endif
+
+" Add CoC ESLint if ESLint is installed
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+  let g:coc_global_extensions += ['coc-eslint']
+endif
+
+"Vim-move
+" Visual Mode alt+j moves selected block down
+vmap ∆ <Plug>MoveBlockDown
+" vmap <D-j> <Plug>MoveBlockDown
+
+" Visual Mode alt+k moves selected block up
+vmap ˚ <Plug>MoveBlockUp
+" vmap <D-k> <Plug>MoveBlockUp
+
+" alt+j Move current line down
+nmap ∆ <plug>MoveLineDown
+" nmap <D-j> <plug>MoveLineDown
+
+" alt+k Move current line up
+nmap ˚ <Plug>MoveLineUp
+" nmap <D-k> <Plug>MoveLineUp
+
+"run command on line and paste output in buffer
+nnoremap <Leader>rl :r!<C-r><C-l><CR>
+
+" git fugitive stuff
+nmap <leader>gb :Gblame<CR>
+nmap <leader>gs :Gstatus<CR>
+nmap <leader>gd :Gvdiffsplit!<CR>
+nmap <leader>gl :Glog<CR>
+nmap <leader>gc :Gcommit<CR>
+nmap <leader>gp :Gpush<CR>
+nmap <leader>gw :Gwrite!<CR>
+
+" Fix some weird error with Fugitive
+let g:fugitive_pty = 0
+
+"show hidden characters toggle
+nmap <leader>l :set list! <CR>
+
+" Powerline Font for MacVim
+" set guifont=Menlo\ For\ Powerline
+
+" Vim Multiple Cursors
+" I disabled these bindings until i finish setting up buffer controls
+"
+"let g:multi_cursor_use_default_mapping=0
+"let g:multi_cursor_next_key='<C-l>'
+"let g:multi_cursor_prev_key='<C-h>'
+"let g:multi_cursor_skip_key='<C-x>'
+"let g:multi_cursor_quit_key='<Esc>'
+
+" Buffer Switching
+"
+" open a new empty buffer
+" This replaces :tabnew
+"nmap <Leader>T :enew<cr>
+nmap <Leader>t :enew<CR>
+
+" Move to the next buffer
+nmap <Leader>l :bnext<CR>
+nmap <Leader>] :bnext<CR>
+nmap ˙ :bnext<CR>
+inoremap ˙ :bnext<CR>
+vnoremap ˙ :bnext<CR>
+
+" Move to the previous buffer
+nmap <Leader>h :bprevious<CR>
+nmap <Leader>[ :bprevious<CR>
+nmap ¬ :bprevious<CR>
+inoremap ¬ :bprevious<CR>
+vnoremap ¬ :bprevious<CR>
+
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <Leader>bq :bp <BAR> bd #<CR>
+
+" Show all open buffers and their status
+nmap <Leader>bl :ls<CR>
+
+" nmap <leader>d :bnext<CR>:bdelete #<CR>
+
+" Easier movement between split windows CTRL + {h, j, k, l}
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
+
+" zoom windows
+nmap <leader>zw :ZoomWin
+
+" Vim JSX
+let g:jsx_ext_required = 0
+
+"===========================================
+"vim-test
+"===========================================
+let test#javascript#runner = 'jest'
+let test#javascript#jest#executable = "yarn test"
+" use the jest-vim-reporter to shorten the jest testoutput
+" let g:test#javascript#jest#options = ''
+let g:test#javascript#jest#options = '--reporters jest-vim-reporter'
+" use neomake for async running of tests
+let test#strategy = "neomake"
+" do not open the test run results, can be changed to show them
+" let g:neomake_open_list = 0
+
+" setlocal errorformat=%f:%l:%c:\ %m
+
+" augroup neomake_hook
+"   au!
+"   autocmd User NeomakeJobFinished call TestFinished()
+"   autocmd User NeomakeJobStarted call TestStarted()
+" augroup END
+
+" " initially empty status
+" let g:testing_status = ''
+
+" " Start test
+" function! TestStarted() abort
+"   let g:testing_status = 'Test ⌛'
+" endfunction
+
+" " Show message when all tests are passing
+" function! TestFinished() abort
+"   let context = g:neomake_hook_context
+"   if context.jobinfo.exit_code == 0
+"     let g:testing_status = 'Test ✅'
+"   endif
+"   if context.jobinfo.exit_code == 1
+"     let g:testing_status = 'Test ❌'
+"   endif
+" endfunction
+
+" function! TestStatus() abort
+"   return g:testing_status
+" endfunction
+
+" let g:lightline = {
+"       \ 'colorscheme': 'wombat',
+"       \ 'active': {
+"       \   'left': [ [ 'mode', 'paste' ],
+"       \             [ 'cocstatus', 'teststatus', 'readonly', 'filename', 'modified' ] ]
+"       \ },
+"       \ 'component_function': {
+"       \   'cocstatus': 'coc#status',
+"       \   'teststatus': 'TestStatus'
+"       \ },
+"       \ }
+
+nnoremap <leader>tm :exec RunTestVerbose()<CR>
+
+function! RunTestVerbose()
+  let g:test#javascript#jest#options = ''
+  :TestNearest -strategy=dispatch
+  let g:test#javascript#jest#options = '--reporters jest-vim-reporter'
+endfunction
+nmap <silent> <leader>tn :TestNearest<CR>
+nmap <silent> <leader>tf :TestFile<CR>
+nmap <silent> <leader>ts :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>tv :TestVisit<CR>
+
+" Toggle Tag Bar
+" nmap <leader>tb :TagbarToggle<CR>
+
+" vim-gutentag
+" let g:gutentags_add_default_project_roots = 0
+" let g:gutentags_project_root = ['package.json', '.git']
+" let g:gutentags_cache_dir = expand('~/.cache/vim/ctags/')
+" let g:gutentags_generate_on_new = 1
+" let g:gutentags_generate_on_missing = 1
+" let g:gutentags_generate_on_write = 1
+" let g:gutentags_generate_on_empty_buffer = 0
+" let g:gutentags_ctags_extra_args = [
+"       \ '--tag-relative=yes',
+"       \ '--fields=+ailmnS',
+"       \ ]
+" let g:gutentags_ctags_exclude = [
+"       \ '*.git', '*.svg', '*.hg',
+"       \ '*/tests/*',
+"       \ 'build',
+"       \ 'dist',
+"       \ '*sites/*/files/*',
+"       \ 'bin',
+"       \ 'node_modules',
+"       \ 'bower_components',
+"       \ 'cache',
+"       \ 'compiled',
+"       \ 'docs',
+"       \ 'example',
+"       \ 'bundle',
+"       \ 'vendor',
+"       \ '*.md',
+"       \ '*-lock.json',
+"       \ '*.lock',
+"       \ '*bundle*.js',
+"       \ '*build*.js',
+"       \ '.*rc*',
+"       \ '*.json',
+"       \ '*.min.*',
+"       \ '*.map',
+"       \ '*.bak',
+"       \ '*.zip',
+"       \ '*.pyc',
+"       \ '*.class',
+"       \ '*.sln',
+"       \ '*.Master',
+"       \ '*.csproj',
+"       \ '*.tmp',
+"       \ '*.csproj.user',
+"       \ '*.cache',
+"       \ '*.pdb',
+"       \ 'tags*',
+"       \ 'cscope.*',
+"       \ '*.css',
+"       \ '*.less',
+"       \ '*.scss',
+"       \ '*.exe', '*.dll',
+"       \ '*.mp3', '*.ogg', '*.flac',
+"       \ '*.swp', '*.swo',
+"       \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
+"       \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
+"       \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
+"       \ ]
