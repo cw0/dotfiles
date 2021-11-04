@@ -38,7 +38,6 @@ Plug 'airblade/vim-gitgutter'     " Show git diff of lines edited
 
 " CTags
 Plug 'ludovicchabant/vim-gutentags'
-" Plug 'vim-easytags'
 Plug 'preservim/tagbar'
 
 " Theme
@@ -674,26 +673,14 @@ let g:closetag_close_shortcut = '<leader>>'
 nmap <leader>tb :TagbarToggle<CR>
 
 " vim-gutentag
-set tags=~/.cache/tags/.tags;,.tags
-
 let g:gutentags_add_default_project_roots = 0
-let g:gutentags_project_root = ['package.json', '.git', '.root', '.svn', '.hg', '.project']
-let g:gutentags_cache_dir = expand('~/.cache/tags')
-let g:gutentags_ctags_tagfile = '.tags'
-let g:gutentags_modules = ['ctags']
-
+let g:gutentags_project_root = ['package.json', '.git']
+let g:gutentags_cache_dir = expand('~/.cache/vim/ctags/')
 let g:gutentags_generate_on_new = 1
 let g:gutentags_generate_on_missing = 1
 let g:gutentags_generate_on_write = 1
 let g:gutentags_generate_on_empty_buffer = 0
-" let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-" let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-" let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-" let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
-" let g:gutentags_ctags_extra_args = [
-"       \ '--tag-relative=yes',
-"       \ '--fields=+ailmnS',
-"       \ ]
+let g:gutentags_modules = ['ctags']
 let g:gutentags_ctags_exclude = [
       \ '*.git', '*.svg', '*.hg',
       \ '*/tests/*',
