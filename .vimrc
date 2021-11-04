@@ -1,3 +1,6 @@
+" vim-test requires pynvim to be installed
+" run pip3 install --user pynvim
+
 " Install vim-plug if not found
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -20,7 +23,10 @@ Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 Plug 'puremourning/vimspector'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'vim-test/vim-test'
+Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-dispatch'
 Plug 'neomake/neomake'
 
@@ -31,17 +37,21 @@ Plug 'airblade/vim-gitgutter'     " Show git diff of lines edited
 " Plug 'tpope/vim-rhubarb' " TODO configure
 
 " CTags
-" Plug 'ludovicchabant/vim-gutentags'
-" Plug 'majutsushi/tagbar'
+Plug 'ludovicchabant/vim-gutentags'
+" Plug 'vim-easytags'
+Plug 'preservim/tagbar'
+
+" Theme
+Plug 'morhetz/gruvbox'
+" Plug 'nightsense/seabird'
 
 " Appearance
 Plug 'ryanoasis/vim-devicons'
-Plug 'morhetz/gruvbox'
-" Plug 'nightsense/seabird'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'itchyny/lightline.vim'
+Plug 'psliwka/vim-smoothie'
 
 " Syntax
 Plug 'pangloss/vim-javascript'
@@ -58,6 +68,7 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'preservim/nerdtree'
 " Plug 'tyok/nerdtree-ack'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'easymotion/vim-easymotion'
 Plug 'rhysd/accelerated-jk'
 Plug 'schickling/vim-bufonly' "close all but targeted buffer
@@ -65,16 +76,17 @@ Plug 'schickling/vim-bufonly' "close all but targeted buffer
 
 " Editing
 Plug 'tpope/vim-surround'
-" Plug 'jiangmiao/auto-pairs'
-" Plug 'AndrewRadev/splitjoin.vim'
-" Plug 'alvan/vim-closetag'
+Plug 'jiangmiao/auto-pairs'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-commentary'
 Plug 'ahw/vim-pbcopy' "copy to os clipboard with cy in visual mode
 " Plug 'terryma/vim-multiple-cursors' "not configured
-" Plug 'Valloric/MatchTagAlways'
+Plug 'Valloric/MatchTagAlways'
 " Plug 'coderifous/textobj-word-column.vim'
 " Plug 'junegunn/vim-easy-align'
 Plug 'matze/vim-move'
+Plug 'mbbill/undotree'
 
 " Plug 'tpope/vim-sensible'
 " Plug 'vimwiki/vimwiki'
@@ -95,7 +107,9 @@ filetype indent on
 filetype plugin on
 filetype plugin indent on
 
+" Set colorscheme
 colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'hard'
 
 syntax on "previously was enabled
 set syn=auto
@@ -109,10 +123,10 @@ set updatetime=300
 " Enable Mouse mode in all modes
 set mouse=a
 
-" paste mode
-nnoremap <F5> :set invpaste paste?<CR>
-set pastetoggle=<F5>
-set showmode
+" paste mode (disabled due to debug conflict)
+" nnoremap <F5> :set invpaste paste?<CR>
+" set pastetoggle=<F5>
+" set showmode
 
 " First lets fix the cursor
 " These are specific to iterm2
@@ -224,6 +238,11 @@ set list!
 
 "disable lazy redraw
 "set nolazyredraw
+
+" Airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#ale#enabled = 1
 
 "NERDtree settings
 nnoremap <leader>n :NERDTreeFocus<CR>
@@ -522,6 +541,20 @@ nmap <leader>zw :ZoomWin
 " Vim JSX
 let g:jsx_ext_required = 0
 
+" Vimspector settings
+" mnemonic 'di' = 'debug inspect' (pick your own, if you prefer!)
+
+" for normal mode - the word under the cursor
+nmap <Leader>di <Plug>VimspectorBalloonEval
+" for visual mode, the visually selected text
+xmap <Leader>di <Plug>VimspectorBalloonEval
+
+nmap <LocalLeader><F11> <Plug>VimspectorUpFrame
+nmap <LocalLeader><F12> <Plug>VimspectorDownFrame
+
+let g:vimspector_enable_mappings = 'HUMAN'
+
+
 "===========================================
 "vim-test
 "===========================================
@@ -591,65 +624,121 @@ nmap <silent> <leader>ts :TestSuite<CR>
 nmap <silent> <leader>tl :TestLast<CR>
 nmap <silent> <leader>tv :TestVisit<CR>
 
+let g:indent_guides_enable_on_vim_startup = 1
+
+"match tag always
+let g:mta_filetypes = {
+    \ 'html' : 1,
+    \ 'xhtml' : 1,
+    \ 'xml' : 1,
+    \ 'jinja' : 1,
+    \ 'javascript.jsx' : 1,
+    \ 'javascript' : 1,
+    \}
+
+"closetag
+" filenames like *.xml, *.html, *.xhtml, ...
+" These are the file extensions where this plugin is enabled.
+"
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.jsx'
+
+" filenames like *.xml, *.xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.js'
+
+" filetypes like xml, html, xhtml, ...
+" These are the file types where this plugin is enabled.
+"
+let g:closetag_filetypes = 'html,xhtml,phtml,js,jsx'
+
+" filetypes like xml, xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filetypes = 'xhtml,jsx,js'
+
+" integer value [0|1]
+" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+"
+let g:closetag_emptyTags_caseSensitive = 1
+
+" Shortcut for closing tags, default is '>'
+"
+let g:closetag_shortcut = '>'
+
+" Add > at current position without closing the current tag, default is ''
+"
+let g:closetag_close_shortcut = '<leader>>'
+
 " Toggle Tag Bar
-" nmap <leader>tb :TagbarToggle<CR>
+nmap <leader>tb :TagbarToggle<CR>
 
 " vim-gutentag
-" let g:gutentags_add_default_project_roots = 0
-" let g:gutentags_project_root = ['package.json', '.git']
-" let g:gutentags_cache_dir = expand('~/.cache/vim/ctags/')
-" let g:gutentags_generate_on_new = 1
-" let g:gutentags_generate_on_missing = 1
-" let g:gutentags_generate_on_write = 1
-" let g:gutentags_generate_on_empty_buffer = 0
+set tags=~/.cache/tags/.tags;,.tags
+
+let g:gutentags_add_default_project_roots = 0
+let g:gutentags_project_root = ['package.json', '.git', '.root', '.svn', '.hg', '.project']
+let g:gutentags_cache_dir = expand('~/.cache/tags')
+let g:gutentags_ctags_tagfile = '.tags'
+let g:gutentags_modules = ['ctags']
+
+let g:gutentags_generate_on_new = 1
+let g:gutentags_generate_on_missing = 1
+let g:gutentags_generate_on_write = 1
+let g:gutentags_generate_on_empty_buffer = 0
+" let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+" let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+" let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+" let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
 " let g:gutentags_ctags_extra_args = [
 "       \ '--tag-relative=yes',
 "       \ '--fields=+ailmnS',
 "       \ ]
-" let g:gutentags_ctags_exclude = [
-"       \ '*.git', '*.svg', '*.hg',
-"       \ '*/tests/*',
-"       \ 'build',
-"       \ 'dist',
-"       \ '*sites/*/files/*',
-"       \ 'bin',
-"       \ 'node_modules',
-"       \ 'bower_components',
-"       \ 'cache',
-"       \ 'compiled',
-"       \ 'docs',
-"       \ 'example',
-"       \ 'bundle',
-"       \ 'vendor',
-"       \ '*.md',
-"       \ '*-lock.json',
-"       \ '*.lock',
-"       \ '*bundle*.js',
-"       \ '*build*.js',
-"       \ '.*rc*',
-"       \ '*.json',
-"       \ '*.min.*',
-"       \ '*.map',
-"       \ '*.bak',
-"       \ '*.zip',
-"       \ '*.pyc',
-"       \ '*.class',
-"       \ '*.sln',
-"       \ '*.Master',
-"       \ '*.csproj',
-"       \ '*.tmp',
-"       \ '*.csproj.user',
-"       \ '*.cache',
-"       \ '*.pdb',
-"       \ 'tags*',
-"       \ 'cscope.*',
-"       \ '*.css',
-"       \ '*.less',
-"       \ '*.scss',
-"       \ '*.exe', '*.dll',
-"       \ '*.mp3', '*.ogg', '*.flac',
-"       \ '*.swp', '*.swo',
-"       \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
-"       \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
-"       \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
-"       \ ]
+let g:gutentags_ctags_exclude = [
+      \ '*.git', '*.svg', '*.hg',
+      \ '*/tests/*',
+      \ 'build',
+      \ 'dist',
+      \ '*sites/*/files/*',
+      \ 'bin',
+      \ 'node_modules',
+      \ 'bower_components',
+      \ 'cache',
+      \ 'compiled',
+      \ 'docs',
+      \ 'example',
+      \ 'bundle',
+      \ 'vendor',
+      \ '*.md',
+      \ '*-lock.json',
+      \ '*.lock',
+      \ '*bundle*.js',
+      \ '*build*.js',
+      \ '.*rc*',
+      \ '*.json',
+      \ '*.min.*',
+      \ '*.map',
+      \ '*.bak',
+      \ '*.zip',
+      \ '*.pyc',
+      \ '*.class',
+      \ '*.sln',
+      \ '*.Master',
+      \ '*.csproj',
+      \ '*.tmp',
+      \ '*.csproj.user',
+      \ '*.cache',
+      \ '*.pdb',
+      \ 'tags*',
+      \ 'cscope.*',
+      \ '*.css',
+      \ '*.less',
+      \ '*.scss',
+      \ '*.exe', '*.dll',
+      \ '*.mp3', '*.ogg', '*.flac',
+      \ '*.swp', '*.swo',
+      \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
+      \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
+      \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
+      \ ]
+
