@@ -19,9 +19,9 @@ call plug#begin('~/.vim/plugged')
 
 " IDE Features
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+" Plug 'prettier/vim-prettier', {
+"   \ 'do': 'yarn install',
+"   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 Plug 'puremourning/vimspector'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
@@ -49,13 +49,13 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'itchyny/lightline.vim'
 Plug 'psliwka/vim-smoothie'
 
 " Syntax
 Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
-Plug 'maxmellon/vim-jsx-pretty'
+Plug 'peitalin/vim-jsx-typescript'
+" Plug 'maxmellon/vim-jsx-pretty'
 
 " Search
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -238,7 +238,44 @@ set list!
 "disable lazy redraw
 "set nolazyredraw
 
-" Airline
+" TSX STYLES
+" set filetypes as typescriptreact
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+autocmd BufRead,BufNewFile *.ts set filetype=typescript
+
+" dark red
+hi tsxTagName guifg=#E06C75
+hi tsxComponentName guifg=#E06C75
+hi tsxCloseComponentName guifg=#E06C75
+
+" orange
+hi tsxCloseString guifg=#F99575
+hi tsxCloseTag guifg=#F99575
+hi tsxCloseTagName guifg=#F99575
+hi tsxAttributeBraces guifg=#F99575
+hi tsxEqual guifg=#F99575
+
+" yellow
+hi tsxAttrib guifg=#F8BD7F cterm=italic
+
+" light-grey
+hi tsxTypeBraces guifg=#999999
+
+" dark-grey
+hi tsxTypes guifg=#666666
+
+" other highlighting for react
+hi ReactState guifg=#C176A7
+hi ReactProps guifg=#D19A66
+hi ApolloGraphQL guifg=#CB886B
+hi Events ctermfg=204 guifg=#56B6C2
+hi ReduxKeywords ctermfg=204 guifg=#C678DD
+hi ReduxHooksKeywords ctermfg=204 guifg=#C176A7
+hi WebBrowser ctermfg=204 guifg=#56B6C2
+hi ReactLifeCycleMethods ctermfg=204 guifg=#D19A66
+"---end TSX styles----"
+
+"Airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#ale#enabled = 1
@@ -451,6 +488,22 @@ if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
   let g:coc_global_extensions += ['coc-eslint']
 endif
 
+" ENABLE TO HOVER ON WAIT
+" function! ShowDocIfNoDiagnostic(timer_id)
+"   if (coc#float#has_float() == 0 && CocHasProvider('hover') == 1)
+"     silent call CocActionAsync('doHover')
+"   endif
+" endfunction
+
+" function! s:show_hover_doc()
+"   call timer_start(500, 'ShowDocIfNoDiagnostic')
+" endfunction
+
+" autocmd CursorHoldI * :call <SID>show_hover_doc()
+" autocmd CursorHold * :call <SID>show_hover_doc()
+
+autocmd FileType typescript setlocal formatprg=prettier\ --parser\ typescript
+
 "Vim-move
 " Visual Mode alt+j moves selected block down
 vmap ∆ <Plug>MoveBlockDown
@@ -553,10 +606,7 @@ nmap <LocalLeader><F12> <Plug>VimspectorDownFrame
 
 let g:vimspector_enable_mappings = 'HUMAN'
 
-
-"===========================================
 "vim-test
-"===========================================
 let test#javascript#runner = 'jest'
 let test#javascript#jest#executable = "yarn test"
 " use the jest-vim-reporter to shorten the jest testoutput
@@ -568,47 +618,6 @@ let test#strategy = "neomake"
 " let g:neomake_open_list = 0
 
 " setlocal errorformat=%f:%l:%c:\ %m
-
-" augroup neomake_hook
-"   au!
-"   autocmd User NeomakeJobFinished call TestFinished()
-"   autocmd User NeomakeJobStarted call TestStarted()
-" augroup END
-
-" " initially empty status
-" let g:testing_status = ''
-
-" " Start test
-" function! TestStarted() abort
-"   let g:testing_status = 'Test ⌛'
-" endfunction
-
-" " Show message when all tests are passing
-" function! TestFinished() abort
-"   let context = g:neomake_hook_context
-"   if context.jobinfo.exit_code == 0
-"     let g:testing_status = 'Test ✅'
-"   endif
-"   if context.jobinfo.exit_code == 1
-"     let g:testing_status = 'Test ❌'
-"   endif
-" endfunction
-
-" function! TestStatus() abort
-"   return g:testing_status
-" endfunction
-
-" let g:lightline = {
-"       \ 'colorscheme': 'wombat',
-"       \ 'active': {
-"       \   'left': [ [ 'mode', 'paste' ],
-"       \             [ 'cocstatus', 'teststatus', 'readonly', 'filename', 'modified' ] ]
-"       \ },
-"       \ 'component_function': {
-"       \   'cocstatus': 'coc#status',
-"       \   'teststatus': 'TestStatus'
-"       \ },
-"       \ }
 
 nnoremap <leader>tm :exec RunTestVerbose()<CR>
 
