@@ -58,9 +58,9 @@ Plug 'peitalin/vim-jsx-typescript'
 " Plug 'maxmellon/vim-jsx-pretty'
 
 " Search
-" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-" Plug 'junegunn/fzf.vim'
-" Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'mileszs/ack.vim'
 
 " Navigation
