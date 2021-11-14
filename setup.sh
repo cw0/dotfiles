@@ -35,3 +35,26 @@ git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerl
 echo "Installing ls colors"
 gem install colorls
 
+echo "Installing nerd font"
+cp "Roboto Mono Nerd Font Complete Mono.ttf" "~/.fonts Roboto Mono Nerd Font Complete Mono.ttf"
+fc-cache -fv
+
+echo "Installing nvm"
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+
+echo "Installing vim"
+brew install vim --with-python3
+
+echo "Updating configs"
+rm ~/.p10k.zsh
+ln -sr .p10k.zsh ~/.p10k.zsh
+
+rm ~/.zshrc
+ln -sr .zshrc ~/.zshrc
+
+rm ~/.vimrc
+ln -sr .vimrc ~/.vimrc
+
+rm ~/.config/kitty/kitty.conf
+ln -sr kitty.conf ~/.config/kitty/kitty.conf
+
