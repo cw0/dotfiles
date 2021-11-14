@@ -19,9 +19,6 @@ call plug#begin('~/.vim/plugged')
 
 " IDE Features
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'prettier/vim-prettier', {
-"   \ 'do': 'yarn install',
-"   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 Plug 'puremourning/vimspector'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
@@ -29,6 +26,9 @@ Plug 'vim-test/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-dispatch'
 Plug 'neomake/neomake'
+" Plug 'prettier/vim-prettier', {
+"   \ 'do': 'yarn install',
+"   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 
 " Project Management
 Plug 'tpope/vim-fugitive'
@@ -52,10 +52,12 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'psliwka/vim-smoothie'
 
 " Syntax
-Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-" Plug 'maxmellon/vim-jsx-pretty'
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascriptreact'] }
+Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescriptreact'] }
+Plug 'peitalin/vim-jsx-typescript', { 'for': ['typescriptreact', 'typescript'] }
+Plug 'maxmellon/vim-jsx-pretty', { 'for': ['javascriptreact', 'javascript'] }
+Plug 'jpalardy/vim-slime', { 'for': 'python' }
+Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
 
 " Search
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -80,12 +82,12 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-commentary'
 Plug 'ahw/vim-pbcopy' "copy to os clipboard with cy in visual mode
-" Plug 'terryma/vim-multiple-cursors' "not configured
 Plug 'Valloric/MatchTagAlways'
-" Plug 'coderifous/textobj-word-column.vim'
-" Plug 'junegunn/vim-easy-align'
 Plug 'matze/vim-move'
 Plug 'mbbill/undotree'
+" Plug 'coderifous/textobj-word-column.vim'
+" Plug 'junegunn/vim-easy-align'
+" Plug 'terryma/vim-multiple-cursors' "not configured
 
 " Plug 'tpope/vim-sensible'
 " Plug 'vimwiki/vimwiki'
@@ -238,10 +240,14 @@ set list!
 "disable lazy redraw
 "set nolazyredraw
 
-" TSX STYLES
+" TSX Styles
 " set filetypes as typescriptreact
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
 autocmd BufRead,BufNewFile *.ts set filetype=typescript
+
+" JSX Styles
+autocmd BufNewFile,BufRead *.jsx set filetype=javascriptreact
+autocmd BufRead,BufNewFile *.js set filetype=javascript
 
 " dark red
 hi tsxTagName guifg=#E06C75
@@ -476,7 +482,7 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 " CoC extensions
-let g:coc_global_extensions = ['coc-diagnostic', 'coc-tsserver', 'coc-json']
+let g:coc_global_extensions = ['coc-diagnostic', 'coc-tsserver', 'coc-json', 'coc-pyright']
 
 " Add CoC Prettier if prettier is installed
 if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
@@ -738,3 +744,71 @@ let g:gutentags_ctags_exclude = [
       \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
       \ ]
 
+"------------------------------------------------------------------------------
+" slime configuration
+"------------------------------------------------------------------------------
+" always use tmux
+let g:slime_target = 'tmux'
+
+" fix paste issues in ipython
+let g:slime_python_ipython = 1
+
+" always send text to the top-right pane in the current tmux tab without asking
+let g:slime_default_config = {
+            \ 'socket_name': get(split($TMUX, ','), 0),
+            \ 'target_pane': '{top-right}' }
+let g:slime_dont_ask_default = 1
+
+"------------------------------------------------------------------------------
+" ipython-cell configuration
+"------------------------------------------------------------------------------
+" Keyboard mappings. <Leader> is \ (backslash) by default
+
+" map <Leader>s to start IPython
+nnoremap <Leader>s :SlimeSend1 ipython --matplotlib<CR>
+
+" map <Leader>r to run script
+nnoremap <Leader>r :IPythonCellRun<CR>
+
+" map <Leader>R to run script and time the execution
+nnoremap <Leader>R :IPythonCellRunTime<CR>
+
+" map <Leader>c to execute the current cell
+nnoremap <Leader>c :IPythonCellExecuteCell<CR>
+
+" map <Leader>C to execute the current cell and jump to the next cell
+nnoremap <Leader>C :IPythonCellExecuteCellJump<CR>
+
+" map <Leader>l to clear IPython screen
+nnoremap <Leader>l :IPythonCellClear<CR>
+
+" map <Leader>x to close all Matplotlib figure windows
+nnoremap <Leader>x :IPythonCellClose<CR>
+
+" map [c and ]c to jump to the previous and next cell header
+nnoremap [c :IPythonCellPrevCell<CR>
+nnoremap ]c :IPythonCellNextCell<CR>
+
+" map <Leader>h to send the current line or current selection to IPython
+nmap <Leader>h <Plug>SlimeLineSend
+xmap <Leader>h <Plug>SlimeRegionSend
+
+" map <Leader>p to run the previous command
+nnoremap <Leader>p :IPythonCellPrevCommand<CR>
+
+" map <Leader>Q to restart ipython
+nnoremap <Leader>Q :IPythonCellRestart<CR>
+
+" map <Leader>d to start debug mode
+nnoremap <Leader>d :SlimeSend1 %debug<CR>
+
+" map <Leader>q to exit debug mode or IPython
+nnoremap <Leader>q :SlimeSend1 exit<CR>
+
+" map <F9> and <F10> to insert a cell header tag above/below and enter insert mode
+nmap <F9> :IPythonCellInsertAbove<CR>a
+nmap <F10> :IPythonCellInsertBelow<CR>a
+
+" also make <F9> and <F10> work in insert mode
+imap <F9> <C-o>:IPythonCellInsertAbove<CR>
+imap <F10> <C-o>:IPythonCellInsertBelow<CR>
