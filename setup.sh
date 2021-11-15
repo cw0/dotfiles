@@ -11,7 +11,7 @@ source ~/.bashrc
 echo "Installing Homebrew"
 export CI=1
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /root/.profile
+echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.bashrc
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 echo "Updating Homebrew"
@@ -36,7 +36,7 @@ echo "Installing ls colors"
 # gem install colorls
 
 echo "Installing nerd font"
-cp "Roboto Mono Nerd Font Complete Mono.ttf" "~/.fonts Roboto Mono Nerd Font Complete Mono.ttf"
+cp "Roboto Mono Nerd Font Complete Mono.ttf" "~/.fonts/Roboto Mono Nerd Font Complete Mono.ttf"
 fc-cache -fv
 
 echo "Installing nvm"
@@ -78,4 +78,5 @@ mkdir ~/.config/kitty
 ln -sr kitty.conf ~/.config/kitty/kitty.conf
 
 echo "Changing default shell to ZSH"
+source ~/.bashrc
 chsh -s $(which zsh)
