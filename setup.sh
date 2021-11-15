@@ -40,15 +40,19 @@ cp "Roboto Mono Nerd Font Complete Mono.ttf" "~/.fonts Roboto Mono Nerd Font Com
 fc-cache -fv
 
 echo "Installing nvm"
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+brew install nvm
+mkdir ~/.nvm
+echo "export NVM_DIR=\"$([ -z \"${XDG_CONFIG_HOME-}\" ] && printf %s \"${HOME}/.nvm\" || printf %s \"${XDG_CONFIG_HOME}/nvm\")" >> ~/.bashrc
+echo "[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\" # This loads nvm" >> ~/.bashrc
 
-# TODO source NVM and install a version of node
+
+# TODO install a version of node
 
 echo "Installing vim"
 brew install vim
 
 echo "Installing kitty"
-curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdinbrew install kitty launch=n
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
 
 source ~/.bashrc
 
