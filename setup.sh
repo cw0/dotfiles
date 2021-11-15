@@ -33,7 +33,7 @@ echo "Installing powerlevel10k"
 git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 
 echo "Installing ls colors"
-gem install colorls
+# gem install colorls
 
 echo "Installing nerd font"
 cp "Roboto Mono Nerd Font Complete Mono.ttf" "~/.fonts Roboto Mono Nerd Font Complete Mono.ttf"
@@ -41,9 +41,9 @@ fc-cache -fv
 
 echo "Installing nvm"
 brew install nvm
-mkdir ~/.nvm
-echo "export NVM_DIR=$([ -z \"${XDG_CONFIG_HOME-}\" ] && printf %s \"${HOME}/.nvm\" || printf %s \"${XDG_CONFIG_HOME}/nvm\")" >> ~/.bashrc
-echo "[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\" # This loads nvm" >> ~/.bashrc
+# mkdir ~/.nvm
+# echo "export NVM_DIR=$([ -z \"${XDG_CONFIG_HOME-}\" ] && printf %s \"${HOME}/.nvm\" || printf %s \"${XDG_CONFIG_HOME}/nvm\")" >> ~/.bashrc
+# echo "[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\" # This loads nvm" >> ~/.bashrc
 
 
 # TODO install a version of node
@@ -53,8 +53,6 @@ brew install vim
 
 echo "Installing kitty"
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
-
-source ~/.bashrc
 
 # Create a symbolic link to add kitty to PATH (assuming ~/.local/bin is in
 # your PATH)
