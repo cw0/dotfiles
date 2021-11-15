@@ -37,7 +37,7 @@ echo "Installing ls colors"
 
 echo "Installing nerd font"
 mkdir -p ~/.local/share/fonts
-cp "Roboto Mono Nerd Font Complete Mono.ttf" "~/.local/share/fonts/Roboto Mono Nerd Font Complete Mono.ttf"
+cp 'Roboto Mono Nerd Font Complete Mono.ttf' ~/.local/share/fonts/
 fc-cache -fv
 
 echo "Installing nvm"
@@ -79,6 +79,5 @@ mkdir ~/.config/kitty
 ln -sr kitty.conf ~/.config/kitty/kitty.conf
 
 echo "Changing default shell to ZSH"
-source ~/.bashrc
 command -v zsh | sudo tee -a /etc/shells
 sudo chsh -s "$(command -v zsh)"
