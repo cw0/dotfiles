@@ -79,4 +79,5 @@ ln -sr kitty.conf ~/.config/kitty/kitty.conf
 
 echo "Changing default shell to ZSH"
 source ~/.bashrc
-chsh -s $(which zsh)
+command -v zsh | sudo tee -a /etc/shells
+sudo chsh -s "$(command -v zsh)" "${USER}"
