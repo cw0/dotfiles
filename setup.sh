@@ -80,4 +80,3 @@ mkdir ~/.config/kitty
 ln -sr kitty.conf ~/.config/kitty/kitty.conf
 
 echo "Changing default shell to ZSH"
-chsh -s /bin/zsh
