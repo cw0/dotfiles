@@ -21,7 +21,7 @@ echo "Installing zsh"
 brew install zsh
 
 echo "Installing oh-my-zsh"
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
 echo "Installing zsh-syntax-highlighting"
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -60,3 +60,5 @@ ln -sr .vimrc ~/.vimrc
 rm -f ~/.config/kitty/kitty.conf
 ln -sr kitty.conf ~/.config/kitty/kitty.conf
 
+echo "Changing default shell to ZSH"
+chsh -s /bin/zsh
