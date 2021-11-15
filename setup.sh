@@ -36,7 +36,8 @@ echo "Installing ls colors"
 # gem install colorls
 
 echo "Installing nerd font"
-cp "Roboto Mono Nerd Font Complete Mono.ttf" "~/.fonts/Roboto Mono Nerd Font Complete Mono.ttf"
+mkdir -p ~/.local/share/fonts
+cp "Roboto Mono Nerd Font Complete Mono.ttf" "~/.local/share/fonts/Roboto Mono Nerd Font Complete Mono.ttf"
 fc-cache -fv
 
 echo "Installing nvm"
@@ -80,4 +81,4 @@ ln -sr kitty.conf ~/.config/kitty/kitty.conf
 echo "Changing default shell to ZSH"
 source ~/.bashrc
 command -v zsh | sudo tee -a /etc/shells
-sudo chsh -s "$(command -v zsh)" "${USER}"
+sudo chsh -s "$(command -v zsh)"
