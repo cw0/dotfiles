@@ -45,10 +45,12 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 # TODO source NVM and install a version of node
 
 echo "Installing vim"
-brew install vim --with-python3
+brew install vim
 
 echo "Installing kitty"
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdinbrew install kitty launch=n
+
+source ~/.bashrc
 
 # Create a symbolic link to add kitty to PATH (assuming ~/.local/bin is in
 # your PATH)
