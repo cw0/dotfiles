@@ -58,7 +58,7 @@ source ~/.bashrc
 
 # Create a symbolic link to add kitty to PATH (assuming ~/.local/bin is in
 # your PATH)
-mkdir ~/.local/.bin
+mkdir ~/.local/bin
 ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/
 # Place the kitty.desktop file somewhere it can be found by the OS
 cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
