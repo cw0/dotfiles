@@ -42,19 +42,21 @@ fc-cache -fv
 echo "Installing nvm"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 
+# TODO source NVM and install a version of node
+
 echo "Installing vim"
 brew install vim --with-python3
 
 echo "Updating configs"
-rm ~/.p10k.zsh
+rm -f ~/.p10k.zsh
 ln -sr .p10k.zsh ~/.p10k.zsh
 
-rm ~/.zshrc
+rm -f ~/.zshrc
 ln -sr .zshrc ~/.zshrc
 
-rm ~/.vimrc
+rm -f ~/.vimrc
 ln -sr .vimrc ~/.vimrc
 
-rm ~/.config/kitty/kitty.conf
+rm -f ~/.config/kitty/kitty.conf
 ln -sr kitty.conf ~/.config/kitty/kitty.conf
 
