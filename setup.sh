@@ -4,7 +4,7 @@ echo "Updating Packages"
 apt update && apt upgrade -y
 
 echo "Installing Utils from APT"
-apt install -y git tmux build-essential gcc procps curl file ruby-full kitty
+apt install -y git tmux build-essential gcc procps curl file ruby-full kitty zsh
 
 source ~/.bashrc
 
@@ -16,9 +16,6 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 echo "Updating Homebrew"
 brew update
-
-echo "Installing zsh"
-brew install zsh
 
 echo "Installing oh-my-zsh"
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
