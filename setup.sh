@@ -4,7 +4,7 @@ echo "Updating Packages"
 apt update && apt upgrade -y
 
 echo "Installing Utils from APT"
-apt install -y git tmux build-essential gcc procps curl file ruby-full
+apt install -y git tmux build-essential gcc procps curl file ruby-full kitty
 
 source ~/.bashrc
 
@@ -52,8 +52,6 @@ brew install nvm
 echo "Installing vim"
 brew install vim
 
-echo "Installing kitty"
-brew install kitty
 # curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
 
 # Create a symbolic link to add kitty to PATH (assuming ~/.local/bin is in
