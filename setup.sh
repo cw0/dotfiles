@@ -38,43 +38,45 @@ install -m644 'Roboto Mono Nerd Font Complete Mono.ttf' ~/.local/share/fonts/tru
 fc-cache -fv
 
 echo "Installing nvm"
-brew install nvm
-echo $(which nvm)
-# mkdir ~/.nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+mkdir ~/.nvm
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
 # echo "export NVM_DIR=$([ -z \"${XDG_CONFIG_HOME-}\" ] && printf %s \"${HOME}/.nvm\" || printf %s \"${XDG_CONFIG_HOME}/nvm\")" >> ~/.bashrc
 # echo "[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\" # This loads nvm" >> ~/.bashrc
 
-
 # TODO install a version of node
+nvm install --lts
 
-echo "Installing vim"
-brew install vim
+# echo "Installing vim"
+# brew install vim
 
-# curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
+# # curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
 
-# Create a symbolic link to add kitty to PATH (assuming ~/.local/bin is in
-# your PATH)
-# mkdir ~/.local/bin
-# ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/
-# Place the kitty.desktop file somewhere it can be found by the OS
-# cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
-# Update the path to the kitty icon in the kitty.desktop file
-# sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty.desktop
+# # Create a symbolic link to add kitty to PATH (assuming ~/.local/bin is in
+# # your PATH)
+# # mkdir ~/.local/bin
+# # ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/
+# # Place the kitty.desktop file somewhere it can be found by the OS
+# # cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+# # Update the path to the kitty icon in the kitty.desktop file
+# # sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty.desktop
 
-echo "Updating configs"
-rm -f ~/.p10k.zsh
-ln -sr .p10k.zsh ~/.p10k.zsh
+# echo "Updating configs"
+# rm -f ~/.p10k.zsh
+# ln -sr .p10k.zsh ~/.p10k.zsh
 
-rm -f ~/.zshrc
-ln -sr .zshrc ~/.zshrc
+# rm -f ~/.zshrc
+# ln -sr .zshrc ~/.zshrc
 
-rm -f ~/.vimrc
-ln -sr .vimrc ~/.vimrc
+# rm -f ~/.vimrc
+# ln -sr .vimrc ~/.vimrc
 
-rm -f ~/.config/kitty/kitty.conf
-mkdir ~/.config/kitty
-ln -sr kitty.conf ~/.config/kitty/kitty.conf
+# rm -f ~/.config/kitty/kitty.conf
+# mkdir ~/.config/kitty
+# ln -sr kitty.conf ~/.config/kitty/kitty.conf
 
-echo "Changing default shell to ZSH"
-command -v zsh | sudo tee -a /etc/shells
-sudo chsh -s "$(command -v zsh)" $USER
+# echo "Changing default shell to ZSH"
+# command -v zsh | sudo tee -a /etc/shells
+# sudo chsh -s "$(command -v zsh)" $USER
