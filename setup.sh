@@ -4,7 +4,7 @@ echo "Updating Packages"
 apt update && apt upgrade -y
 
 echo "Installing Utils from APT"
-apt install -y git tmux build-essential gcc procps curl file ruby-full kitty zsh
+apt install -y git tmux build-essential gcc procps curl file universal-ctags ruby-full kitty zsh
 
 source ~/.bashrc
 
@@ -30,7 +30,7 @@ echo "Installing powerlevel10k"
 git clone https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
 
 echo "Installing ls colors"
-# gem install colorls
+gem install --user-install colorls
 
 echo "Installing nerd font"
 mkdir -p ~/.local/share/fonts/truetype
@@ -39,6 +39,7 @@ fc-cache -fv
 
 echo "Installing nvm"
 brew install nvm
+echo $(which nvm)
 # mkdir ~/.nvm
 # echo "export NVM_DIR=$([ -z \"${XDG_CONFIG_HOME-}\" ] && printf %s \"${HOME}/.nvm\" || printf %s \"${XDG_CONFIG_HOME}/nvm\")" >> ~/.bashrc
 # echo "[ -s \"$NVM_DIR/nvm.sh\" ] && \. \"$NVM_DIR/nvm.sh\" # This loads nvm" >> ~/.bashrc
