@@ -58,6 +58,7 @@ Plug 'peitalin/vim-jsx-typescript', { 'for': ['typescriptreact', 'typescript'] }
 Plug 'maxmellon/vim-jsx-pretty', { 'for': ['javascriptreact', 'javascript'] }
 Plug 'jpalardy/vim-slime', { 'for': 'python' }
 Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
+Plug 'hashivim/vim-terraform'
 
 " Search
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
