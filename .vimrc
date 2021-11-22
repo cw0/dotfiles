@@ -88,7 +88,7 @@ Plug 'matze/vim-move'
 Plug 'mbbill/undotree'
 " Plug 'coderifous/textobj-word-column.vim'
 " Plug 'junegunn/vim-easy-align'
-" Plug 'terryma/vim-multiple-cursors' "not configured
+Plug 'terryma/vim-multiple-cursors'
 
 " Plug 'tpope/vim-sensible'
 " Plug 'vimwiki/vimwiki'
@@ -814,3 +814,18 @@ nmap <F10> :IPythonCellInsertBelow<CR>a
 " also make <F9> and <F10> work in insert mode
 imap <F9> <C-o>:IPythonCellInsertAbove<CR>
 imap <F10> <C-o>:IPythonCellInsertBelow<CR>
+
+
+" vim mupliple cursor settings
+let g:multi_cursor_use_default_mapping=0
+
+" Default mapping
+let g:multi_cursor_start_word_key      = '<C-n>'
+let g:multi_cursor_select_all_word_key = '<A-n>'
+let g:multi_cursor_start_key           = 'g<C-n>'
+let g:multi_cursor_select_all_key      = 'g<A-n>'
+let g:multi_cursor_next_key            = '<C-n>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
+
