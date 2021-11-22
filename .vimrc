@@ -572,8 +572,8 @@ nnoremap <Leader>rl :r!<C-r><C-l><CR>
 " git fugitive stuff
 nmap <leader>gb :G blame<CR>
 nmap <leader>gs :G<CR>
-" nmap <leader>gd :Gvdiffsplit!<CR>
-nmap <leader>gd :G difftool<CR>
+nmap <leader>gd :Gvdiffsplit!<CR>
+" nmap <leader>gd :G difftool<CR>
 nmap <leader>gm :G mergetool<CR>
 nmap <leader>gl :G log<CR>
 nmap <leader>gc :G commit<CR>
