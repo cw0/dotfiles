@@ -148,6 +148,12 @@ set ruler
 set autoindent
 set cindent
 set smartindent
+" if indentation issue arise check below first
+set preserveindent
+set copyindent
+
+" No Swap Files
+set noswapfile
 
 " Folding
 " Enable folding
@@ -242,6 +248,34 @@ set list!
 "disable lazy redraw
 "set nolazyredraw
 
+" Buffer Controls
+"
+" open a new empty buffer
+" This replaces :tabnew
+"nmap <Leader>T :enew<cr>
+nmap <Leader>t :enew<CR>
+
+" Move to the next buffer
+nmap <Leader>l :bnext<CR>
+nmap <Leader>] :bnext<CR>
+nmap ˙ :bnext<CR>
+inoremap ˙ :bnext<CR>
+vnoremap ˙ :bnext<CR>
+
+" Move to the previous buffer
+nmap <Leader>h :bprevious<CR>
+nmap <Leader>[ :bprevious<CR>
+nmap ¬ :bprevious<CR>
+inoremap ¬ :bprevious<CR>
+vnoremap ¬ :bprevious<CR>
+
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <Leader>bq :bp <BAR> bd #<CR>
+
+" Show all open buffers and their status
+nmap <Leader>bl :ls<CR>
+
 " TSX Styles
 " set filetypes as typescriptreact
 autocmd BufNewFile,BufRead *.tsx set filetype=typescriptreact
@@ -288,11 +322,14 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#ale#enabled = 1
 
-"NERDtree settings
+" NERDtree settings
 nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
+"nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
+
+" Dont allow nerdtree to swap buffers
+autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" | b# | endif
 
 " Start NERDTree. If a file is specified, move the cursor to its window.
 autocmd StdinReadPre * let s:std_in=1
@@ -533,13 +570,15 @@ nmap ˚ <Plug>MoveLineUp
 nnoremap <Leader>rl :r!<C-r><C-l><CR>
 
 " git fugitive stuff
-nmap <leader>gb :Gblame<CR>
-nmap <leader>gs :Gstatus<CR>
-nmap <leader>gd :Gvdiffsplit!<CR>
-nmap <leader>gl :Glog<CR>
-nmap <leader>gc :Gcommit<CR>
-nmap <leader>gp :Gpush<CR>
-nmap <leader>gw :Gwrite!<CR>
+nmap <leader>gb :G blame<CR>
+nmap <leader>gs :G<CR>
+" nmap <leader>gd :Gvdiffsplit!<CR>
+nmap <leader>gd :G difftool<CR>
+nmap <leader>gm :G mergetool<CR>
+nmap <leader>gl :G log<CR>
+nmap <leader>gc :G commit<CR>
+nmap <leader>gp :G push<CR>
+nmap <leader>gw :G write!<CR>
 
 " Fix some weird error with Fugitive
 let g:fugitive_pty = 0
@@ -549,15 +588,6 @@ nmap <leader>l :set list! <CR>
 
 " Powerline Font for MacVim
 " set guifont=Menlo\ For\ Powerline
-
-" Vim Multiple Cursors
-" I disabled these bindings until i finish setting up buffer controls
-"
-"let g:multi_cursor_use_default_mapping=0
-"let g:multi_cursor_next_key='<C-l>'
-"let g:multi_cursor_prev_key='<C-h>'
-"let g:multi_cursor_skip_key='<C-x>'
-"let g:multi_cursor_quit_key='<Esc>'
 
 " Buffer Switching
 "
@@ -829,3 +859,14 @@ let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
 
+" fzf
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
