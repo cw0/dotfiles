@@ -46,3 +46,12 @@ chmod +x setup.sh
 ```bash
 docker build -t 'dev-env' .
 ```
+
+### TODO
+
+- install i3
+- install polybar
+- install neofetch
+- install calcurse
+- install asciiquarium
+- install weatherspect
