@@ -49,9 +49,11 @@ docker build -t 'dev-env' .
 
 ### TODO
 
-- install i3
+- install i3-gaps
 - install polybar
 - install neofetch
 - install calcurse
 - install asciiquarium
 - install weatherspect
+- install wtfutils
+- arrange configs specific to os / computer
