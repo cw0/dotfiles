@@ -104,6 +104,9 @@ Plug 'tomtom/tlib_vim'
 " Initialize plugin system
 call plug#end()
 
+nnoremap <SPACE> <Nop>
+let mapleader=" "
+
 set nocompatible
 filetype indent on
 filetype plugin on
