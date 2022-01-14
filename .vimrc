@@ -20,21 +20,12 @@ call plug#begin('~/.vim/plugged')
 " IDE Features
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'puremourning/vimspector'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'vim-test/vim-test'
+Plug 'roxma/nvim-yarp' " dependency for vim-ultest
+Plug 'roxma/vim-hug-neovim-rpc' " dependency for vim-ultest
+Plug 'vim-test/vim-test' " dependency for vim-ultest
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-dispatch'
 Plug 'neomake/neomake'
-" Plug 'prettier/vim-prettier', {
-"   \ 'do': 'yarn install',
-"   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
-
-" Project Management
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-projectionist'
-Plug 'airblade/vim-gitgutter'     " Show git diff of lines edited
-" Plug 'tpope/vim-rhubarb' " TODO configure
 
 " CTags
 Plug 'ludovicchabant/vim-gutentags'
@@ -65,6 +56,13 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'mileszs/ack.vim'
+
+" Project Management
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-projectionist'
+Plug 'airblade/vim-gitgutter'     " Show git diff of lines edited
+Plug 'stsewd/fzf-checkout.vim'
+" Plug 'tpope/vim-rhubarb' " TODO configure
 
 " Navigation
 Plug 'preservim/nerdtree'
@@ -164,9 +162,9 @@ set foldmethod=syntax
 set foldlevel=99
 
 " Tab Options
-set shiftwidth=2
-set tabstop=2
-set softtabstop=2 " Number of spaces a tab counts when editing
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4 " Number of spaces a tab counts when editing
 set expandtab
 
 "This unsets the "last search pattern" register by hitting return
@@ -575,13 +573,15 @@ nnoremap <Leader>rl :r!<C-r><C-l><CR>
 " git fugitive stuff
 nmap <leader>gb :G blame<CR>
 nmap <leader>gs :G<CR>
-nmap <leader>gd :Gvdiffsplit!<CR>
+nmap <leader>gd :Gvdiff<CR>
 " nmap <leader>gd :G difftool<CR>
 nmap <leader>gm :G mergetool<CR>
 nmap <leader>gl :G log<CR>
-nmap <leader>gc :G commit<CR>
+" nmap <leader>gc :G commit<CR> Just use gs and cc to commit
 nmap <leader>gp :G push<CR>
 nmap <leader>gw :G write!<CR>
+nnoremap gdh :diffget //2<CR>
+nnoremap gdl :diffget //3<CR>
 
 " Fix some weird error with Fugitive
 let g:fugitive_pty = 0
@@ -667,11 +667,20 @@ function! RunTestVerbose()
   :TestNearest -strategy=dispatch
   let g:test#javascript#jest#options = '--reporters jest-vim-reporter'
 endfunction
-nmap <silent> <leader>tn :TestNearest<CR>
-nmap <silent> <leader>tf :TestFile<CR>
-nmap <silent> <leader>ts :TestSuite<CR>
-nmap <silent> <leader>tl :TestLast<CR>
-nmap <silent> <leader>tv :TestVisit<CR>
+
+" nmap <silent> <leader>tn :TestNearest<CR>
+" nmap <silent> <leader>tf :TestFile<CR>
+" nmap <silent> <leader>ts :TestSuite<CR>
+" nmap <silent> <leader>tl :TestLast<CR>
+" nmap <silent> <leader>tv :TestVisit<CR>
+
+" Ultest binds, see :help ultest-commands
+nmap <silent> <leader>tn :UltestNearest<CR>
+nmap <silent> <leader>tf :Ultest<CR>
+nmap <silent> <leader>ts :UltestStop<CR>
+
+nmap ]t <Plug>(ultest-next-fail)
+nmap [t <Plug>(ultest-prev-fail)
 
 let g:indent_guides_enable_on_vim_startup = 1
 
@@ -821,8 +830,8 @@ nnoremap <Leader>l :IPythonCellClear<CR>
 nnoremap <Leader>x :IPythonCellClose<CR>
 
 " map [c and ]c to jump to the previous and next cell header
-nnoremap [c :IPythonCellPrevCell<CR>
-nnoremap ]c :IPythonCellNextCell<CR>
+" nnoremap [c :IPythonCellPrevCell<CR>
+" nnoremap ]c :IPythonCellNextCell<CR>
 
 " map <Leader>h to send the current line or current selection to IPython
 nmap <Leader>h <Plug>SlimeLineSend
@@ -840,13 +849,14 @@ nnoremap <Leader>d :SlimeSend1 %debug<CR>
 " map <Leader>q to exit debug mode or IPython
 nnoremap <Leader>q :SlimeSend1 exit<CR>
 
+" TODO remap to something that doesn't conflict with debug commands
 " map <F9> and <F10> to insert a cell header tag above/below and enter insert mode
-nmap <F9> :IPythonCellInsertAbove<CR>a
-nmap <F10> :IPythonCellInsertBelow<CR>a
+" nmap <F9> :IPythonCellInsertAbove<CR>a
+" nmap <F10> :IPythonCellInsertBelow<CR>a
 
 " also make <F9> and <F10> work in insert mode
-imap <F9> <C-o>:IPythonCellInsertAbove<CR>
-imap <F10> <C-o>:IPythonCellInsertBelow<CR>
+" imap <F9> <C-o>:IPythonCellInsertAbove<CR>
+" imap <F10> <C-o>:IPythonCellInsertBelow<CR>
 
 
 " fzf
@@ -860,3 +870,9 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+
+let g:fzf_layout = { 'window' : { 'width' : 0.8, 'height' : 0.8  } }
+let $FZF_DEFAULT_OPTS = '--reverse'
+
+" fzf checkout
+nnoremap <leader>gc: GCheckout<CR>
