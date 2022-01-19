@@ -73,6 +73,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'rhysd/accelerated-jk'
 Plug 'schickling/vim-bufonly' "close all but targeted buffer
 "Plug 'wellle/targets.vim' "lets learn default movements better first
+Plug 'christoomey/vim-tmux-navigator'
 
 " Editing
 Plug 'tpope/vim-surround'
@@ -582,6 +583,10 @@ nmap <leader>gp :G push<CR>
 nmap <leader>gw :G write!<CR>
 nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>
+
+" fzf checkout binds
+nnoremap <leader>gc :GBranches<CR>
+nnoremap <leader>gt :GTags<CR>
 
 " Fix some weird error with Fugitive
 let g:fugitive_pty = 0
