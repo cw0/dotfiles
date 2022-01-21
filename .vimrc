@@ -1,6 +1,8 @@
 " vim-test requires pynvim to be installed
 " run pip3 install --user pynvim
 
+" brew install the_silver_searcher
+
 " Install vim-plug if not found
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -55,7 +57,7 @@ Plug 'hashivim/vim-terraform'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'ctrlpvim/ctrlp.vim'
-" Plug 'mileszs/ack.vim'
+Plug 'mileszs/ack.vim'
 
 " Project Management
 Plug 'tpope/vim-fugitive'
@@ -881,3 +883,7 @@ let $FZF_DEFAULT_OPTS = '--reverse'
 
 " fzf checkout
 nnoremap <leader>gc: GCheckout<CR>
+
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
