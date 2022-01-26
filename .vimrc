@@ -883,7 +883,16 @@ let $FZF_DEFAULT_OPTS = '--reverse'
 
 " fzf checkout
 nnoremap <leader>gc: GCheckout<CR>
+" Press alt-enter to track a remote branch locally (origin/foo becomes foo)
+" Press ctrl-b to create a branch or tag with the current query as name
+" Press ctrl-d to delete a branch or tag
+" Press ctrl-e to merge a branch
+" Press ctrl-r to rebase a branch
 
+" use ag
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
+
+" fzf ag
+nnoremap <leader>ag :Ag<CR>
