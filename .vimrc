@@ -28,6 +28,7 @@ Plug 'vim-test/vim-test' " dependency for vim-ultest
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-dispatch'
 Plug 'neomake/neomake'
+Plug 'sansyrox/vim-python-virtualenv'
 
 " CTags
 Plug 'ludovicchabant/vim-gutentags'
@@ -104,6 +105,8 @@ Plug 'tomtom/tlib_vim'
 
 " Initialize plugin system
 call plug#end()
+
+" let g:python3_host_prog = "/usr/local/bin/python3"
 
 nnoremap <SPACE> <Nop>
 let mapleader=" "
@@ -666,6 +669,13 @@ let test#strategy = "neomake"
 " let g:neomake_open_list = 0
 
 " setlocal errorformat=%f:%l:%c:\ %m
+
+" function! JestStrategy(cmd)
+"     let testName = matchlist(a:cmd, '\v -t ''(.*)''')[1]
+"     call vimspector#LaunchWithSettings( #{ configuration: 'jest', TestName: testName } )
+" endfunction
+
+" let g:test#custom_strategies = { 'jest': function('JestStrategy')}
 
 nnoremap <leader>tm :exec RunTestVerbose()<CR>
 
