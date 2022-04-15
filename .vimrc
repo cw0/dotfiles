@@ -26,7 +26,7 @@ Plug 'puremourning/vimspector'
 Plug 'roxma/nvim-yarp' " dependency for vim-ultest
 Plug 'roxma/vim-hug-neovim-rpc' " dependency for vim-ultest
 Plug 'vim-test/vim-test' " dependency for vim-ultest
-Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
+Plug 'rcarriga/vim-ultest'
 Plug 'tpope/vim-dispatch'
 Plug 'neomake/neomake'
 Plug 'sansyrox/vim-python-virtualenv'
@@ -648,6 +648,7 @@ let g:jsx_ext_required = 0
 " Vimspector settings
 " mnemonic 'di' = 'debug inspect' (pick your own, if you prefer!)
 
+nmap <leader>dx :VimspectorReset<CR>
 " for normal mode - the word under the cursor
 nmap <Leader>di <Plug>VimspectorBalloonEval
 " for visual mode, the visually selected text
@@ -659,43 +660,49 @@ nmap <LocalLeader><F12> <Plug>VimspectorDownFrame
 let g:vimspector_enable_mappings = 'HUMAN'
 
 "vim-test
+let test#typescript#runner = 'jest'
+let test#typescript#jest#executable = "yarn test"
 let test#javascript#runner = 'jest'
 let test#javascript#jest#executable = "yarn test"
 " use the jest-vim-reporter to shorten the jest testoutput
 " let g:test#javascript#jest#options = ''
-let g:test#javascript#jest#options = '--reporters jest-vim-reporter'
+" let g:test#typescript#jest#options = '--reporters jest-vim-reporter'
+" let g:test#javascript#jest#options = '--reporters jest-vim-reporter'
+" let test#strategy = "neovim"
 " use neomake for async running of tests
-let test#strategy = "neomake"
+" let test#strategy = "neomake"
 " do not open the test run results, can be changed to show them
 " let g:neomake_open_list = 0
 
 " setlocal errorformat=%f:%l:%c:\ %m
 
-" function! JestStrategy(cmd)
-"     let testName = matchlist(a:cmd, '\v -t ''(.*)''')[1]
-"     call vimspector#LaunchWithSettings( #{ configuration: 'jest', TestName: testName } )
-" endfunction
-
-" let g:test#custom_strategies = { 'jest': function('JestStrategy')}
-
-nnoremap <leader>tm :exec RunTestVerbose()<CR>
-
-function! RunTestVerbose()
-  let g:test#javascript#jest#options = ''
-  :TestNearest -strategy=dispatch
-  let g:test#javascript#jest#options = '--reporters jest-vim-reporter'
+function! JestStrategy(cmd)
+    let testName = matchlist(a:cmd, '\v -t ''(.*)''')[1]
+    call vimspector#LaunchWithSettings( #{ configuration: 'jest', TestName: testName } )
 endfunction
+
+let g:test#custom_strategies = { 'jest': function('JestStrategy')}
+
+" nnoremap <leader>tm :exec RunTestVerbose()<CR>
+
+" function! RunTestVerbose()
+"   let g:test#javascript#jest#options = ''
+"   :TestNearest -strategy=dispatch
+"   let g:test#javascript#jest#options = '--reporters jest-vim-reporter'
+" endfunction
 
 " nmap <silent> <leader>tn :TestNearest<CR>
 " nmap <silent> <leader>tf :TestFile<CR>
 " nmap <silent> <leader>ts :TestSuite<CR>
 " nmap <silent> <leader>tl :TestLast<CR>
 " nmap <silent> <leader>tv :TestVisit<CR>
+nmap <silent> <leader>td :TestNearest -strategy=jest<CR>
 
 " Ultest binds, see :help ultest-commands
 nmap <silent> <leader>tn :UltestNearest<CR>
 nmap <silent> <leader>tf :Ultest<CR>
 nmap <silent> <leader>ts :UltestStop<CR>
+nmap <silent> <leader>to :UltestOutput<CR>
 
 nmap ]t <Plug>(ultest-next-fail)
 nmap [t <Plug>(ultest-prev-fail)
