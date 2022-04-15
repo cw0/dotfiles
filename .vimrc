@@ -578,7 +578,7 @@ nmap ˚ <Plug>MoveLineUp
 nnoremap <Leader>rl :r!<C-r><C-l><CR>
 
 " vim-projectionist go to test
-nnoremap <Leader>gt :A<CR>
+nnoremap <Leader>to :A<CR>
 
 " git fugitive stuff
 nmap <leader>gb :G blame<CR>
