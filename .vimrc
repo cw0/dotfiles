@@ -1,4 +1,3 @@
-" aaaaaaa
 " vim-test requires pynvim to be installed
 " run pip3 install --user pynvim
 
@@ -406,6 +405,7 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+" TODO remap due to conflict with tmux
 " Use <c-space> to trigger completion.
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
