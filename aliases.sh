@@ -1,0 +1,16 @@
+echo "Updating configs"
+rm -f ~/.p10k.zsh
+ln -sr .p10k.zsh ~/.p10k.zsh
+
+rm -f ~/.zshrc
+ln -sr .zshrc ~/.zshrc
+
+rm -f ~/.vimrc
+ln -sr .vimrc ~/.vimrc
+
+rm -f ~/.config/kitty/kitty.conf
+mkdir ~/.config/kitty
+ln -sr kitty.conf ~/.config/kitty/kitty.conf
+
+rm -f ~/.tmux.conf
+ln -sr .tmux.conf ~/.tmux.conf
