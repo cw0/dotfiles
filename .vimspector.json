@@ -1,0 +1,25 @@
+{
+    "configurations": {
+        "jest": {
+            "adapter": "vscode-node",
+            "breakpoints": {
+                "exception": {
+                    "all": "N",
+                    "uncaught": "N"
+                }
+            },
+            "configuration": {
+                "type": "node",
+                "name": "debug jest",
+                "request": "launch",
+                "console": "integratedTerminal",
+                "internalConsoleOptions": "neverOpen",
+                "disableOptimisticBPs": true,
+                "program": "${workspaceRoot}/node_modules/.bin/jest",
+                "cwd": "${workspaceFolder}",
+                "args": ["--runInBand", "--watchAll=false", "-t", "'${TestName}'", "--", "${file}"],
+                "skipFiles": ["<node_internals>/**/*.js"]
+            }
+        }
+    }
+}

@@ -23,7 +23,7 @@ git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 echo "Installing zsh-syntax-highlighting"
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-echo "Installing zsh-syntax-highlighting"
+echo "Installing zsh-autosuggestions"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 echo "Installing powerlevel10k"
@@ -48,6 +48,13 @@ nvm install --lts
 
 echo "Installing vim"
 brew install vim
+
+echo "Installing AG"
+brew install the_silver_searcher
+
+# TODO mac only
+echo "Installing coreutils"
+brew install coreutils
 
 echo "Updating configs"
 rm -f ~/.p10k.zsh
