@@ -76,3 +76,7 @@ ln -sr .tmux.conf ~/.tmux.conf
 echo "Changing default shell to ZSH"
 # command -v zsh | sudo tee -a /etc/shells
 chsh -s "$(command -v zsh)" $USER
+
+# Install pynvim
+# TODO untested
+ pip3 install --user pynvim
