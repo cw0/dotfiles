@@ -35,7 +35,8 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'preservim/tagbar'
 
 " Theme
-Plug 'morhetz/gruvbox'
+Plug 'NLKNguyen/papercolor-theme'
+" Plug 'morhetz/gruvbox'
 " Plug 'nightsense/seabird'
 
 " Appearance
@@ -115,14 +116,23 @@ filetype indent on
 filetype plugin on
 filetype plugin indent on
 
+"terminal colors
+set t_Co=256
+set termguicolors
+
 " Set colorscheme
-colorscheme gruvbox
-let g:gruvbox_contrast_dark = 'hard'
+" papercolor
+set background=dark
+colorscheme PaperColor
+let g:airline_theme='papercolor'
+
+" gruvbox
+" colorscheme gruvbox
+" let g:gruvbox_contrast_dark = 'hard'
 
 syntax on "previously was enabled
 set syn=auto
 
-set background=dark
 set wildmenu
 set ttyfast
 set lazyredraw
@@ -174,9 +184,6 @@ set expandtab
 
 "This unsets the "last search pattern" register by hitting return
 nnoremap <CR> :noh<CR><CR>
-
-"add a colored column at 90 so our files don't get too wide
-set colorcolumn=120
 
 " Enable folding with the z key
 nmap z za
@@ -243,13 +250,12 @@ set showmatch
 "highlight current line:
 set cursorline
 
-"terminal colors
-"set t_Co=256
-set termguicolors
-
 "set hidden characters
 set list listchars=tab:>\ ,trail:-,eol:$
 set list!
+
+"add a colored column at 90 so our files don't get too wide
+set colorcolumn=120
 
 "disable lazy redraw
 "set nolazyredraw
