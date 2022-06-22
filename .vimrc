@@ -29,6 +29,7 @@ Plug 'rcarriga/vim-ultest'
 Plug 'tpope/vim-dispatch'
 Plug 'neomake/neomake'
 Plug 'sansyrox/vim-python-virtualenv'
+Plug 'lambdalisue/vim-pyenv'
 
 " CTags
 Plug 'ludovicchabant/vim-gutentags'
@@ -54,6 +55,7 @@ Plug 'maxmellon/vim-jsx-pretty', { 'for': ['javascriptreact', 'javascript'] }
 Plug 'jpalardy/vim-slime', { 'for': 'python' }
 Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
 Plug 'hashivim/vim-terraform'
+Plug 'tpope/vim-jdaddy' "JSON helpers
 
 " Search
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -62,6 +64,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mileszs/ack.vim'
 
 " Project Management
+Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-projectionist'
 Plug 'airblade/vim-gitgutter'     " Show git diff of lines edited
@@ -78,6 +81,7 @@ Plug 'rhysd/accelerated-jk'
 Plug 'schickling/vim-bufonly' "close all but targeted buffer
 "Plug 'wellle/targets.vim' "lets learn default movements better first
 "Plug 'christoomey/vim-tmux-navigator' "edited out due to issues with tmux 3.256
+
 " Editing
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
@@ -89,6 +93,7 @@ Plug 'Valloric/MatchTagAlways'
 Plug 'matze/vim-move'
 Plug 'mbbill/undotree'
 Plug 'mg979/vim-visual-multi'
+Plug 'tpope/vim-speeddating' "increment dates and times with ctrl-a and ctrl-x
 " Plug 'coderifous/textobj-word-column.vim'
 " Plug 'junegunn/vim-easy-align'
 
@@ -147,13 +152,8 @@ set mouse=a
 " set showmode
 
 " Cursor Shape
-if exists('$TMUX')
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
-else
-    let &t_SI = "\e[5 q"
-    let &t_EI = "\e[2 q"
-endif
+let &t_SI = "\e[5 q"
+let &t_EI = "\e[2 q"
 
 " Set Line Numbers
 set number
@@ -344,12 +344,20 @@ nnoremap <C-f> :NERDTreeFind<CR>
 let g:NERDTreeMapJumpPrevSibling=""
 let g:NERDTreeMapJumpNextSibling=""
 
+" show hidden files automatically
+let NERDTreeShowHidden=1
+
 " Dont allow nerdtree to swap buffers
 autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" | b# | endif
 
 " Start NERDTree. If a file is specified, move the cursor to its window.
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
+
+" Start NERDTree when Vim starts with a directory argument.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
+    \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
 
 " Exit Vim if NERDTree is the only window remaining in the only tab.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
@@ -564,7 +572,8 @@ endif
 " autocmd CursorHoldI * :call <SID>show_hover_doc()
 " autocmd CursorHold * :call <SID>show_hover_doc()
 
-autocmd FileType typescript setlocal formatprg=prettier\ --parser\ typescript
+" this would use a global prettier install
+" autocmd FileType typescript setlocal formatprg=prettier\ --parser\ typescript
 
 "Vim-move
 " Visual Mode alt+j moves selected block down

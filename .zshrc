@@ -9,7 +9,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/${USER}/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -77,19 +77,9 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=( git zsh-syntax-highlighting zsh-autosuggestions )
+plugins=(git vi-mode)
 
 source $ZSH/oh-my-zsh.sh
-
-if [ -x "$(command -v colorls)" ]; then
-    alias ls="colorls"
-    alias la="colorls -al"
-fi
-
-# if [ -x "$(command -v exa)" ]; then
-#     alias ls="exa"
-#     alias la="exa --long --all --group"
-# fi
 
 # User configuration
 
@@ -120,9 +110,110 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# init nvm
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+# Source aliases
+[[ -f $HOME/.zshaliases ]] && source $HOME/.zshaliases
+# Source secrets
+[[ -f $HOME/.zshsecrets ]] && source $HOME/.zshsecrets
 
-# init homebrew
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# ZSH Options, see: https://zsh.sourceforge.io/Doc/Release/Options.html
+setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
+# unsetopt HIST_SAVE_NO_DUPS     # Write a duplicate event to the history file
+setopt APPEND_HISTORY            # Parallel Sessions won't compete for history file
+setopt MENU_COMPLETE        # Automatically highlight first element of completion menu
+setopt AUTO_LIST            # Automatically list choices on ambiguous completion.
+setopt COMPLETE_IN_WORD     # Complete from both ends of a word.
+setopt AUTO_PUSHD           # Push the current directory visited on the stack.
+setopt PUSHD_IGNORE_DUPS    # Do not store duplicates in the stack.
+setopt PUSHD_SILENT         # Do not print the directory stack after pushd or popd.
+
+# enable completion
+zmodload zsh/complist
+autoload -U compinit; compinit
+_comp_options+=(globdots) # With hidden files
+
+# Binds
+# vim mode
+# bindkey -v
+export KEYTIMEOUT=5
+
+# Use hjlk in menu selection (during completion)
+# Doesn't work well with interactive mode
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+
+bindkey -M menuselect '^xg' clear-screen
+bindkey -M menuselect '^xi' vi-insert                      # Insert
+bindkey -M menuselect '^xh' accept-and-hold                # Hold
+bindkey -M menuselect '^xn' accept-and-infer-next-history  # Next
+bindkey -M menuselect '^xu' undo                           # Undo
+
+# Change cursor shape for different vi modes.
+# function zle-keymap-select {
+#   if [[ ${KEYMAP} == vicmd ]] ||
+#      [[ $1 = 'block' ]]; then
+#     echo -ne '\e[1 q'
+#   elif [[ ${KEYMAP} == main ]] ||
+#        [[ ${KEYMAP} == viins ]] ||
+#        [[ ${KEYMAP} = '' ]] ||
+#        [[ $1 = 'beam' ]]; then
+#     echo -ne '\e[5 q'
+#   fi
+# }
+# zle -N zle-keymap-select
+# zle-line-init() {
+#     zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+#     echo -ne "\e[5 q"
+# }
+# zle -N zle-line-init
+# echo -ne '\e[5 q' # Use beam shape cursor on startup.
+# preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+
+# Edit commands in vim with v in normal mode
+autoload -Uz edit-command-line
+zle -N edit-command-line
+
+# Text Objects
+autoload -Uz select-bracketed select-quoted
+zle -N select-quoted
+zle -N select-bracketed
+for km in viopp visual; do
+  bindkey -M $km -- '-' vi-up-line-or-history
+  for c in {a,i}${(s..)^:-\'\"\`\|,./:;=+@}; do
+    bindkey -M $km $c select-quoted
+  done
+  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+    bindkey -M $km $c select-bracketed
+  done
+done
+
+# Enable Surrounding
+autoload -Uz surround
+zle -N delete-surround surround
+zle -N add-surround surround
+zle -N change-surround surround
+bindkey -M vicmd cs change-surround
+bindkey -M vicmd ds delete-surround
+bindkey -M vicmd ys add-surround
+bindkey -M visual S add-surround
+
+# Path Settings
+export PATH="/usr/local/bin:$PATH"
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+source ~/.zion/zion-dev-tools/zionrc/.zionrc
+export PATH="$PATH:~/go/bin"
+export PATH="$PATH:$(python3 -m site --user-base)/bin"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# added by Snowflake SnowSQL installer v1.2
+export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH
+
+# coreutils fix
+export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
