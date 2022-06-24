@@ -135,6 +135,9 @@ let g:airline_theme='papercolor'
 " colorscheme gruvbox
 " let g:gruvbox_contrast_dark = 'hard'
 
+" set vertical split char
+" set fillchars+=vert:▏
+
 syntax on "previously was enabled
 set syn=auto
 
@@ -332,7 +335,6 @@ hi ReactLifeCycleMethods ctermfg=204 guifg=#D19A66
 "Airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#ale#enabled = 1
 
 " NERDtree settings
 nnoremap <leader>n :NERDTreeFocus<CR>

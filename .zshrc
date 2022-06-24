@@ -133,7 +133,7 @@ _comp_options+=(globdots) # With hidden files
 
 # Binds
 # vim mode
-export KEYTIMEOUT=5
+export KEYTIMEOUT=1
 
 # Use hjlk in menu selection (during completion)
 # Doesn't work well with interactive mode
