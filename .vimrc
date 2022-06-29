@@ -136,7 +136,7 @@ let g:airline_theme='papercolor'
 " let g:gruvbox_contrast_dark = 'hard'
 
 " set vertical split char
-" set fillchars+=vert:▏
+set fillchars+=vert:\│
 
 syntax on "previously was enabled
 set syn=auto
