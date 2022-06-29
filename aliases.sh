@@ -17,8 +17,8 @@ rm -f ~/.vimrc
 ln -sr .vimrc ~/.vimrc
 
 rm -f ~/.config/kitty/kitty.conf
-mkdir ~/.config/kitty
-ln -sr kitty.conf ~/.config/kitty/kitty.conf
+# mkdir ~/.config/kitty
+ln -sr .config/kitty/kitty.conf ~/.config/kitty/kitty.conf
 
 rm -f ~/.tmux.conf
 ln -sr .tmux.conf ~/.tmux.conf
