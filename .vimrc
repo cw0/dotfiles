@@ -136,7 +136,7 @@ let g:airline_theme='papercolor'
 " let g:gruvbox_contrast_dark = 'hard'
 
 " set vertical split char
-" set fillchars+=vert:▏
+set fillchars+=vert:\│
 
 syntax on "previously was enabled
 set syn=auto
@@ -331,6 +331,9 @@ hi ReduxHooksKeywords ctermfg=204 guifg=#C176A7
 hi WebBrowser ctermfg=204 guifg=#56B6C2
 hi ReactLifeCycleMethods ctermfg=204 guifg=#D19A66
 "---end TSX styles----"
+
+" highlight the char between vertical splits in the status bar
+hi StatusLineNC guifg=NONE guibg=NONE
 
 "Airline
 let g:airline#extensions#tabline#enabled = 1
