@@ -34,6 +34,7 @@ Plug 'preservim/tagbar'
 Plug 'NLKNguyen/papercolor-theme'
 " Plug 'morhetz/gruvbox'
 " Plug 'nightsense/seabird'
+" Plug 'caksoylar/vim-mysticaltutor'
 
 " Appearance
 Plug 'nathanaelkane/vim-indent-guides'
@@ -71,14 +72,13 @@ Plug 'lambdalisue/fern-git-status.vim'
 Plug 'lambdalisue/fern-hijack.vim'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
-Plug 'lambdalisue/glyph-palette.vim'
+Plug 'lambdalisue/glyph-palette.vim' " TODO configure
 Plug 'yuki-yano/fern-preview.vim'
 
 " Navigation
 Plug 'easymotion/vim-easymotion'
 Plug 'rhysd/accelerated-jk'
 Plug 'schickling/vim-bufonly' "close all but targeted buffer
-"Plug 'wellle/targets.vim' "lets learn default movements better first
 "Plug 'christoomey/vim-tmux-navigator' "edited out due to issues with tmux 3.256
 
 " Editing
@@ -93,23 +93,17 @@ Plug 'matze/vim-move'
 Plug 'mbbill/undotree'
 Plug 'mg979/vim-visual-multi'
 Plug 'tpope/vim-speeddating' "increment dates and times with ctrl-a and ctrl-x
-" Plug 'coderifous/textobj-word-column.vim'
-" Plug 'junegunn/vim-easy-align'
 
 " Notes / Scheduling / QOL
 Plug 'vimwiki/vimwiki'
 Plug 'mhinz/vim-startify'
-
-" Misc Plugins
 " Plug 'tpope/vim-sensible'
+
+" Snippets
+" Plug 'SirVer/ultisnips'
 " Plug 'honza/vim-snippets'
-" Plug 'caksoylar/vim-mysticaltutor'
-" Plug 'vim-scripts/ZoomWin'
-" Plug 'terryma/vim-expand-region'
 
 "dependencies
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
 Plug 'roxma/nvim-yarp' " dependency for vim-ultest
 Plug 'roxma/vim-hug-neovim-rpc' " dependency for vim-ultest
 Plug 'vim-test/vim-test' " dependency for vim-ultest
@@ -136,10 +130,6 @@ set termguicolors
 set background=dark
 colorscheme PaperColor
 let g:airline_theme='papercolor'
-
-" gruvbox
-" colorscheme gruvbox
-" let g:gruvbox_contrast_dark = 'hard'
 
 " set vertical split char
 set fillchars+=vert:\│
