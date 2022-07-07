@@ -339,6 +339,7 @@ let g:airline_powerline_fonts = 1
 "Fern Settings
 let g:fern#default_hidden=1 " show hidden files by default in fern
 let g:fern#renderer = "nerdfont"
+let g:fern#disable_default_mappings=1
 
 noremap <silent> <C-t> :Fern . -drawer -reveal=% -toggle -width=35<CR><C-w>=
 
@@ -356,6 +357,7 @@ function! FernInit() abort
   nmap <silent> <buffer> <C-p> <Plug>(fern-action-preview:auto:toggle)
   nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
   nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
+
   " Define NERDTree like mappings
   nmap <buffer> o <Plug>(fern-action-open:edit)
   nmap <buffer> go <Plug>(fern-action-open:edit)<C-w>p
@@ -379,6 +381,9 @@ function! FernInit() abort
 
   nmap <buffer> q :<C-u>quit<CR>
   nmap <buffer> o <Plug>(fern-action-open)
+
+  nmap <buffer> c <Plug>(fern-action-copy)
+  nmap <buffer> m <Plug>(fern-action-move)
 endfunction
 
 augroup FernGroup
