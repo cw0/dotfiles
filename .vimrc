@@ -22,12 +22,7 @@ call plug#begin('~/.vim/plugged')
 " IDE Features
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'puremourning/vimspector'
-Plug 'roxma/nvim-yarp' " dependency for vim-ultest
-Plug 'roxma/vim-hug-neovim-rpc' " dependency for vim-ultest
-Plug 'vim-test/vim-test' " dependency for vim-ultest
 Plug 'rcarriga/vim-ultest'
-Plug 'tpope/vim-dispatch'
-Plug 'neomake/neomake'
 Plug 'sansyrox/vim-python-virtualenv'
 Plug 'lambdalisue/vim-pyenv'
 
@@ -77,6 +72,7 @@ Plug 'lambdalisue/fern-hijack.vim'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'lambdalisue/glyph-palette.vim'
+Plug 'yuki-yano/fern-preview.vim'
 
 " Navigation
 Plug 'easymotion/vim-easymotion'
@@ -114,6 +110,9 @@ Plug 'mhinz/vim-startify'
 "dependencies
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
+Plug 'roxma/nvim-yarp' " dependency for vim-ultest
+Plug 'roxma/vim-hug-neovim-rpc' " dependency for vim-ultest
+Plug 'vim-test/vim-test' " dependency for vim-ultest
 
 " Initialize plugin system
 call plug#end()
@@ -363,6 +362,10 @@ function! FernInit() abort
     \ )
 
   nmap <buffer><nowait> l <Plug>(fern-my-expand-or-collapse)
+  nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
+  nmap <silent> <buffer> <C-p> <Plug>(fern-action-preview:auto:toggle)
+  nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
+  nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
   " Define NERDTree like mappings
   nmap <buffer> o <Plug>(fern-action-open:edit)
   nmap <buffer> go <Plug>(fern-action-open:edit)<C-w>p
@@ -710,13 +713,6 @@ let test#typescript#runner = 'jest'
 let test#typescript#jest#executable = "yarn test"
 let test#javascript#runner = 'jest'
 let test#javascript#jest#executable = "yarn test"
-" use the jest-vim-reporter to shorten the jest testoutput
-" let g:test#javascript#jest#options = ''
-" let g:test#typescript#jest#options = '--reporters jest-vim-reporter'
-" let g:test#javascript#jest#options = '--reporters jest-vim-reporter'
-" let test#strategy = "neovim"
-" use neomake for async running of tests
-" let test#strategy = "neomake"
 " do not open the test run results, can be changed to show them
 " let g:neomake_open_list = 0
 
@@ -729,19 +725,6 @@ endfunction
 
 let g:test#custom_strategies = { 'jest': function('JestStrategy')}
 
-" nnoremap <leader>tm :exec RunTestVerbose()<CR>
-
-" function! RunTestVerbose()
-"   let g:test#javascript#jest#options = ''
-"   :TestNearest -strategy=dispatch
-"   let g:test#javascript#jest#options = '--reporters jest-vim-reporter'
-" endfunction
-
-" nmap <silent> <leader>tn :TestNearest<CR>
-" nmap <silent> <leader>tf :TestFile<CR>
-" nmap <silent> <leader>ts :TestSuite<CR>
-" nmap <silent> <leader>tl :TestLast<CR>
-" nmap <silent> <leader>tv :TestVisit<CR>
 nmap <silent> <leader>td :TestNearest -strategy=jest<CR>
 
 " Ultest binds, see :help ultest-commands
