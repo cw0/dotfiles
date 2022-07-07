@@ -41,7 +41,6 @@ Plug 'NLKNguyen/papercolor-theme'
 " Plug 'nightsense/seabird'
 
 " Appearance
-Plug 'ryanoasis/vim-devicons'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -71,11 +70,15 @@ Plug 'airblade/vim-gitgutter'     " Show git diff of lines edited
 Plug 'stsewd/fzf-checkout.vim'
 " Plug 'tpope/vim-rhubarb' " TODO configure
 
+" File Browser
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern-git-status.vim'
+Plug 'lambdalisue/fern-hijack.vim'
+Plug 'lambdalisue/nerdfont.vim'
+Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+Plug 'lambdalisue/glyph-palette.vim'
+
 " Navigation
-Plug 'preservim/nerdtree'
-" Plug 'tyok/nerdtree-ack'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'easymotion/vim-easymotion'
 Plug 'rhysd/accelerated-jk'
 Plug 'schickling/vim-bufonly' "close all but targeted buffer
@@ -97,8 +100,12 @@ Plug 'tpope/vim-speeddating' "increment dates and times with ctrl-a and ctrl-x
 " Plug 'coderifous/textobj-word-column.vim'
 " Plug 'junegunn/vim-easy-align'
 
+" Notes / Scheduling / QOL
+Plug 'vimwiki/vimwiki'
+Plug 'mhinz/vim-startify'
+
+" Misc Plugins
 " Plug 'tpope/vim-sensible'
-" Plug 'vimwiki/vimwiki'
 " Plug 'honza/vim-snippets'
 " Plug 'caksoylar/vim-mysticaltutor'
 " Plug 'vim-scripts/ZoomWin'
@@ -333,46 +340,59 @@ hi ReactLifeCycleMethods ctermfg=204 guifg=#D19A66
 "---end TSX styles----"
 
 " highlight the char between vertical splits in the status bar
-hi StatusLineNC guifg=NONE guibg=NONE
+hi StatusLine guifg=#0087af guibg=#e4e4e4
+hi StatusLineNC guifg=#0087af guibg=#e4e4e4
 
 "Airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
-" NERDtree settings
-nnoremap <leader>n :NERDTreeFocus<CR>
-"nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
+"Fern Settings
+let g:fern#default_hidden=1 " show hidden files by default in fern
+let g:fern#renderer = "nerdfont"
 
-" Disable jump to sibling bindings to allow better tmux integration
-let g:NERDTreeMapJumpPrevSibling=""
-let g:NERDTreeMapJumpNextSibling=""
+noremap <silent> <C-t> :Fern . -drawer -reveal=% -toggle -width=35<CR><C-w>=
 
-" show hidden files automatically
-let NERDTreeShowHidden=1
+function! FernInit() abort
+  nmap <buffer><expr>
+    \ <Plug>(fern-my-expand-or-collapse)
+    \ fern#smart#leaf(
+    \   "\<Plug>(fern-action-collapse)",
+    \   "\<Plug>(fern-action-expand)",
+    \   "\<Plug>(fern-action-collapse)",
+    \ )
 
-" Dont allow nerdtree to swap buffers
-autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" | b# | endif
+  nmap <buffer><nowait> l <Plug>(fern-my-expand-or-collapse)
+  " Define NERDTree like mappings
+  nmap <buffer> o <Plug>(fern-action-open:edit)
+  nmap <buffer> go <Plug>(fern-action-open:edit)<C-w>p
+  nmap <buffer> t <Plug>(fern-action-open:tabedit)
+  nmap <buffer> T <Plug>(fern-action-open:tabedit)gT
+  nmap <buffer> i <Plug>(fern-action-open:split)
+  nmap <buffer> gi <Plug>(fern-action-open:split)<C-w>p
+  nmap <buffer> s <Plug>(fern-action-open:vsplit)
+  nmap <buffer> gs <Plug>(fern-action-open:vsplit)<C-w>p
+  nmap <buffer> ma <Plug>(fern-action-new-path)
+  nmap <buffer> P gg
 
-" Start NERDTree. If a file is specified, move the cursor to its window.
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
+  nmap <buffer> C <Plug>(fern-action-enter)
+  nmap <buffer> u <Plug>(fern-action-leave)
+  nmap <buffer> r <Plug>(fern-action-reload)
+  nmap <buffer> R gg<Plug>(fern-action-reload)<C-o>
+  nmap <buffer> cd <Plug>(fern-action-cd)
+  nmap <buffer> CD gg<Plug>(fern-action-cd)<C-o>
 
-" Start NERDTree when Vim starts with a directory argument.
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
-    \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
+  nmap <buffer> I <Plug>(fern-action-hidden-toggle)
 
-" Exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+  nmap <buffer> q :<C-u>quit<CR>
+  nmap <buffer> o <Plug>(fern-action-open)
+endfunction
 
-" Close the tab if NERDTree is the only window remaining in it.
-autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-
-" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+augroup FernGroup
+  autocmd!
+  autocmd FileType fern call FernInit()
+  autocmd FileType fern setlocal norelativenumber | setlocal nonumber | call FernInit()
+augroup END
 
 "This unsets the "last search pattern" register by hitting return
 nnoremap <CR> :noh<CR><CR>
