@@ -348,6 +348,7 @@ function! FernInit() abort
 	    \ fern#smart#leaf(
 	    \   "<Plug>(fern-action-open)",
 	    \   "<Plug>(fern-action-expand)",
+	    \   "<Plug>(fern-action-collapse)"
 	    \ )
 
     nmap <buffer><nowait> l <Plug>(fern-my-open-or-expand)
@@ -360,7 +361,6 @@ function! FernInit() abort
     nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
 
     " Define NERDTree like mappings
-    nmap <buffer> o <Plug>(fern-action-open:edit)
     nmap <buffer> go <Plug>(fern-action-open:edit)<C-w>p
     nmap <buffer> t <Plug>(fern-action-open:tabedit)
     nmap <buffer> T <Plug>(fern-action-open:tabedit)gT
@@ -381,7 +381,7 @@ function! FernInit() abort
     nmap <buffer> I <Plug>(fern-action-hidden-toggle)
 
     nmap <buffer> q :<C-u>quit<CR>
-    nmap <buffer> o <Plug>(fern-action-open)
+    nmap <buffer><nowait> o <Plug>(fern-my-open-or-expand)
 
     nmap <buffer> c <Plug>(fern-action-copy)
     nmap <buffer> m <Plug>(fern-action-move)
