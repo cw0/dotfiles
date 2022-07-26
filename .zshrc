@@ -191,3 +191,5 @@ export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH
 
 # coreutils fix
 export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+
+export PATH="$HOME/.poetry/bin:$PATH"

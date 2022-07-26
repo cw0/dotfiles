@@ -1,0 +1,12 @@
+= TMUX =
+
+== Useful Terminal Commands ==
+    * swap-window -s 1 -t 2
+        - s is for source window
+        - t is for target window
+
+== Useful Keyboard Shortcuts ==
+    * Rename Window
+        - prefix + ,
+    * Close Current Window
+        - prefix + &

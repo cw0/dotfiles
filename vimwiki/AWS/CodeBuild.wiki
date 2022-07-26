@@ -1,0 +1,50 @@
+= CodeBuild =
+
+== Purpose ==
+    * Fully managed build service
+    * Compile & Run unit tests
+    * Eliminates the need to provision and manage your own build servers
+    * Provides pre-packaged environments for popular programming languages
+    * Can customize build environments in CodeBuild to use your own build tools
+    * Scales automatically
+
+== Resources ==
+    [[https://docs.aws.amazon.com/codebuild/index.html|CodeBuild Documentation]]
+    [[https://docs.aws.amazon.com/codebuild/latest/userguide/planning.html|Plan a build in AWS CodeBuild]]
+
+== Concepts ==
+
+=== How CodeBuild Works ===
+    * Provide codebuild with a build project. Build projects contain:
+        - the location of the source code
+        - which build environment to use. A build environment represents:
+            * Operating system
+            * Programming language runtime
+            * build tools
+        - which commands to run
+        - where to store the output
+    * Codebuild creates the build environment from the build project specs
+    * Codebuild downloads the source into the build environment & uses the buildspec
+        - Buildspecs are in yaml format
+    * Any build output is uploaded to an S3 bucket
+        - Can also perform any tasks specified in the buildspec such as notifications
+    * Logs output to CodeBuild and CloudWatch logs
+    * Can use console, cli, or sdks to get summarized build information from codebuild while running
+        - If using CodePipeline you can get limited build information from there as well
+
+== Planning A Build ==
+    * Repository Providers
+        - CodeCommit
+        - S3
+        - GitHub
+        - BitBucket
+    * Build Commands
+        - Commands & command order
+        - Defined in buildspec
+    * Runtimes and Tooling
+        - Runtime requirements
+        - build tool requirements
+    * Additional resource requirements
+        - IAM policies and roles to allow codebuild to access other AWS resources
+    * VPC Constraints
+        - VPC configuration
