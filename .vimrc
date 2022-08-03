@@ -659,16 +659,16 @@ nmap <Leader>t :enew<CR>
 " Move to the next buffer
 nmap <Leader>l :bnext<CR>
 nmap <Leader>] :bnext<CR>
-nmap ˙ :bnext<CR>
-inoremap ˙ :bnext<CR>
-vnoremap ˙ :bnext<CR>
+nmap ¬ :bnext<CR>
+inoremap ¬ :bnext<CR>
+vnoremap ¬ :bnext<CR>
 
 " Move to the previous buffer
 nmap <Leader>h :bprevious<CR>
 nmap <Leader>[ :bprevious<CR>
-nmap ¬ :bprevious<CR>
-inoremap ¬ :bprevious<CR>
-vnoremap ¬ :bprevious<CR>
+nmap ˙ :bprevious<CR>
+inoremap ˙ :bprevioius<CR>
+vnoremap ˙ :bprevious<CR>
 
 " Close the current buffer and move to the previous one
 " This replicates the idea of closing a tab
