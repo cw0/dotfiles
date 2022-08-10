@@ -1,0 +1,75 @@
+= MSK =
+
+== Scaling ==
+  * Consumer rate increase is one of the best metrics for kafka needing to scale up
+  * Kafka partitions can handle over 1mb per second w/o any extra special operations
+  * Currently the kinesis size doubles (recommended) for scaling up and then after 8 hours below acceptable levels, downscale
+  * Kafka works as a buffer to handle some of these backups
+  * Stream is disrupted everytime you do a rebalance
+  * Should attempt to limit the amount of rebalances performed
+  * rebalances cause a couple second pause
+  * Kafka can increment as needed instead of doubling (linear)
+  * Ideally you want to scale gracefully (let worker finish before scaling up?)
+      * determine what scale gracefully means for kafka
+  * Kafka brokers don't scale well
+
+== Metrics ==
+  * Approximated offset lag
+  * How many messages behind a consumer is behind
+  * Exposed to cloudwatch or prometheus
+      * only cloudwatch for serverless
+
+== Serverless ==
+  * Zookeeper strings are deprecated
+  * Producers should be smart enough to do their own routing.
+  * Does serverless expose the number of consumers in cloudwatch?
+      * have to get consumers through describe topics
+      * timebased offset lag
+         * absolute
+      * estimated offset
+      * latency throughput
+      * do not share partition count
+  * Scaling
+      * when you burst you are using already partitioned resources
+      * scaling is more AWS problem than the user
+      * there is a lot of headroom in provisioned on the cluster
+      * clusters are distributed automatically so they don't get hotspots
+      * if we see headroom getting tight AWS move resources
+      * they don't mess with partitions and topics but they do balance them around servers
+      * Solves broker scaling by having oversized clusters pre provisioned
+      * If you never burst it costs more for serverless than provisioned
+      * If you do burst you get a way better deal
+      * You don't need to think about configuration as much
+  * Upgrades
+      * Once a month for OS patches
+      * Use best practices to ensure availability
+         * retry on timeout
+         * durability settings
+  * Constraints
+      * Networking throughput
+  * When does KDA (Kineses Data Analytics) shine?
+      * data enrichment
+      * stateful operations
+      * joins
+      * cross account constraints
+          * vpc peering
+              * have to have shared network space
+              * doesnt play nice with external providers
+          * private link
+              * have to self manage load balancers
+              * you can have multiple private links in the same security groups
+              * I'm the best solution LOOK AT ME
+          * transit gateway
+
+== Benefits over Confluence ==
+  * Open source model
+  * Anything AWS builds for kafka gets contributed to apache kafka
+  * Provisioned MSK provides a lot of configuration options
+  * Serverless has higher limits on AWS with plans to make them way larger
+  * Larger message size
+  * Kinesis Data Analytics for data exploration
+      * flink as a service
+
+== Disadvantages over Confluence ==
+  * AWS has to copy closed source features from confluence
+  * S3 connector

@@ -4,6 +4,7 @@
     * [[CodeBuild]] - Compile, Test, and Create Deployment Artifacts
     * CodeDeploy
     * [[CodePipeline]] - Continuous delivery service
+    * [[MSK]] - Managed Services for Kafka
 
 == Storage ==
     * [[S3]] - Simple Storage Service
