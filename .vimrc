@@ -22,13 +22,13 @@ call plug#begin('~/.vim/plugged')
 " IDE Features
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'puremourning/vimspector'
-Plug 'rcarriga/vim-ultest'
+" Plug 'rcarriga/vim-ultest'
 Plug 'sansyrox/vim-python-virtualenv'
 Plug 'lambdalisue/vim-pyenv'
 
 " CTags
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'preservim/tagbar'
+" Plug 'ludovicchabant/vim-gutentags'
+" Plug 'preservim/tagbar'
 
 " Theme
 Plug 'NLKNguyen/papercolor-theme'
@@ -104,9 +104,9 @@ Plug 'mhinz/vim-startify'
 " Plug 'honza/vim-snippets'
 
 "dependencies
-Plug 'roxma/nvim-yarp' " dependency for vim-ultest
-Plug 'roxma/vim-hug-neovim-rpc' " dependency for vim-ultest
-Plug 'vim-test/vim-test' " dependency for vim-ultest
+" Plug 'roxma/nvim-yarp' " dependency for vim-ultest
+" Plug 'roxma/vim-hug-neovim-rpc' " dependency for vim-ultest
+" Plug 'vim-test/vim-test' " dependency for vim-ultest
 
 " Initialize plugin system
 call plug#end()
@@ -195,8 +195,6 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 set ignorecase " Ignore case when searching
 set smartcase  " When searching try to be smart about cases
-set nohlsearch " Don't highlight search term
-set incsearch  " Jumping search
 
 " Allow copy and paste from system clipboard
 set clipboard=unnamed
@@ -401,18 +399,6 @@ nnoremap <CR> :noh<CR><CR>
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
 
-" Use recommended Coc.nvim settings
-" Set internal encoding of vim, not needed on neovim, since coc.nvim using some
-" unicode characters in the file autoload/float.vim
-set encoding=utf-8
-set termencoding=utf-8
-
-" Give more space for displaying messages.
-set cmdheight=2
-
-" TextEdit might fail if hidden is not set.
-set hidden
-
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
@@ -421,44 +407,37 @@ set nowritebackup
 " delays and poor user experience.
 set updatetime=300
 
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" NOTE: There's always complete item selected by default, you may want to enable
+" no select by `"suggest.noselect": true` in your configuration file.
 " other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-function! s:check_back_space() abort
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" TODO remap due to conflict with tmux
 " Use <c-space> to trigger completion.
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
 else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
-
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -472,15 +451,13 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call ShowDocumentation()<CR>
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
   else
-    execute '!' . &keywordprg . " " . expand('<cword>')
+    call feedkeys('K', 'in')
   endif
 endfunction
 
@@ -512,6 +489,9 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
 
+" Run the Code Lens action on the current line.
+nmap <leader>cl  <Plug>(coc-codelens-action)
+
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
 xmap if <Plug>(coc-funcobj-i)
@@ -539,18 +519,18 @@ nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
+command! -nargs=0 Format :call CocActionAsync('format')
 
 " Add `:Fold` command to fold current buffer.
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics.
@@ -569,6 +549,7 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
 
 " CoC extensions
 let g:coc_global_extensions = ['coc-diagnostic', 'coc-tsserver', 'coc-json', 'coc-pyright']
@@ -706,32 +687,33 @@ nmap <LocalLeader><F12> <Plug>VimspectorDownFrame
 let g:vimspector_enable_mappings = 'HUMAN'
 
 "vim-test
-let test#typescript#runner = 'jest'
-let test#typescript#jest#executable = "yarn test"
-let test#javascript#runner = 'jest'
-let test#javascript#jest#executable = "yarn test"
+" let test#typescript#runner = 'jest'
+" let test#typescript#jest#executable = "yarn test"
+" let test#javascript#runner = 'jest'
+" let test#javascript#jest#executable = "yarn test"
+
 " do not open the test run results, can be changed to show them
 " let g:neomake_open_list = 0
 
 " setlocal errorformat=%f:%l:%c:\ %m
 
-function! JestStrategy(cmd)
-    let testName = matchlist(a:cmd, '\v -t ''(.*)''')[1]
-    call vimspector#LaunchWithSettings( #{ configuration: 'jest', TestName: testName } )
-endfunction
+" function! JestStrategy(cmd)
+"     let testName = matchlist(a:cmd, '\v -t ''(.*)''')[1]
+"     call vimspector#LaunchWithSettings( #{ configuration: 'jest', TestName: testName } )
+" endfunction
 
-let g:test#custom_strategies = { 'jest': function('JestStrategy')}
+" let g:test#custom_strategies = { 'jest': function('JestStrategy')}
 
-nmap <silent> <leader>td :TestNearest -strategy=jest<CR>
+" nmap <silent> <leader>td :TestNearest -strategy=jest<CR>
 
-" Ultest binds, see :help ultest-commands
-nmap <silent> <leader>tn :UltestNearest<CR>
-nmap <silent> <leader>tf :Ultest<CR>
-nmap <silent> <leader>ts :UltestStop<CR>
-nmap <silent> <leader>to :UltestOutput<CR>
+" " Ultest binds, see :help ultest-commands
+" nmap <silent> <leader>tn :UltestNearest<CR>
+" nmap <silent> <leader>tf :Ultest<CR>
+" nmap <silent> <leader>ts :UltestStop<CR>
+" nmap <silent> <leader>to :UltestOutput<CR>
 
-nmap ]t <Plug>(ultest-next-fail)
-nmap [t <Plug>(ultest-prev-fail)
+" nmap ]t <Plug>(ultest-next-fail)
+" nmap [t <Plug>(ultest-prev-fail)
 
 let g:indent_guides_enable_on_vim_startup = 1
 
@@ -780,64 +762,64 @@ let g:closetag_shortcut = '>'
 let g:closetag_close_shortcut = '<leader>>'
 
 " Toggle Tag Bar
-nmap <leader>tb :TagbarToggle<CR>
+" nmap <leader>tb :TagbarToggle<CR>
 
 " vim-gutentag
-let g:gutentags_add_default_project_roots = 0
-let g:gutentags_project_root = ['package.json', '.git']
-let g:gutentags_cache_dir = expand('~/.cache/vim/ctags/')
-let g:gutentags_generate_on_new = 1
-let g:gutentags_generate_on_missing = 1
-let g:gutentags_generate_on_write = 1
-let g:gutentags_generate_on_empty_buffer = 0
-let g:gutentags_modules = ['ctags']
-let g:gutentags_ctags_exclude = [
-      \ '*.git', '*.svg', '*.hg',
-      \ '*/tests/*',
-      \ 'build',
-      \ 'dist',
-      \ '*sites/*/files/*',
-      \ 'bin',
-      \ 'node_modules',
-      \ 'bower_components',
-      \ 'cache',
-      \ 'compiled',
-      \ 'docs',
-      \ 'example',
-      \ 'bundle',
-      \ 'vendor',
-      \ '*.md',
-      \ '*-lock.json',
-      \ '*.lock',
-      \ '*bundle*.js',
-      \ '*build*.js',
-      \ '.*rc*',
-      \ '*.json',
-      \ '*.min.*',
-      \ '*.map',
-      \ '*.bak',
-      \ '*.zip',
-      \ '*.pyc',
-      \ '*.class',
-      \ '*.sln',
-      \ '*.Master',
-      \ '*.csproj',
-      \ '*.tmp',
-      \ '*.csproj.user',
-      \ '*.cache',
-      \ '*.pdb',
-      \ 'tags*',
-      \ 'cscope.*',
-      \ '*.css',
-      \ '*.less',
-      \ '*.scss',
-      \ '*.exe', '*.dll',
-      \ '*.mp3', '*.ogg', '*.flac',
-      \ '*.swp', '*.swo',
-      \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
-      \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
-      \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
-      \ ]
+" let g:gutentags_add_default_project_roots = 0
+" let g:gutentags_project_root = ['package.json', '.git']
+" let g:gutentags_cache_dir = expand('~/.cache/vim/ctags/')
+" let g:gutentags_generate_on_new = 1
+" let g:gutentags_generate_on_missing = 1
+" let g:gutentags_generate_on_write = 1
+" let g:gutentags_generate_on_empty_buffer = 0
+" let g:gutentags_modules = ['ctags']
+" let g:gutentags_ctags_exclude = [
+"       \ '*.git', '*.svg', '*.hg',
+"       \ '*/tests/*',
+"       \ 'build',
+"       \ 'dist',
+"       \ '*sites/*/files/*',
+"       \ 'bin',
+"       \ 'node_modules',
+"       \ 'bower_components',
+"       \ 'cache',
+"       \ 'compiled',
+"       \ 'docs',
+"       \ 'example',
+"       \ 'bundle',
+"       \ 'vendor',
+"       \ '*.md',
+"       \ '*-lock.json',
+"       \ '*.lock',
+"       \ '*bundle*.js',
+"       \ '*build*.js',
+"       \ '.*rc*',
+"       \ '*.json',
+"       \ '*.min.*',
+"       \ '*.map',
+"       \ '*.bak',
+"       \ '*.zip',
+"       \ '*.pyc',
+"       \ '*.class',
+"       \ '*.sln',
+"       \ '*.Master',
+"       \ '*.csproj',
+"       \ '*.tmp',
+"       \ '*.csproj.user',
+"       \ '*.cache',
+"       \ '*.pdb',
+"       \ 'tags*',
+"       \ 'cscope.*',
+"       \ '*.css',
+"       \ '*.less',
+"       \ '*.scss',
+"       \ '*.exe', '*.dll',
+"       \ '*.mp3', '*.ogg', '*.flac',
+"       \ '*.swp', '*.swo',
+"       \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
+"       \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
+"       \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
+"       \ ]
 
 "------------------------------------------------------------------------------
 " slime configuration

@@ -24,3 +24,7 @@ ln -sr .config/kitty/kitty.conf ~/.config/kitty/kitty.conf
 
 rm -f ~/.tmux.conf
 ln -sr .tmux.conf ~/.tmux.conf
+
+rm -f ~/.config/nvim/init.lua
+# mkdir ~/.config/nvim
+ln -sr .config/nvim ~/.config/nvim
