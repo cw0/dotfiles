@@ -4,8 +4,12 @@ local set = vim.opt
   BASIC CONFIGURATION
 --]]
 
+-- disable netrw for nvim-tree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 set.termguicolors = true
-set.syntax = 'on'
+-- set.syntax = 'on' -- this is disabled for treesitter
 set.syn = 'auto'
 
 set.tabstop = 2
@@ -48,7 +52,7 @@ set.incsearch = true
 
 set.clipboard = 'unnamed'
 
-set.backspace = {'indent', 'eol', 'start'}
+set.backspace = { 'indent', 'eol', 'start' }
 
 set.display:append('lastline')
 
@@ -68,7 +72,7 @@ set.showmatch = true
 set.cursorline = true
 
 -- set hidden characters
-set.list.listchars = {tab = '> ', trail = '-', eol = '$'}
+set.list.listchars = { tab = '> ', trail = '-', eol = '$' }
 set.list = true
 
 -- add a colored column

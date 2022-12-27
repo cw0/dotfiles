@@ -1,0 +1,7 @@
+require('config.treesitter')
+require('config.fugitive')
+require('config.nvim-tree')
+require('config.neotest')
+require('config.lsp')
+require('config.dap')
+require('config.tmux')
