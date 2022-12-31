@@ -5,8 +5,6 @@ vim.cmd([[
   augroup end
 ]])
 
-local map = vim.keymap.set
-
 local ensure_packer = function()
   local fn = vim.fn
   local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
@@ -21,7 +19,7 @@ end
 local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'
+  use 'wbthomason/packer.nvim' -- have packer manage itself
 
   -- tmux navigation" packer
   use { "alexghergh/nvim-tmux-navigation" }
@@ -56,15 +54,17 @@ return require('packer').startup(function(use)
     'hrsh7th/cmp-path', --path completions
     'hrsh7th/nvim-cmp',
     'onsails/lspkind.nvim',
+    'glepnir/lspsaga.nvim' -- shows a popup for things like code actions
   }
 
-  -- language server
+  -- linting an formatting
   use {
     'jose-elias-alvarez/null-ls.nvim',
     requires = {
       'nvim-lua/plenary.nvim'
     }
   }
+  use 'jayp0521/mason-null-ls.nvim'
 
   -- snippets
   use 'L3MON4D3/LuaSnip'

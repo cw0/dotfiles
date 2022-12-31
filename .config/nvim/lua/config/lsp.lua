@@ -1,124 +1,74 @@
--- Mason
-local mason_status, mason = pcall(require, 'mason')
-if (not mason_status) then return end
-
-mason.setup()
-
--- Mason LSP Config
-local mason_lspconfig_status, mason_lspconfig = pcall(require, 'mason-lspconfig')
-if (not mason_lspconfig_status) then return end
-
-mason_lspconfig.setup({
-  ensure_installed = {
-    'sumneko_lua',
-    'tsserver'
-  },
-  automatic_installation = true
-})
-
-local lspconfig_status, lspconfig = pcall(require, 'lspconfig')
-if (not lspconfig_status) then return end
-
-local protocol = require('vim.lsp.protocol')
-
-local on_attach = function(client, bufnr)
-  --formatting
-  if client.server_capabilities.documentFormattingProvider then
-    vim.api.nvim_create_autocmd('BufWritePre', {
-      group = vim.api.nvim_create_augroup('Format', { clear = true }),
-      buffer = bufnr,
-      callback = function() vim.lsp.buf.formatting_seq_sync() end
-    })
-  end
+local lspconfig_status, lspconfig = pcall(require, "lspconfig")
+if not lspconfig_status then
+	return
 end
 
-lspconfig.sumneko_lua.setup {
-  on_attach = on_attach,
-  settings = {
-    Lua = {
-      diagnostics = {
-        globals = { 'vim' },
-      },
-      workspace = {
-        library = vim.api.nvim_get_runtime_file('', true),
-        checkThirdParty = false
-      },
-    },
-  },
-}
+local cmp_nvim_lsp_status, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+if not cmp_nvim_lsp_status then
+	return
+end
 
-local cmp_nvim_lsp_status, cmp_nvim_lsp = pcall(require, 'cmp_nvim_lsp')
-if (not cmp_nvim_lsp_status) then return end
+local capabilities = cmp_nvim_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local keymap = vim.keymap
 
-local capabilities = cmp_nvim_lsp.default_capabilities(
-  vim.lsp.protocol.make_client_capabilities()
-)
+-- enable keybinds only for when lsp server available
+local on_attach = function(client, bufnr)
+	-- keybind options
+	local opts = { noremap = true, silent = true, buffer = bufnr }
 
-lspconfig.tsserver.setup {
-  on_attach = on_attach,
-  cmd = { "typescript-language-server", "--stdio" },
-  capabilities = capabilities,
-  filetypes = {
-    'javascript',
-    'typescript',
-    'typescriptreact',
-    'typescript.tsx'
-  },
-  root_dir = function() return vim.loop.cwd() end
-}
+	-- set keybinds
+	keymap.set("n", "gf", "<cmd>Lspsaga lsp_finder<CR>", opts) -- show definition, references
+	keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts) -- see definition and make edits in window
+	keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+	keymap.set("n", "gT", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+	keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+	keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+	keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+	keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
+	keymap.set("n", "<leader>la", "<cmd>Lspsaga code_action<CR>", opts)
+	keymap.set("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
+	keymap.set("n", "<leader>lj", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
+	keymap.set("n", "<leader>lk", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
+	keymap.set("n", "<leader>lr", "<cmd>Lspsaga rename<CR>", opts)
+	keymap.set("n", "<leader>lq", "<cmd>LspRestart<CR>", opts)
+	keymap.set("n", "<leader>ls", "<cmd>Lspsaga signature_help<CR>", opts)
+	keymap.set("n", "<leader>lt", "<cmd>LSoutlineToggle<CR>", opts)
 
-local cmp_status, cmp = pcall(require, 'cmp')
-if (not cmp_status) then return end
+	-- typescript specific keymaps (e.g. rename file and update imports)
+	if client.name == "tsserver" then
+		keymap.set("n", "<leader>lo", "<cmd>TypescriptOrganizeImports<CR>", opts)
+		keymap.set("n", "<leader>li", "<cmd>TypescriptAddMissingImports<CR>", opts)
+		keymap.set("n", "<leader>lrf", "<cmd>TypescriptRenameFile<CR>", opts)
+		keymap.set("n", "<leader>lu", "<cmd>TypescriptRemoveUnused<CR>", opts)
+	end
+end
 
-local lspkind_status, lspkind = pcall(require, 'lspkind')
-if (not lspkind_status) then return end
+lspconfig.sumneko_lua.setup({
+	on_attach = on_attach,
+	settings = {
+		Lua = {
+			diagnostics = {
+				globals = { "vim" },
+			},
+			workspace = {
+				library = vim.api.nvim_get_runtime_file("", true),
+				checkThirdParty = false,
+			},
+		},
+	},
+})
 
-local luasnip_status, luasnip = pcall(require, 'luasnip')
-if (not luasnip_status) then return end
-
-cmp.setup({
-  mapping = {
-    ['<Tab>'] = cmp.mapping.select_next_item(),
-    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-  },
-  window = {
-    documentation = cmp.config.window.bordered({
-      border = "rounded",
-      winhighlight = "Normal:Pmenu,CursorLine:PmenuSel,FloatBorder:String",
-      max_width = 10,
-    }),
-    completion = cmp.config.window.bordered({
-      border = "rounded",
-      winhighlight = "Normal:Pmenu,CursorLine:PmenuSel,FloatBorder:String",
-      side_padding = 1,
-      col_offset = 3,
-      scrollbar = false,
-    }),
-  },
-  formatting = {
-    format = lspkind.cmp_format({
-      -- with_text = false,
-      maxwidth = 50,
-      mode = 'symbol_text',
-      elipsis_char = '...',
-    })
-  },
-  completion = {
-    completeopt = 'menu,menuone,noinsert,noselect',
-  },
-  sources = {
-    { name = 'buffer' },
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-  },
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
+lspconfig.tsserver.setup({
+	on_attach = on_attach,
+	cmd = { "typescript-language-server", "--stdio" },
+	capabilities = capabilities,
+	filetypes = {
+		"javascript",
+		"typescript",
+		"typescriptreact",
+		"typescript.tsx",
+	},
+	root_dir = function()
+		return vim.loop.cwd()
+	end,
 })
