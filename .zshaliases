@@ -41,3 +41,5 @@ alias tmuxl='tmux list-sessions'
 #zsh directory stack: press d to view and 1-9 to select
 alias d='dirs -v'
 for index ({1..9}) alias "$index"="cd +${index}"; unset index
+
+alias :wq=exit

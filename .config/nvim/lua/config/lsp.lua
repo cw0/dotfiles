@@ -67,10 +67,14 @@ lspconfig.tsserver.setup {
   root_dir = function() return vim.loop.cwd() end
 }
 
-local cmp_status, cmp = pcall(require, "cmp")
+local cmp_status, cmp = pcall(require, 'cmp')
 if (not cmp_status) then return end
 
-local lspkind = require('lspkind') -- TODO convert to pcall
+local lspkind_status, lspkind = pcall(require, 'lspkind')
+if (not lspkind_status) then return end
+
+local luasnip_status, luasnip = pcall(require, 'luasnip')
+if (not luasnip_status) then return end
 
 cmp.setup({
   mapping = {
@@ -82,7 +86,6 @@ cmp.setup({
     ['<C-e>'] = cmp.mapping.abort(),
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
   },
-
   window = {
     documentation = cmp.config.window.bordered({
       border = "rounded",
@@ -97,9 +100,13 @@ cmp.setup({
       scrollbar = false,
     }),
   },
-
   formatting = {
-    format = lspkind.cmp_format({ with_text = false, maxwidth = 50 })
+    format = lspkind.cmp_format({
+      -- with_text = false,
+      maxwidth = 50,
+      mode = 'symbol_text',
+      elipsis_char = '...',
+    })
   },
   completion = {
     completeopt = 'menu,menuone,noinsert,noselect',
@@ -108,5 +115,10 @@ cmp.setup({
     { name = 'buffer' },
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+  },
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
   },
 })

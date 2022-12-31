@@ -45,14 +45,15 @@ return require('packer').startup(function(use)
   -- dap & lsp management
   use {
     'williamboman/mason.nvim',
-    'williamboman/mason-lspconfig.nvim',
+    'williamboman/mason-lspconfig.nvim', -- automatic setup for lsp
     'neovim/nvim-lspconfig',
   }
 
   -- completion
   use {
-    'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-buffer', -- buffer completions
+    'hrsh7th/cmp-nvim-lsp', --lsp completions
+    'hrsh7th/cmp-path', --path completions
     'hrsh7th/nvim-cmp',
     'onsails/lspkind.nvim',
   }
@@ -65,6 +66,8 @@ return require('packer').startup(function(use)
     }
   }
 
+  -- snippets
+  use 'L3MON4D3/LuaSnip'
   use 'saadparwaiz1/cmp_luasnip'
 
   -- unit testing
@@ -85,7 +88,14 @@ return require('packer').startup(function(use)
       'mfussenegger/nvim-dap'
     }
   }
-
+  -- dap: the joys of javascript
+  use {
+    "mxsdev/nvim-dap-vscode-js",
+    requires = {
+      "mfussenegger/nvim-dap"
+    }
+  }
+  use 'jay-babu/mason-nvim-dap.nvim' -- automatic setup for dap
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
