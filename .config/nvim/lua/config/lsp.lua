@@ -3,6 +3,11 @@ if not lspconfig_status then
 	return
 end
 
+local typescript_setup, typescript = pcall(require, "typescript")
+if not typescript_setup then
+	return
+end
+
 local cmp_nvim_lsp_status, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 if not cmp_nvim_lsp_status then
 	return
@@ -58,17 +63,31 @@ lspconfig.sumneko_lua.setup({
 	},
 })
 
-lspconfig.tsserver.setup({
-	on_attach = on_attach,
-	cmd = { "typescript-language-server", "--stdio" },
-	capabilities = capabilities,
-	filetypes = {
-		"javascript",
-		"typescript",
-		"typescriptreact",
-		"typescript.tsx",
+-- configure typescript server with plugin
+typescript.setup({
+	server = {
+		capabilities = capabilities,
+		on_attach = on_attach,
 	},
-	root_dir = function()
-		return vim.loop.cwd()
-	end,
 })
+
+-- Show line diagnostics automatically in hover window
+vim.o.updatetime = 250
+vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
+
+-- removed for now
+
+-- lspconfig.tsserver.setup({
+-- 	on_attach = on_attach,
+-- 	cmd = { "typescript-language-server", "--stdio" },
+-- 	capabilities = capabilities,
+-- 	filetypes = {
+-- 		"javascript",
+-- 		"typescript",
+-- 		"typescriptreact",
+-- 		"typescript.tsx",
+-- 	},
+-- 	root_dir = function()
+-- 		return vim.loop.cwd()
+-- 	end,
+-- })
