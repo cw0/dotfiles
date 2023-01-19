@@ -13,8 +13,10 @@ if not mason_null_ls_status then
 	return
 end
 
-local mason_nvim_dap_status, mason_nvim_dap = pcall(require, 'mason-nvim-dap')
-if not mason_nvim_dap_status then return end
+local mason_nvim_dap_status, mason_nvim_dap = pcall(require, "mason-nvim-dap")
+if not mason_nvim_dap_status then
+	return
+end
 
 mason.setup()
 
@@ -25,6 +27,7 @@ mason_lspconfig.setup({
 		"tsserver",
 		"jsonls",
 		"tailwindcss",
+		"terraformls",
 		"yamlls",
 	},
 	-- auto-install configured servers (with lspconfig)
@@ -37,6 +40,7 @@ mason_null_ls.setup({
 		"eslint_d", -- ts/js linter
 		"prettier", -- ts/js formatter
 		"stylua", -- lua formatter
+		"tflint", -- terraform linting
 	},
 	-- auto-install configured formatters & linters (with null-ls)
 	automatic_installation = true,
@@ -44,8 +48,8 @@ mason_null_ls.setup({
 
 -- todo update this repo to work for this adapter
 mason_nvim_dap.setup({
-  ensure_installed = {
-    'js-debug-adapter'
-  },
-  automatic_installation = true,
+	ensure_installed = {
+		"js-debug-adapter",
+	},
+	automatic_installation = true,
 })

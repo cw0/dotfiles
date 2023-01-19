@@ -51,7 +51,7 @@ keymap("n", "<Leader>gw", "<cmd>Gwrite<CR>", opts)
 
 -- Telescope
 -- Find file
-keymap("n", "<Leader>ff", "<cmd>lua require('user.plugins.configs.telescope').project_files()<CR>", opts)
+keymap("n", "<Leader>ff", "<cmd>lua require('config.telescope').project_files()<CR>", opts)
 -- Find text
 keymap("n", "<Leader>ft", "<cmd>Telescope live_grep<CR>", opts)
 -- Find word

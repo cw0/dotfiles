@@ -28,3 +28,5 @@ ln -sr .tmux.conf ~/.tmux.conf
 rm -f ~/.config/nvim/init.lua
 # mkdir ~/.config/nvim
 ln -sr .config/nvim ~/.config/nvim
+
+ln -sr notes/home ~/notes/home
