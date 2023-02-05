@@ -20,7 +20,6 @@ map("n", "<Leader>ta", function()
 end, { desc = "attach to test" })
 
 -- get neotest namespace (api call creates or returns namespace)
-local neotest_ns = vim.api.nvim_create_namespace("neotest")
 vim.diagnostic.config({
 	-- virtual_text = {
 	-- 	format = function(diagnostic)
@@ -32,7 +31,7 @@ vim.diagnostic.config({
 	float = {
 		border = "rounded",
 	},
-}, neotest_ns)
+})
 
 require("neotest").setup({
 	adapters = {

@@ -52,18 +52,28 @@ cmp.setup({
 	completion = {
 		completeopt = "menu,menuone,noinsert",
 	},
-	-- window = {
-	-- 	documentation = cmp.config.window.bordered({
-	-- 		border = "rounded",
-	-- 		winhighlight = "Normal:Pmenu,CursorLine:PmenuSel,FloatBorder:String",
-	-- 		max_width = 10,
-	-- 	}),
-	-- 	completion = cmp.config.window.bordered({
-	-- 		border = "rounded",
-	-- 		winhighlight = "Normal:Pmenu,CursorLine:PmenuSel,FloatBorder:String",
-	-- 		side_padding = 1,
-	-- 		col_offset = 3,
-	-- 		scrollbar = false,
-	-- 	}),
-	-- },
+	cmdline = {
+		":",
+		{
+			mapping = cmp.mapping.preset.cmdline(),
+			sources = {
+				{ name = "buffer" },
+			},
+		},
+	},
+
+	window = {
+		documentation = cmp.config.window.bordered({
+			border = "rounded",
+			winhighlight = "Normal:Pmenu,CursorLine:PmenuSel,FloatBorder:String",
+			max_width = 10,
+		}),
+		completion = cmp.config.window.bordered({
+			border = "rounded",
+			winhighlight = "Normal:Pmenu,CursorLine:PmenuSel,FloatBorder:String",
+			side_padding = 1,
+			col_offset = 3,
+			scrollbar = false,
+		}),
+	},
 })
