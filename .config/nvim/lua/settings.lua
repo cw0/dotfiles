@@ -10,7 +10,7 @@ vim.g.loaded_netrwPlugin = 1
 
 set.termguicolors = true
 -- set.syntax = 'on' -- this is disabled for treesitter
-set.syn = "auto"
+-- set.syn = "auto"
 
 set.tabstop = 2
 set.softtabstop = 2

@@ -22,11 +22,14 @@ cmp.setup({
 		end,
 	},
 	mapping = {
+		["<Tab>"] = cmp.mapping.select_next_item(), -- next suggestion
 		["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
+		["<S-Tab>"] = cmp.mapping.select_prev_item(), -- previous suggestion
 		["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
 		["<C-d>"] = cmp.mapping.scroll_docs(-4),
 		["<C-u>"] = cmp.mapping.scroll_docs(4),
 		["<C-n>"] = cmp.mapping.abort(), -- close completion window
+		["<CR>"] = cmp.mapping.confirm({ select = false }),
 		["<C-y>"] = cmp.mapping.confirm({ select = false }),
 		["<C-l>"] = cmp.mapping.complete(), -- show completion suggestions
 	},
@@ -46,9 +49,9 @@ cmp.setup({
 			symbol_map = { Copilot = "" },
 		}),
 	},
-	-- completion = {
-	-- 	completeopt = "menu,menuone,noinsert,noselect",
-	-- },
+	completion = {
+		completeopt = "menu,menuone,noinsert",
+	},
 	-- window = {
 	-- 	documentation = cmp.config.window.bordered({
 	-- 		border = "rounded",
