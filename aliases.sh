@@ -19,14 +19,14 @@ ln -sr .vimrc ~/.vimrc
 ln -sr vimwiki ~/vimwiki
 
 rm -f ~/.config/kitty/kitty.conf
-# mkdir ~/.config/kitty
+mkdir -p ~/.config/kitty
 ln -sr .config/kitty/kitty.conf ~/.config/kitty/kitty.conf
 
 rm -f ~/.tmux.conf
 ln -sr .tmux.conf ~/.tmux.conf
 
-rm -f ~/.config/nvim/init.lua
-# mkdir ~/.config/nvim
+rm -rf ~/.config/nvim
 ln -sr .config/nvim ~/.config/nvim
 
+mkdir -p ~/notes/home
 ln -sr notes/home ~/notes/home

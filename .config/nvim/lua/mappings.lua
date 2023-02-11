@@ -49,6 +49,9 @@ keymap("n", "<Leader>gr", "<cmd>Gread<CR>", opts)
 keymap("n", "<Leader>gs", "<cmd>G<CR>", opts)
 keymap("n", "<Leader>gw", "<cmd>Gwrite<CR>", opts)
 
+-- highlighting
+keymap("n", "<leader>hg", ":TSHighlightCapturesUnderCursor <Return>")
+
 -- Telescope
 -- Find file
 keymap("n", "<Leader>ff", "<cmd>lua require('config.telescope').project_files()<CR>", opts)

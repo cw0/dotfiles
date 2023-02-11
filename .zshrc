@@ -178,13 +178,17 @@ export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
-source ~/.zion/zion-dev-tools/zionrc/.zionrc
+ZIONRC=~/.zion/zion-dev-tools/zionrc/.zionrc
+if test -f "$ZIONRC"; then
+	source ~/.zion/zion-dev-tools/zionrc/.zionrc
+fi
+
 export PATH="$PATH:~/go/bin"
 export PATH="$PATH:$(python3 -m site --user-base)/bin"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # added by Snowflake SnowSQL installer v1.2
 export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH
@@ -193,3 +197,4 @@ export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH
 export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
 
 export PATH="$HOME/.poetry/bin:$PATH"
+source /usr/share/nvm/init-nvm.sh
