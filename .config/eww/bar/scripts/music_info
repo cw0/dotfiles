@@ -2,13 +2,14 @@
 # scripts by adi1090x
 
 ## Get data
-STATUS="$(mpc status)"
-COVER="/tmp/.music_cover.png"
+STATUS="$(playerctl status)"
+#COVER="/tmp/.music_cover.png"
+COVER="$(playerctl metadata artUrl)"
 MUSIC_DIR="$HOME/music"
 
 ## Get status
 get_status() {
-	if [[ $STATUS == *"[playing]"* ]]; then
+	if [[ $STATUS == "Playing" ]]; then
 		echo ""
 	else
 		echo "奈"
@@ -17,7 +18,7 @@ get_status() {
 
 ## Get song
 get_song() {
-	song=`mpc -f %title% current`
+	song=`playerctl metadata title`
 	if [[ -z "$song" ]]; then
 		echo "Offline"
 	else
@@ -27,7 +28,7 @@ get_song() {
 
 ## Get artist
 get_artist() {
-	artist=`mpc -f %artist% current`
+	artist=`playerctl metadata artist`
 	if [[ -z "$artist" ]]; then
 		echo ""
 	else
@@ -63,7 +64,7 @@ get_ttime() {
 
 ## Get cover
 get_cover() {
-	ffmpeg -i "${MUSIC_DIR}/$(mpc current -f %file%)" "${COVER}" -y &> /dev/null
+	ffmpeg -i "${COVER}" -y &> /dev/null
 	STATUS=$?
 
 	# Check if the file has a embbeded album art
@@ -71,6 +72,14 @@ get_cover() {
 		echo "$COVER"
 	else
 		echo "images/music.png"
+	fi
+}
+
+toggle() {
+	if [[ $(playerctl status) == "Playing" ]]; then
+	  playerctl stop
+	else
+	  playerctl play
 	fi
 }
 
@@ -90,9 +99,9 @@ elif [[ "$1" == "--ttime" ]]; then
 elif [[ "$1" == "--cover" ]]; then
 	get_cover
 elif [[ "$1" == "--toggle" ]]; then
-	mpc -q toggle
+  toggle
 elif [[ "$1" == "--next" ]]; then
-	{ mpc -q next; get_cover; }
+	{ $(playerctl next); }
 elif [[ "$1" == "--prev" ]]; then
-	{ mpc -q prev; get_cover; }
+	{ $(playerctl prev); }
 fi
