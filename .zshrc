@@ -72,6 +72,13 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+function safe_load() {
+  [ -f $1 ] && source $1
+}
+
+safe_load /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+safe_load /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
