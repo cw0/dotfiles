@@ -275,6 +275,7 @@
 			  :year calendar_year))))
 
 (defwindow calendar
+  :monitor 0
 	:geometry (geometry :x "-20px" 
 						:y "7%" 
                         :anchor "top right"
@@ -313,6 +314,7 @@
 			  :min 0))))))
 
 (defwindow audio_ctl
+  :monitor 0
 	:geometry (geometry :x "-20px" 
 						:y "7%" 
                         :anchor "top right"
@@ -322,6 +324,7 @@
 
 
 (defwindow system
+  :monitor 0
 	:geometry (geometry :x "-20px" 
 						:y "7%" 
                         :anchor "top right"
@@ -348,6 +351,7 @@
 
 ;;  music
 		(defwindow music_win :stacking "fg" :focusable "false" :screen 1
+		      :monitor 0
 			    :geometry (geometry :x "0" :y "7%" :width 428 :height 104 :anchor "top center")
 			     				(music_pop))
 
