@@ -1,0 +1,10 @@
+= My Notes d:D =
+
+== Personal ==
+    * [[AWS/index|AWS]] - Studies of cloud services
+    * [[TMUX]] - Sweet Sweet TMUX
+    * [[Terraform]] - Infrastructure as code for multicloud
+    * [[Snowflake/index|Snowflake]] - Cloud data warehouse
+
+== Work Related ==
+    * [[CNN/index|CNN]] - Top Secret Obviously Unversioned Notes

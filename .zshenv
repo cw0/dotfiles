@@ -11,3 +11,4 @@ export SAVEHIST=10000                   # Maximum events in history file
 export VI_MODE_SET_CURSOR=true
 export VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 
+export MANPAGER="nvim +Man! -c ':set signcolumn=auto'"

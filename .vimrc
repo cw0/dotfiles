@@ -22,26 +22,21 @@ call plug#begin('~/.vim/plugged')
 " IDE Features
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'puremourning/vimspector'
-Plug 'roxma/nvim-yarp' " dependency for vim-ultest
-Plug 'roxma/vim-hug-neovim-rpc' " dependency for vim-ultest
-Plug 'vim-test/vim-test' " dependency for vim-ultest
-Plug 'rcarriga/vim-ultest'
-Plug 'tpope/vim-dispatch'
-Plug 'neomake/neomake'
+" Plug 'rcarriga/vim-ultest'
 Plug 'sansyrox/vim-python-virtualenv'
 Plug 'lambdalisue/vim-pyenv'
 
 " CTags
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'preservim/tagbar'
+" Plug 'ludovicchabant/vim-gutentags'
+" Plug 'preservim/tagbar'
 
 " Theme
 Plug 'NLKNguyen/papercolor-theme'
 " Plug 'morhetz/gruvbox'
 " Plug 'nightsense/seabird'
+" Plug 'caksoylar/vim-mysticaltutor'
 
 " Appearance
-Plug 'ryanoasis/vim-devicons'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -71,15 +66,19 @@ Plug 'airblade/vim-gitgutter'     " Show git diff of lines edited
 Plug 'stsewd/fzf-checkout.vim'
 " Plug 'tpope/vim-rhubarb' " TODO configure
 
+" File Browser
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern-git-status.vim'
+Plug 'lambdalisue/fern-hijack.vim'
+Plug 'lambdalisue/nerdfont.vim'
+Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+Plug 'lambdalisue/glyph-palette.vim' " TODO configure
+Plug 'yuki-yano/fern-preview.vim'
+
 " Navigation
-Plug 'preservim/nerdtree'
-" Plug 'tyok/nerdtree-ack'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'easymotion/vim-easymotion'
 Plug 'rhysd/accelerated-jk'
 Plug 'schickling/vim-bufonly' "close all but targeted buffer
-"Plug 'wellle/targets.vim' "lets learn default movements better first
 "Plug 'christoomey/vim-tmux-navigator' "edited out due to issues with tmux 3.256
 
 " Editing
@@ -94,19 +93,20 @@ Plug 'matze/vim-move'
 Plug 'mbbill/undotree'
 Plug 'mg979/vim-visual-multi'
 Plug 'tpope/vim-speeddating' "increment dates and times with ctrl-a and ctrl-x
-" Plug 'coderifous/textobj-word-column.vim'
-" Plug 'junegunn/vim-easy-align'
 
+" Notes / Scheduling / QOL
+Plug 'vimwiki/vimwiki'
+Plug 'mhinz/vim-startify'
 " Plug 'tpope/vim-sensible'
-" Plug 'vimwiki/vimwiki'
+
+" Snippets
+" Plug 'SirVer/ultisnips'
 " Plug 'honza/vim-snippets'
-" Plug 'caksoylar/vim-mysticaltutor'
-" Plug 'vim-scripts/ZoomWin'
-" Plug 'terryma/vim-expand-region'
 
 "dependencies
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
+" Plug 'roxma/nvim-yarp' " dependency for vim-ultest
+" Plug 'roxma/vim-hug-neovim-rpc' " dependency for vim-ultest
+" Plug 'vim-test/vim-test' " dependency for vim-ultest
 
 " Initialize plugin system
 call plug#end()
@@ -130,10 +130,6 @@ set termguicolors
 set background=dark
 colorscheme PaperColor
 let g:airline_theme='papercolor'
-
-" gruvbox
-" colorscheme gruvbox
-" let g:gruvbox_contrast_dark = 'hard'
 
 " set vertical split char
 set fillchars+=vert:\│
@@ -199,8 +195,6 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 set ignorecase " Ignore case when searching
 set smartcase  " When searching try to be smart about cases
-set nohlsearch " Don't highlight search term
-set incsearch  " Jumping search
 
 " Allow copy and paste from system clipboard
 set clipboard=unnamed
@@ -273,16 +267,16 @@ nmap <Leader>t :enew<CR>
 " Move to the next buffer
 nmap <Leader>l :bnext<CR>
 nmap <Leader>] :bnext<CR>
-nmap ˙ :bnext<CR>
-inoremap ˙ :bnext<CR>
-vnoremap ˙ :bnext<CR>
+nmap ¬ :bnext<CR>
+inoremap ¬ :bnext<CR>
+vnoremap ¬ :bnext<CR>
 
 " Move to the previous buffer
 nmap <Leader>h :bprevious<CR>
 nmap <Leader>[ :bprevious<CR>
-nmap ¬ :bprevious<CR>
-inoremap ¬ :bprevious<CR>
-vnoremap ¬ :bprevious<CR>
+nmap ˙ :bprevious<CR>
+inoremap ˙ :bprevious<CR>
+vnoremap ˙ :bprevious<CR>
 
 " Close the current buffer and move to the previous one
 " This replicates the idea of closing a tab
@@ -333,46 +327,70 @@ hi ReactLifeCycleMethods ctermfg=204 guifg=#D19A66
 "---end TSX styles----"
 
 " highlight the char between vertical splits in the status bar
-hi StatusLineNC guifg=NONE guibg=NONE
+hi StatusLine guifg=#0087af guibg=#e4e4e4
+hi StatusLineNC guifg=#0087af guibg=#e4e4e4
 
 "Airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
-" NERDtree settings
-nnoremap <leader>n :NERDTreeFocus<CR>
-"nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
+"Fern Settings
+let g:fern#default_hidden=1 " show hidden files by default in fern
+let g:fern#renderer = "nerdfont"
+let g:fern#disable_default_mappings=1
 
-" Disable jump to sibling bindings to allow better tmux integration
-let g:NERDTreeMapJumpPrevSibling=""
-let g:NERDTreeMapJumpNextSibling=""
+noremap <silent> <C-t> :Fern . -drawer -reveal=% -toggle -width=35<CR><C-w>=
 
-" show hidden files automatically
-let NERDTreeShowHidden=1
+function! FernInit() abort
+    nmap <buffer><expr> <Plug>(fern-my-open-or-expand)
+	    \ fern#smart#leaf(
+	    \   "<Plug>(fern-action-open)",
+	    \   "<Plug>(fern-action-expand)",
+	    \   "<Plug>(fern-action-collapse)"
+	    \ )
 
-" Dont allow nerdtree to swap buffers
-autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" | b# | endif
+    nmap <buffer><nowait> l <Plug>(fern-my-open-or-expand)
+    nmap <buffer><nowait> h <Plug>(fern-action-collapse)
 
-" Start NERDTree. If a file is specified, move the cursor to its window.
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
+    " nmap <buffer><nowait> l <Plug>(fern-my-expand-or-collapse)
+    nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
+    nmap <silent> <buffer> <C-p> <Plug>(fern-action-preview:auto:toggle)
+    nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
+    nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
 
-" Start NERDTree when Vim starts with a directory argument.
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
-    \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
+    " Define NERDTree like mappings
+    nmap <buffer> go <Plug>(fern-action-open:edit)<C-w>p
+    nmap <buffer> t <Plug>(fern-action-open:tabedit)
+    nmap <buffer> T <Plug>(fern-action-open:tabedit)gT
+    nmap <buffer> i <Plug>(fern-action-open:split)
+    nmap <buffer> gi <Plug>(fern-action-open:split)<C-w>p
+    nmap <buffer> s <Plug>(fern-action-open:vsplit)
+    nmap <buffer> gs <Plug>(fern-action-open:vsplit)<C-w>p
+    nmap <buffer> ma <Plug>(fern-action-new-path)
+    nmap <buffer> P gg
 
-" Exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+    nmap <buffer> C <Plug>(fern-action-enter)
+    nmap <buffer> u <Plug>(fern-action-leave)
+    nmap <buffer> r <Plug>(fern-action-reload)
+    nmap <buffer> R gg<Plug>(fern-action-reload)<C-o>
+    nmap <buffer> cd <Plug>(fern-action-cd)
+    nmap <buffer> CD gg<Plug>(fern-action-cd)<C-o>
 
-" Close the tab if NERDTree is the only window remaining in it.
-autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+    nmap <buffer> I <Plug>(fern-action-hidden-toggle)
 
-" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+    nmap <buffer> q :<C-u>quit<CR>
+    nmap <buffer><nowait> o <Plug>(fern-my-open-or-expand)
+
+    nmap <buffer> c <Plug>(fern-action-copy)
+    nmap <buffer> m <Plug>(fern-action-move)
+    nmap <buffer> d <Plug>(fern-action-trash)
+endfunction
+
+augroup FernGroup
+    autocmd!
+    autocmd FileType fern call FernInit()
+    autocmd FileType fern setlocal norelativenumber | setlocal nonumber | call FernInit()
+augroup END
 
 "This unsets the "last search pattern" register by hitting return
 nnoremap <CR> :noh<CR><CR>
@@ -380,18 +398,6 @@ nnoremap <CR> :noh<CR><CR>
 "accelerated jk
 nmap j <Plug>(accelerated_jk_gj)
 nmap k <Plug>(accelerated_jk_gk)
-
-" Use recommended Coc.nvim settings
-" Set internal encoding of vim, not needed on neovim, since coc.nvim using some
-" unicode characters in the file autoload/float.vim
-set encoding=utf-8
-set termencoding=utf-8
-
-" Give more space for displaying messages.
-set cmdheight=2
-
-" TextEdit might fail if hidden is not set.
-set hidden
 
 " Some servers have issues with backup files, see #649.
 set nobackup
@@ -401,44 +407,37 @@ set nowritebackup
 " delays and poor user experience.
 set updatetime=300
 
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" NOTE: There's always complete item selected by default, you may want to enable
+" no select by `"suggest.noselect": true` in your configuration file.
 " other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-function! s:check_back_space() abort
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" TODO remap due to conflict with tmux
 " Use <c-space> to trigger completion.
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
 else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
-
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -452,15 +451,13 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call ShowDocumentation()<CR>
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
   else
-    execute '!' . &keywordprg . " " . expand('<cword>')
+    call feedkeys('K', 'in')
   endif
 endfunction
 
@@ -492,6 +489,9 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
 
+" Run the Code Lens action on the current line.
+nmap <leader>cl  <Plug>(coc-codelens-action)
+
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
 xmap if <Plug>(coc-funcobj-i)
@@ -519,18 +519,18 @@ nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
+command! -nargs=0 Format :call CocActionAsync('format')
 
 " Add `:Fold` command to fold current buffer.
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics.
@@ -549,6 +549,7 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
 
 " CoC extensions
 let g:coc_global_extensions = ['coc-diagnostic', 'coc-tsserver', 'coc-json', 'coc-pyright']
@@ -639,16 +640,16 @@ nmap <Leader>t :enew<CR>
 " Move to the next buffer
 nmap <Leader>l :bnext<CR>
 nmap <Leader>] :bnext<CR>
-nmap ˙ :bnext<CR>
-inoremap ˙ :bnext<CR>
-vnoremap ˙ :bnext<CR>
+nmap ¬ :bnext<CR>
+inoremap ¬ :bnext<CR>
+vnoremap ¬ :bnext<CR>
 
 " Move to the previous buffer
 nmap <Leader>h :bprevious<CR>
 nmap <Leader>[ :bprevious<CR>
-nmap ¬ :bprevious<CR>
-inoremap ¬ :bprevious<CR>
-vnoremap ¬ :bprevious<CR>
+nmap ˙ :bprevious<CR>
+inoremap ˙ :bprevioius<CR>
+vnoremap ˙ :bprevious<CR>
 
 " Close the current buffer and move to the previous one
 " This replicates the idea of closing a tab
@@ -686,52 +687,33 @@ nmap <LocalLeader><F12> <Plug>VimspectorDownFrame
 let g:vimspector_enable_mappings = 'HUMAN'
 
 "vim-test
-let test#typescript#runner = 'jest'
-let test#typescript#jest#executable = "yarn test"
-let test#javascript#runner = 'jest'
-let test#javascript#jest#executable = "yarn test"
-" use the jest-vim-reporter to shorten the jest testoutput
-" let g:test#javascript#jest#options = ''
-" let g:test#typescript#jest#options = '--reporters jest-vim-reporter'
-" let g:test#javascript#jest#options = '--reporters jest-vim-reporter'
-" let test#strategy = "neovim"
-" use neomake for async running of tests
-" let test#strategy = "neomake"
+" let test#typescript#runner = 'jest'
+" let test#typescript#jest#executable = "yarn test"
+" let test#javascript#runner = 'jest'
+" let test#javascript#jest#executable = "yarn test"
+
 " do not open the test run results, can be changed to show them
 " let g:neomake_open_list = 0
 
 " setlocal errorformat=%f:%l:%c:\ %m
 
-function! JestStrategy(cmd)
-    let testName = matchlist(a:cmd, '\v -t ''(.*)''')[1]
-    call vimspector#LaunchWithSettings( #{ configuration: 'jest', TestName: testName } )
-endfunction
-
-let g:test#custom_strategies = { 'jest': function('JestStrategy')}
-
-" nnoremap <leader>tm :exec RunTestVerbose()<CR>
-
-" function! RunTestVerbose()
-"   let g:test#javascript#jest#options = ''
-"   :TestNearest -strategy=dispatch
-"   let g:test#javascript#jest#options = '--reporters jest-vim-reporter'
+" function! JestStrategy(cmd)
+"     let testName = matchlist(a:cmd, '\v -t ''(.*)''')[1]
+"     call vimspector#LaunchWithSettings( #{ configuration: 'jest', TestName: testName } )
 " endfunction
 
-" nmap <silent> <leader>tn :TestNearest<CR>
-" nmap <silent> <leader>tf :TestFile<CR>
-" nmap <silent> <leader>ts :TestSuite<CR>
-" nmap <silent> <leader>tl :TestLast<CR>
-" nmap <silent> <leader>tv :TestVisit<CR>
-nmap <silent> <leader>td :TestNearest -strategy=jest<CR>
+" let g:test#custom_strategies = { 'jest': function('JestStrategy')}
 
-" Ultest binds, see :help ultest-commands
-nmap <silent> <leader>tn :UltestNearest<CR>
-nmap <silent> <leader>tf :Ultest<CR>
-nmap <silent> <leader>ts :UltestStop<CR>
-nmap <silent> <leader>to :UltestOutput<CR>
+" nmap <silent> <leader>td :TestNearest -strategy=jest<CR>
 
-nmap ]t <Plug>(ultest-next-fail)
-nmap [t <Plug>(ultest-prev-fail)
+" " Ultest binds, see :help ultest-commands
+" nmap <silent> <leader>tn :UltestNearest<CR>
+" nmap <silent> <leader>tf :Ultest<CR>
+" nmap <silent> <leader>ts :UltestStop<CR>
+" nmap <silent> <leader>to :UltestOutput<CR>
+
+" nmap ]t <Plug>(ultest-next-fail)
+" nmap [t <Plug>(ultest-prev-fail)
 
 let g:indent_guides_enable_on_vim_startup = 1
 
@@ -780,64 +762,64 @@ let g:closetag_shortcut = '>'
 let g:closetag_close_shortcut = '<leader>>'
 
 " Toggle Tag Bar
-nmap <leader>tb :TagbarToggle<CR>
+" nmap <leader>tb :TagbarToggle<CR>
 
 " vim-gutentag
-let g:gutentags_add_default_project_roots = 0
-let g:gutentags_project_root = ['package.json', '.git']
-let g:gutentags_cache_dir = expand('~/.cache/vim/ctags/')
-let g:gutentags_generate_on_new = 1
-let g:gutentags_generate_on_missing = 1
-let g:gutentags_generate_on_write = 1
-let g:gutentags_generate_on_empty_buffer = 0
-let g:gutentags_modules = ['ctags']
-let g:gutentags_ctags_exclude = [
-      \ '*.git', '*.svg', '*.hg',
-      \ '*/tests/*',
-      \ 'build',
-      \ 'dist',
-      \ '*sites/*/files/*',
-      \ 'bin',
-      \ 'node_modules',
-      \ 'bower_components',
-      \ 'cache',
-      \ 'compiled',
-      \ 'docs',
-      \ 'example',
-      \ 'bundle',
-      \ 'vendor',
-      \ '*.md',
-      \ '*-lock.json',
-      \ '*.lock',
-      \ '*bundle*.js',
-      \ '*build*.js',
-      \ '.*rc*',
-      \ '*.json',
-      \ '*.min.*',
-      \ '*.map',
-      \ '*.bak',
-      \ '*.zip',
-      \ '*.pyc',
-      \ '*.class',
-      \ '*.sln',
-      \ '*.Master',
-      \ '*.csproj',
-      \ '*.tmp',
-      \ '*.csproj.user',
-      \ '*.cache',
-      \ '*.pdb',
-      \ 'tags*',
-      \ 'cscope.*',
-      \ '*.css',
-      \ '*.less',
-      \ '*.scss',
-      \ '*.exe', '*.dll',
-      \ '*.mp3', '*.ogg', '*.flac',
-      \ '*.swp', '*.swo',
-      \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
-      \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
-      \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
-      \ ]
+" let g:gutentags_add_default_project_roots = 0
+" let g:gutentags_project_root = ['package.json', '.git']
+" let g:gutentags_cache_dir = expand('~/.cache/vim/ctags/')
+" let g:gutentags_generate_on_new = 1
+" let g:gutentags_generate_on_missing = 1
+" let g:gutentags_generate_on_write = 1
+" let g:gutentags_generate_on_empty_buffer = 0
+" let g:gutentags_modules = ['ctags']
+" let g:gutentags_ctags_exclude = [
+"       \ '*.git', '*.svg', '*.hg',
+"       \ '*/tests/*',
+"       \ 'build',
+"       \ 'dist',
+"       \ '*sites/*/files/*',
+"       \ 'bin',
+"       \ 'node_modules',
+"       \ 'bower_components',
+"       \ 'cache',
+"       \ 'compiled',
+"       \ 'docs',
+"       \ 'example',
+"       \ 'bundle',
+"       \ 'vendor',
+"       \ '*.md',
+"       \ '*-lock.json',
+"       \ '*.lock',
+"       \ '*bundle*.js',
+"       \ '*build*.js',
+"       \ '.*rc*',
+"       \ '*.json',
+"       \ '*.min.*',
+"       \ '*.map',
+"       \ '*.bak',
+"       \ '*.zip',
+"       \ '*.pyc',
+"       \ '*.class',
+"       \ '*.sln',
+"       \ '*.Master',
+"       \ '*.csproj',
+"       \ '*.tmp',
+"       \ '*.csproj.user',
+"       \ '*.cache',
+"       \ '*.pdb',
+"       \ 'tags*',
+"       \ 'cscope.*',
+"       \ '*.css',
+"       \ '*.less',
+"       \ '*.scss',
+"       \ '*.exe', '*.dll',
+"       \ '*.mp3', '*.ogg', '*.flac',
+"       \ '*.swp', '*.swo',
+"       \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
+"       \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
+"       \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
+"       \ ]
 
 "------------------------------------------------------------------------------
 " slime configuration

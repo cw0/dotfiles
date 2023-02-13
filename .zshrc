@@ -72,6 +72,13 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+function safe_load() {
+  [ -f $1 ] && source $1
+}
+
+safe_load /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+safe_load /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
@@ -178,7 +185,11 @@ export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
-source ~/.zion/zion-dev-tools/zionrc/.zionrc
+ZIONRC=~/.zion/zion-dev-tools/zionrc/.zionrc
+if test -f "$ZIONRC"; then
+	source ~/.zion/zion-dev-tools/zionrc/.zionrc
+fi
+
 export PATH="$PATH:~/go/bin"
 export PATH="$PATH:$(python3 -m site --user-base)/bin"
 
@@ -191,3 +202,6 @@ export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH
 
 # coreutils fix
 export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+
+export PATH="$HOME/.poetry/bin:$PATH"
+safe_load /usr/share/nvm/init-nvm.sh
