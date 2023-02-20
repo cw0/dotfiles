@@ -5,7 +5,7 @@
 STATUS="$(playerctl status)"
 #COVER="/tmp/.music_cover.png"
 COVER="$(playerctl metadata artUrl)"
-MUSIC_DIR="$HOME/music"
+MUSIC_DIR="~/music"
 
 ## Get status
 get_status() {
