@@ -22,7 +22,7 @@ get_song() {
 	if [[ -z "$song" ]]; then
 		echo "Offline"
 	else
-		echo "$song"
+		echo "${song:0:50}"
 	fi	
 }
 
