@@ -38,7 +38,9 @@ require("neotest").setup({
 		require("neotest-jest")({
 			env = { CI = true },
 			cwd = function(path)
-				return vim.fn.getcwd()
+				-- return vim.fn.getcwd()
+				local cwd = require("neotest-jest.util").find_package_json_ancestor(path)
+				return cwd
 			end,
 		}),
 	},

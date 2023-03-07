@@ -131,6 +131,7 @@ return require("packer").startup(function(use)
 			"mfussenegger/nvim-dap",
 		},
 	})
+
 	use("jay-babu/mason-nvim-dap.nvim") -- automatic setup for dap
 
 	-- neorg
