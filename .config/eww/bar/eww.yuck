@@ -19,7 +19,7 @@
 ;(deflisten workspace "scripts/workspace")
 (defpoll workspace :interval ".25s" "scripts/workspace")
 
-(defvar eww "eww -c $HOME/.config/eww/bar")
+(defvar eww "eww -c ~/.config/eww/bar")
 
 
 (defpoll COL_WLAN :interval "1m" "~/.config/eww/bar/scripts/wifi --COL")
@@ -66,7 +66,7 @@
                 :limit-width 2
                 :tooltip "battery on ${battery}%"
                 :show_truncated false
-                :onclick "$HOME/.config/eww/bar/scripts/pop system"
+                :onclick "~/.config/eww/bar/scripts/pop system"
                 :wrap false
                 ""))))
 
@@ -80,7 +80,7 @@
                 :class "iconmem"
                 :limit-width 2
                 :tooltip "using ${memory}% ram"
-                :onclick "$HOME/.config/eww/bar/scripts/pop system"
+                :onclick "~/.config/eww/bar/scripts/pop system"
                 :show_truncated false
                 :wrap false
                 ""))))
@@ -102,7 +102,7 @@
 			  :reveal time_rev
 			  :duration "350ms"
       (button :class "clock_date_class"
-             :onclick "$HOME/.config/eww/bar/scripts/pop calendar" clock_date
+             :onclick "~/.config/eww/bar/scripts/pop calendar" clock_date
         )
   ))))
   
@@ -197,9 +197,10 @@
 
 (defwindow bar
           :monitor 0
+          :exclusive true
           :geometry (geometry :x "0%"
-                       :y "9px"
-                       :width "98%"
+                       :y "10px"
+                       :width "99%"
                        :height "30px"
                        :anchor "top center")
           :stacking "fg"
@@ -275,8 +276,9 @@
 			  :year calendar_year))))
 
 (defwindow calendar
-	:geometry (geometry :x "-20px" 
-						:y "7%" 
+  :monitor 0
+	:geometry (geometry :x "20px" 
+						:y "10px" 
                         :anchor "top right"
 						:width "270px" 
 						:height "60px")
@@ -313,6 +315,7 @@
 			  :min 0))))))
 
 (defwindow audio_ctl
+  :monitor 0
 	:geometry (geometry :x "-20px" 
 						:y "7%" 
                         :anchor "top right"
@@ -322,6 +325,7 @@
 
 
 (defwindow system
+  :monitor 0
 	:geometry (geometry :x "-20px" 
 						:y "7%" 
                         :anchor "top right"
@@ -347,7 +351,7 @@
 
 
 ;;  music
-		(defwindow music_win :stacking "fg" :focusable "false" :screen 1
+		(defwindow music_win :monitor 0 :stacking "fg" :focusable "false" :screen 1
 			    :geometry (geometry :x "0" :y "7%" :width 428 :height 104 :anchor "top center")
 			     				(music_pop))
 
