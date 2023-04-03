@@ -25,18 +25,49 @@ return require("packer").startup(function(use)
 	use({ "kyazdani42/nvim-web-devicons" }) -- Icons
 	use({ "SmiteshP/nvim-navic" }) -- winbar for code navigation
 	use({ "nvim-lualine/lualine.nvim" }) -- Status line
-	use({ "NvChad/nvim-colorizer.lua" }) -- highlight hex/css colors
-	use({ "rcarriga/nvim-notify" }) -- notification manager
-	use({ "goolord/alpha-nvim" }) -- Dashboard
+	use({
+		"NvChad/nvim-colorizer.lua",
+		config = function()
+			require("config.colorizer").setup()
+		end,
+	}) -- highlight hex/css colors
+	use({
+		"rcarriga/nvim-notify",
+		config = function()
+			require("config.nvim-notify").setup()
+		end,
+	}) -- notification manager
+	use({
+		"goolord/alpha-nvim",
+		config = function()
+			require("config.alpha").setup()
+		end,
+	}) -- Dashboard
 
 	-- speed up loading plugins
-	use({ "lewis6991/impatient.nvim" })
+	use({
+		"lewis6991/impatient.nvim",
+		config = function()
+			require("config.impatient").setup()
+		end,
+	})
 
 	-- colorschemes
-	use({ "catppuccin/nvim", as = "catppuccin" })
+	use({
+		"catppuccin/nvim",
+		as = "catppuccin",
+		config = function()
+			require("config.colorscheme").setup()
+		end,
+	})
 
 	-- tmux navigation" packer
-	use({ "alexghergh/nvim-tmux-navigation" })
+	use({
+		"alexghergh/nvim-tmux-navigation",
+		config = function()
+			require("config.tmux").setup()
+		end,
+	})
 
 	-- file management
 	use({
@@ -44,21 +75,54 @@ return require("packer").startup(function(use)
 		requires = {
 			"nvim-tree/nvim-web-devicons", -- optional, for file icons
 		},
+		config = function()
+			require("config.nvim-tree").setup()
+		end,
 	})
 
 	-- editing
-	use({ "kylechui/nvim-surround" }) -- Surround text objects
-	use({ "windwp/nvim-autopairs" }) -- Autopairs, integrates with both cmp and treesitter
+	use({
+		"kylechui/nvim-surround",
+		config = function()
+			require("config.surround").setup()
+		end,
+	}) -- Surround text objects
+	use({
+		"windwp/nvim-autopairs",
+		config = function()
+			require("config.autopairs").setup()
+		end,
+	}) -- Autopairs, integrates with both cmp and treesitter
 	use({ "windwp/nvim-ts-autotag", after = "nvim-treesitter" }) -- autoclose tags
-	use({ "rgroli/other.nvim" }) -- Open related files in another buffer
+	use({
+		"rgroli/other.nvim",
+		config = function()
+			require("config.other").setup()
+		end,
+	}) -- Open related files in another buffer
 
 	-- commenting
-	use({ "numToStr/Comment.nvim" }) -- Commenting
+	use({
+		"numToStr/Comment.nvim",
+		config = function()
+			require("config.comment").setup()
+		end,
+	}) -- Commenting
 	use({ "JoosepAlviste/nvim-ts-context-commentstring" }) -- TSX support for commenting
 
 	-- git management
-	use({ "lewis6991/gitsigns.nvim" }) -- Git integration for buffers
-	use({ "tpope/vim-fugitive" }) -- Git wrapper
+	use({
+		"lewis6991/gitsigns.nvim",
+		config = function()
+			require("config.gitsigns").setup()
+		end,
+	}) -- Git integration for buffers
+	use({
+		"tpope/vim-fugitive",
+		config = function()
+			require("config.fugitive").setup()
+		end,
+	}) -- Git wrapper
 	use({ "shumphrey/fugitive-gitlab.vim" }) -- support GitLab in fugitive
 
 	-- syntax highlighting
