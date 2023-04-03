@@ -23,8 +23,18 @@ return require("packer").startup(function(use)
 
 	-- appearance
 	use({ "kyazdani42/nvim-web-devicons" }) -- Icons
-	use({ "SmiteshP/nvim-navic" }) -- winbar for code navigation
-	use({ "nvim-lualine/lualine.nvim" }) -- Status line
+	use({
+		"SmiteshP/nvim-navic",
+		config = function()
+			require("config.navic").setup()
+		end,
+	}) -- winbar for code navigation
+	use({
+		"nvim-lualine/lualine.nvim",
+		config = function()
+			require("config.lualine").setup()
+		end,
+	}) -- Status line
 	use({
 		"NvChad/nvim-colorizer.lua",
 		config = function()
@@ -131,6 +141,9 @@ return require("packer").startup(function(use)
 		run = function()
 			require("nvim-treesitter.install").update({ with_sync = true })
 		end,
+		config = function()
+			require("config.treesitter").setup()
+		end,
 	})
 
 	-- dap & lsp management
@@ -138,12 +151,21 @@ return require("packer").startup(function(use)
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim", -- automatic setup for lsp
 		"neovim/nvim-lspconfig",
+		config = function()
+			require("config.mason").setup()
+			require("config.lsp").setup()
+		end,
 	})
 
 	-- telescope
 	use({ "ThePrimeagen/harpoon" }) -- mark files to navigate between
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- better sorting performance
-	use({ "nvim-telescope/telescope.nvim" }) -- fuzzy finder
+	use({
+		"nvim-telescope/telescope.nvim",
+		config = function()
+			require("config.telescope").setup()
+		end,
+	}) -- fuzzy finder
 
 	-- completion
 	use({
@@ -152,8 +174,25 @@ return require("packer").startup(function(use)
 		"hrsh7th/cmp-path", --path completions
 		"hrsh7th/nvim-cmp",
 		"onsails/lspkind.nvim",
-		"glepnir/lspsaga.nvim", -- shows a popup for things like code actions
 		"jose-elias-alvarez/typescript.nvim", -- for TypeScript LSP commands
+		config = function()
+			require("config.nvim-cmp").setup()
+		end,
+	})
+
+	use({
+		"glepnir/lspsaga.nvim", -- shows a popup for things like code actions
+		opt = true,
+		branch = "main",
+		event = "LspAttach",
+		config = function()
+			require("config.lspsaga").setup()
+		end,
+		requires = {
+			{ "nvim-tree/nvim-web-devicons" },
+			--Please make sure you install markdown and markdown_inline parser
+			{ "nvim-treesitter/nvim-treesitter" },
+		},
 	})
 
 	-- linting an formatting
@@ -162,6 +201,9 @@ return require("packer").startup(function(use)
 		requires = {
 			"nvim-lua/plenary.nvim",
 		},
+		config = function()
+			require("config.null-ls").setup()
+		end,
 	})
 	use("jayp0521/mason-null-ls.nvim")
 
@@ -179,6 +221,17 @@ return require("packer").startup(function(use)
 			"antoinemadec/FixCursorHold.nvim",
 			"haydenmeade/neotest-jest",
 		},
+		config = function()
+			require("config.neotest").setup()
+		end,
+	})
+
+	-- dap: the joys of javascript
+	use({
+		"mxsdev/nvim-dap-vscode-js",
+		requires = {
+			"mfussenegger/nvim-dap",
+		},
 	})
 
 	-- dap ui
@@ -187,13 +240,9 @@ return require("packer").startup(function(use)
 		requires = {
 			"mfussenegger/nvim-dap",
 		},
-	})
-	-- dap: the joys of javascript
-	use({
-		"mxsdev/nvim-dap-vscode-js",
-		requires = {
-			"mfussenegger/nvim-dap",
-		},
+		config = function()
+			require("config.dap").setup()
+		end,
 	})
 
 	use("jay-babu/mason-nvim-dap.nvim") -- automatic setup for dap
@@ -209,6 +258,9 @@ return require("packer").startup(function(use)
 			"nvim-lua/plenary.nvim",
 			"nvim-neorg/neorg-telescope",
 		},
+		config = function()
+			require("config.neorg").setup()
+		end,
 	})
 
 	-- Automatically set up your configuration after cloning packer.nvim
