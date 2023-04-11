@@ -2,3 +2,4 @@ polybar-3.5.7.tar.gz
 polybar-3.5.7/
 vimwiki/CNN/**
 .DS_Store
+.config/nvim/plugin/packer_compiled.lua
