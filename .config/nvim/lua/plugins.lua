@@ -146,17 +146,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- dap & lsp management
-	use({
-		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim", -- automatic setup for lsp
-		"neovim/nvim-lspconfig",
-		config = function()
-			require("config.mason").setup()
-			require("config.lsp").setup()
-		end,
-	})
-
 	-- telescope
 	use({ "ThePrimeagen/harpoon" }) -- mark files to navigate between
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- better sorting performance
@@ -195,6 +184,22 @@ return require("packer").startup(function(use)
 		},
 	})
 
+	-- dap & lsp management
+	use({
+		"williamboman/mason.nvim",
+		config = function()
+			require("config.mason").setup()
+		end,
+	})
+
+  -- this is the most likely next broken thing
+	use({
+		"neovim/nvim-lspconfig",
+		config = function()
+			require("config.lsp").setup()
+		end,
+	})
+
 	-- linting an formatting
 	use({
 		"jose-elias-alvarez/null-ls.nvim",
@@ -205,8 +210,40 @@ return require("packer").startup(function(use)
 			require("config.null-ls").setup()
 		end,
 	})
-	use("jayp0521/mason-null-ls.nvim")
 
+	use({
+		"williamboman/mason-lspconfig.nvim", -- automatic setup for lsp
+	  requires = {
+	    "williamboman/mason.nvim",
+	    "neovim/nvim-lspconfig" 
+	  },
+    config = function()
+      require("config.mason-lspconfig").setup()
+    end,
+	})
+
+	use({
+		"jayp0521/mason-null-ls.nvim",
+		requires = {
+			"williamboman/mason.nvim",
+			"jose-elias-alvarez/null-ls.nvim",
+		},
+    config = function()
+      require("config.mason-null-ls").setup()
+    end
+	})
+
+	use({
+	  "jay-babu/mason-nvim-dap.nvim",
+	  requires = {
+			"williamboman/mason.nvim",
+			"mfussenegger/nvim-dap",
+	  },
+	  config = function()
+	    require("config.mason-nvim-dap").setup()
+	  end
+	}) -- automatic setup for dap
+	
 	-- snippets
 	use("L3MON4D3/LuaSnip")
 	use("saadparwaiz1/cmp_luasnip")
@@ -245,7 +282,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	use("jay-babu/mason-nvim-dap.nvim") -- automatic setup for dap
 
 	-- neorg
 	use({
