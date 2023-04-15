@@ -1,8 +1,10 @@
 local M = {}
 
 function M.setup()
-	-- TODO convert to pcall
-	local luasnip = require("luasnip")
+	local luasnip_status, luasnip = pcall(require, "luasnip")
+	if not luasnip_status then
+		return
+	end
 
 	luasnip.config.set_config({
 		history = false,
