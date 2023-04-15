@@ -103,7 +103,10 @@ return require("packer").startup(function(use)
 			require("config.autopairs").setup()
 		end,
 	}) -- Autopairs, integrates with both cmp and treesitter
-	use({ "windwp/nvim-ts-autotag", after = "nvim-treesitter" }) -- autoclose tags
+	use({
+		"windwp/nvim-ts-autotag",
+		after = "nvim-treesitter",
+	}) -- autoclose tags
 	use({
 		"rgroli/other.nvim",
 		config = function()
@@ -156,18 +159,9 @@ return require("packer").startup(function(use)
 		end,
 	}) -- fuzzy finder
 
-	-- completion
 	use({
-		"hrsh7th/cmp-buffer", -- buffer completions
-		"hrsh7th/cmp-nvim-lsp", --lsp completions
-		"hrsh7th/cmp-path", --path completions
-		"hrsh7th/nvim-cmp",
-		"onsails/lspkind.nvim",
-		"jose-elias-alvarez/typescript.nvim", -- for TypeScript LSP commands
-		config = function()
-			require("config.nvim-cmp").setup()
-		end,
-	})
+		"jose-elias-alvarez/typescript.nvim",
+	}) -- for TypeScript LSP commands
 
 	use({
 		"glepnir/lspsaga.nvim", -- shows a popup for things like code actions
@@ -192,7 +186,7 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-  -- this is the most likely next broken thing
+	-- this is the most likely next broken thing
 	use({
 		"neovim/nvim-lspconfig",
 		config = function()
@@ -213,13 +207,13 @@ return require("packer").startup(function(use)
 
 	use({
 		"williamboman/mason-lspconfig.nvim", -- automatic setup for lsp
-	  requires = {
-	    "williamboman/mason.nvim",
-	    "neovim/nvim-lspconfig" 
-	  },
-    config = function()
-      require("config.mason-lspconfig").setup()
-    end,
+		requires = {
+			"williamboman/mason.nvim",
+			"neovim/nvim-lspconfig",
+		},
+		config = function()
+			require("config.mason-lspconfig").setup()
+		end,
 	})
 
 	use({
@@ -228,26 +222,21 @@ return require("packer").startup(function(use)
 			"williamboman/mason.nvim",
 			"jose-elias-alvarez/null-ls.nvim",
 		},
-    config = function()
-      require("config.mason-null-ls").setup()
-    end
+		config = function()
+			require("config.mason-null-ls").setup()
+		end,
 	})
 
 	use({
-	  "jay-babu/mason-nvim-dap.nvim",
-	  requires = {
+		"jay-babu/mason-nvim-dap.nvim",
+		requires = {
 			"williamboman/mason.nvim",
 			"mfussenegger/nvim-dap",
-	  },
-	  config = function()
-	    require("config.mason-nvim-dap").setup()
-	  end
+		},
+		config = function()
+			require("config.mason-nvim-dap").setup()
+		end,
 	}) -- automatic setup for dap
-	
-	-- snippets
-	use("L3MON4D3/LuaSnip")
-	use("saadparwaiz1/cmp_luasnip")
-	use({ "rafamadriz/friendly-snippets" }) -- snippets collection
 
 	-- unit testing
 	use({
@@ -282,7 +271,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-
 	-- neorg
 	use({
 		"nvim-neorg/neorg",
@@ -297,6 +285,33 @@ return require("packer").startup(function(use)
 		config = function()
 			require("config.neorg").setup()
 		end,
+	})
+
+	-- completion
+	use({
+		"hrsh7th/nvim-cmp",
+		event = "InsertEnter",
+		opt = true,
+		wants = { "LuaSnip", "lspkind.nvim" },
+		requires = {
+			"hrsh7th/cmp-buffer", --buffer completions
+			"hrsh7th/cmp-nvim-lsp", --lsp completions
+			"hrsh7th/cmp-path", --path completions
+			"onsails/lspkind.nvim",
+			"saadparwaiz1/cmp_luasnip",
+			{
+				"L3MON4D3/LuaSnip",
+				wants = "friendly-snippets",
+				config = function()
+					require("config.luasnip").setup()
+				end,
+			},
+			"rafamadriz/friendly-snippets", -- snippets collection
+		},
+		config = function()
+			require("config.nvim-cmp").setup()
+		end,
+		disable = false,
 	})
 
 	-- Automatically set up your configuration after cloning packer.nvim

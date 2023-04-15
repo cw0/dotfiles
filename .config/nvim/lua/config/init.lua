@@ -3,7 +3,7 @@
 -- require("config.nvim-tree")
 -- require("config.mason")
 -- require("config.lsp")
--- require("config.nvim-cmp")
+require("config.nvim-cmp")
 -- require("config.null-ls")
 -- require("config.lspsaga")
 -- require("config.neotest")
