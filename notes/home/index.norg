@@ -1,5 +1,6 @@
 = ToC
 
+- {/ aws/index.norg}[aws]
 - {/ linux/index.norg}[linux]
 - {/ mtg/index.norg}[mtg]
 - {/ recipes/index.norg}[recipes]

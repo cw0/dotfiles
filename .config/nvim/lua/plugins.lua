@@ -281,6 +281,7 @@ return require("packer").startup(function(use)
 			"nvim-treesitter/nvim-treesitter",
 			"nvim-lua/plenary.nvim",
 			"nvim-neorg/neorg-telescope",
+			"hrsh7th/nvim-cmp",
 		},
 		config = function()
 			require("config.neorg").setup()
@@ -290,8 +291,8 @@ return require("packer").startup(function(use)
 	-- completion
 	use({
 		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
-		opt = true,
+		-- event = "InsertEnter",
+		-- opt = true,
 		wants = { "LuaSnip", "lspkind.nvim" },
 		requires = {
 			"hrsh7th/cmp-buffer", --buffer completions

@@ -1,0 +1,22 @@
+* *AWS Accounts*
+  - An AWS Account is a container for identities and AWS resources
+  - You need an Account name, unique email address, and a credit card
+  - The email address becomes the account root user
+  - Account Root User can never be restricted
+  - AWS Accounts can contain the impact of errors and bad actors
+  - By default all access to an aws account is denied except for root user
+
+
+* *IAM - Identity and Access Management*
+  - Create Users, Groups, and Roles
+  - Any IAM policy starts out with No Permissions
+
+* *MFA*
+  - Factors: evidence that proves Identity
+  -- knowledge: something you know (pin)
+  -- possession: something you have (card)
+  -- inherent: something you are (biometrics)
+  -- location: where you are (geolocation)
+  - The more factors the better
+
+
