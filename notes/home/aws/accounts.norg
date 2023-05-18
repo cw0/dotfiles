@@ -10,6 +10,10 @@
 * *IAM - Identity and Access Management*
   - Create Users, Groups, and Roles
   - Any IAM policy starts out with No Permissions
+  - A user can have max 2 Access Keys
+  - Access Keys can be Created, Deleted, Activated, Deactivated
+  - Only IAM users and the account root user (though its a bad idea) use access keys
+
 
 * *MFA*
   - Factors: evidence that proves Identity
@@ -19,4 +23,167 @@
   -- location: where you are (geolocation)
   - The more factors the better
 
+
+* *AWS Organizations*
+  - need standard account to create Organization
+  - will become management account
+  - always have 1 management account & 0 - n member accounts 
+  - made up of organization root container and sub containers called organizational units
+  - enables consolidated billing.
+  -- member accounts lose payment information and pass their billing info on to the management account
+  - using an organization pools costs of reserves and usage discounts
+  -- huge incentive for bigger businesses
+  - can set service control policies
+  - can create member accounts from within organization
+  -- do not need to invite to org first
+  - can use iam roles to authenticate
+  -- best practice is to have a single account with all iam identities stored in it
+  --- can be separate from billing acct as long as identities are in same account
+  --- can also use identity federation to use existing on prem identities
+  -- once logged in as an identity you can role switch to manage activities in other accounts
+  --- roles are stored inside the other member accounts
+
+* *Service Control Policies*
+  - can be attatched to
+  -- organization container
+  -- organizational units
+  -- individual accounts
+  - inherit down the organizational tree (all sub units inherit parent policies)
+  - THE MANAGEMENT ACCOUNT IS NEVER AFFECTED BY SERVICE CONTROL POLICIES
+  - account permissions boundaries
+  - ACCOUNT ROOT USERS CAN BE INDIRECTLY LIMITED BY SCPs
+  -- you can never restrict the account root user but you can restrict the account itself with SCPs
+  - dont grant any permissions just establish a boundary
+  - can either allow list or deny list services
+  -- deny is default
+  --- has a FullAWSAccess default policy 
+  --- items to restrict are added explicitly 
+  -- explicit deny always wins
+  -- in the abscence of implicit deny or allow default to deny
+  - to create an allow list based scp
+  -- you must first remove the default FullAWSAccess policy
+  -- then explicitly allow services as needed
+  - SCPs and  Identity policies in accounts have a ven diagram style permission overlap
+  -- something may be allowed in an identity policy but denied in an scp and vice versa
+  -- accounts need both to use the service
+
+* *Security Token Service*
+  - generates temporary credentials
+  - uses sts:AssumeRole operation
+  - similar to access keys but they expire and don't belong to the role
+  - limited access
+  - used to access aws resources
+  - requested by an identity aws or external
+  - used by
+    -- assume roles
+    -- role switch in console
+    -- identity federation uses sts
+
+* *Revoking Temporary IAM Credentials*
+  - roles can be assumed by many identities
+  - all identities assuming a role get the same permissions
+  - temporary credentials can't be cancelled
+  - always remember deny - allow - deny
+  - you can use AWSRevokeOlderSessions inline deny for any sessions older than now
+  - forces all users to re-assume roles and makes leaked credentials useless
+  - temporary credentials also need an AWS_SESSION_TOKEN in addition to AWS_ACCESS_KEY_ID & AWS_SECRET_ACCESS_KEY
+  - if you revoke credentials on a role that is used by ec2 instances, those instances will need to be restarted as well
+
+* *IAM Policies*
+  - each policy consists of a version and a statement or list of statements
+  - explicit deny always takes priority
+  - statements can have conditions
+  - not action matches anything not specified in the array
+  - watch out for inverse commands
+
+* *Permissions Boundaries*
+  - only identity permissions are impacted by boundaries 
+  - boundaries can be applies to iam users or roles 
+  - permissions boundaries do not grant any access on their own, they define the maximum permissions an identity can have
+  - boundaries are useful in cases where you want to create an identity manager or similar high permission user but don't want to enable them to attempt privellege escalation
+  - this is how you handle delegated admin
+  - permissions boundaries can be added when you create an iam user 
+
+* *Policy Evaluation Logic*
+  - Implicit Deny
+  - Organization SCPs
+  - Resource Policy
+  - IAM Identity boundaries
+  - Session policies
+  - IAM Identity policies
+  - Multiple Account Logic
+  -- both accounds must have an applicable allow
+
+* *S3 Access*
+  - Object Ownership
+  -- By default object ownership is set to object writer
+  --- whoever creates the object has ownership
+  -- Can also set to bucket owner preferred
+  --- by default bucket onwer will own any objects created
+  -- can set whether ACLs are enabled from this section
+  - ACL access
+  -- ACLs are considered legacy now 
+  -- need canonical id (found in the security credentials section of the username drop down)
+  - Bucket Policy access
+  -- can also use a bucket policy to allow cross account access to s3 buckets
+  -- set principle to the account & user/role trying to access the bucket
+  -- set the resource section to point to the bucket and bucket/*
+  - Cross account role access
+  -- if you assume a role to access a cross account bucket then the owner account owns the objects & bucket
+  -- much less admin overhead
+
+* *AWS Resource Access Manager*
+  - before Resource access manager, aws accounts provided full isolation
+  -- a VPC created in one account was not visible in another AWS account
+  -- needed to configure VPC peering in order for it to work successfully
+  - AWS RAM allows you to share resources between accounts
+  -- if products are supported they can be shared with a principle
+  --- Accounts
+  --- Organizational Units
+  --- Organizations
+  -- Shared resources can be accessed natively
+  - no cost for AWS RAM
+  - creates substantial changes to traditional AWS architecture
+  -- availability zones are not the same between accounts
+  --- account 1 and 2 both will show availability zone a but they physical location might be different
+  --- to mitigate this, AWS released availability zone ids
+  --- e.g use1-az1 & use1-az2
+  --- provides an identifier that can be used to coordinate cross account deployments
+  - concepts
+  -- owner account
+  --- creates a share & provides name & retains full ownership & permissions on a resource
+  -- principles to share resources with
+  --- if the participant account is in the same organization and sharing is enabled the invitation to share resources is accepted automatically
+  --- if not the participant account will need to accept the invite
+  - vpc example
+  -- owner account creates a vpc and shares subnet with participant account
+  --- the subnet & vpc networking information cannot be modified by the participant account
+  --- the participant account can deploy resources into the shared subnets
+  --- the participant account owns resources deployed into shared subnets
+  --- participants can read and reference network objects in owner account but not modify them
+  --- vpc owner cannot delete or modify resources in participant account
+  - some resources can be shared with any account, some can only be shared with accounts in the same Organizations
+  - can enable sharing in an org in the settings menu of AWS RAM
+  - shared resources have account specific resource names
+  -- e.g. a subnet named sn1 by owner account will not have a name when viewed from the participant account
+  - shared resources are read only for participant accounts
+
+* *AWS Service Quotas*
+  - limits to AWS services
+  - Each service has a default per-region quota
+  - Some services can be per account
+  - Most service quotas can be increased as needed
+  - Services quotas that cannot be increased
+  -- The Number of IAM users which can be created in an AWS account (5000)
+  - need to plan for service quota adjustments because they arent instant usually
+  - Service Quotas from the console will give you a dashboard of all service quotas and where your usage is at
+  -- this is where you would want to request quota increases
+  -- can create a quota request template if you are an organization
+  -- can create cloud watch alarms based on quota usage
+  - can also increase service quotas through aws service limit increase support tickets
+  - normally you would want to use the service quotas console
+  - can also interact through the command line
+  -- list-aws-default-service-quotas
+  -- list-service-quotas
+  -- request-service-quota-increase
 

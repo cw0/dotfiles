@@ -50,7 +50,7 @@ set.smartcase = true
 set.hlsearch = true
 set.incsearch = true
 
-set.clipboard = "unnamed"
+set.clipboard = "unnamedplus"
 
 set.backspace = { "indent", "eol", "start" }
 
