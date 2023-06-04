@@ -9,19 +9,19 @@ function M.setup()
 	neorg.setup({
 		load = {
 			["core.defaults"] = {},
-			["core.norg.dirman"] = {
+			["core.dirman"] = {
 				config = {
 					work = "~/notes/work",
 					home = "~/notes/home",
 				},
 				index = "index.norg",
 			},
-			["core.norg.completion"] = {
+			["core.completion"] = {
 				config = {
 					engine = "nvim-cmp",
 				},
 			},
-			["core.norg.concealer"] = {
+			["core.concealer"] = {
 				config = {},
 			},
 			["core.integrations.telescope"] = {},

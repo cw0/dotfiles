@@ -211,6 +211,9 @@ return require("packer").startup(function(use)
 			"williamboman/mason.nvim",
 			"neovim/nvim-lspconfig",
 		},
+		wants = {
+			"mason.nvim",
+		},
 		config = function()
 			require("config.mason-lspconfig").setup()
 		end,
@@ -271,12 +274,9 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- neorg
+	--	neorg
 	use({
 		"nvim-neorg/neorg",
-		run = {
-			":Neorg sync-parsers",
-		},
 		requires = {
 			"nvim-treesitter/nvim-treesitter",
 			"nvim-lua/plenary.nvim",
@@ -286,13 +286,16 @@ return require("packer").startup(function(use)
 		config = function()
 			require("config.neorg").setup()
 		end,
+		wants = {
+			"nvim-cmp",
+		},
 	})
 
 	-- completion
 	use({
 		"hrsh7th/nvim-cmp",
-		-- event = "InsertEnter",
-		-- opt = true,
+		event = "InsertEnter",
+		opt = true,
 		wants = { "LuaSnip", "lspkind.nvim" },
 		requires = {
 			"hrsh7th/cmp-buffer", --buffer completions
