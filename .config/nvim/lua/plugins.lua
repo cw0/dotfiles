@@ -252,14 +252,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- dap: the joys of javascript
-	use({
-		"mxsdev/nvim-dap-vscode-js",
-		requires = {
-			"mfussenegger/nvim-dap",
-		},
-	})
-
 	-- dap ui
 	use({
 		"rcarriga/nvim-dap-ui",

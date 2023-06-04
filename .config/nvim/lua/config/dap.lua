@@ -16,11 +16,6 @@ function M.setup()
 		return
 	end
 
-	local dap_vscode_js_status_ok, dap_vscode_js = pcall(require, "dap-vscode-js")
-	if not dap_vscode_js_status_ok then
-		return
-	end
-
 	dapui.setup()
 
 	vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "" })
@@ -35,10 +30,27 @@ function M.setup()
 		dapui.close()
 	end
 
-	dap_vscode_js.setup({
-		debugger_path = os.getenv("HOME") .. "/.local/share/nvim/mason/packages/js-debug-adapter",
-		adapters = { "pwa-node" },
-	})
+	dap.adapters["pwa-node"] = {
+		type = "server",
+		host = "localhost",
+		port = "${port}",
+		executable = {
+			command = "js-debug-adapter", -- As I'm using mason, this will be in the path
+			args = { "${port}" },
+		},
+	}
+
+	for _, language in ipairs({ "typescript", "javascript" }) do
+		dap.configurations[language] = {
+			{
+				type = "pwa-node",
+				request = "attach",
+				name = "Attach to node",
+				processId = require("dap.utils").pick_process,
+				cwd = "${workspaceFolder}",
+			},
+		}
+	end
 
 	-- Debugging
 	local opts = { noremap = true, silent = true }
