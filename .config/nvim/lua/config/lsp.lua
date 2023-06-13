@@ -3,16 +3,19 @@ local M = {}
 M.setup = function()
 	local lspconfig_status, lspconfig = pcall(require, "lspconfig")
 	if not lspconfig_status then
+		print("lspconfig died")
 		return
 	end
 
 	local typescript_setup, typescript = pcall(require, "typescript")
 	if not typescript_setup then
+		print("typescript died")
 		return
 	end
 
 	local cmp_nvim_lsp_status, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 	if not cmp_nvim_lsp_status then
+		print("cmp_nvim_lsp died")
 		return
 	end
 

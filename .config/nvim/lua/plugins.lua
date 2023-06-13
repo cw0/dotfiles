@@ -211,7 +211,7 @@ return require("packer").startup(function(use)
 			"williamboman/mason.nvim",
 			"neovim/nvim-lspconfig",
 		},
-		wants = {
+		after = {
 			"mason.nvim",
 		},
 		config = function()

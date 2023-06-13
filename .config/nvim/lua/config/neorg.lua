@@ -3,6 +3,7 @@ local M = {}
 function M.setup()
 	local status_ok, neorg = pcall(require, "neorg")
 	if not status_ok then
+		print("neorg didn't load")
 		return
 	end
 
