@@ -1,0 +1,34 @@
+= ToC
+
+*Advanced Identities and Federation*
+
+* SAML 2.0 Identity Federation
+  - Stands for Security Assertion Markup Language
+  - Used by microsoft for ADFS
+  - Indirectly use on premises IDs with AWS
+  - Enterprise Identity Provider which is SAML 2.0 compatible
+  - Existing identity management team
+  - Single source of truth ... more than 5000 users
+  - Uses Iam Roles and temporary credentials (12 hour validity)
+  - You never actually use external identities to access aws resources, they are exchanged for temporary aws credentials
+
+* AWS Single Sign-on (SSO)
+  - replaces historic use cases for SAML 2.0 Identity Federation
+  - recommended by amazon for all new deployments
+  - enables you to centrally manage sso access of aws accounts and external applications
+  - flexible identity source
+  - you have the option of using external identities
+  - benefits
+  -- define an identity source and then everything else is abstracted
+  - supports
+  -- built in identity store
+  -- aws managed microsoft active directory
+  -- on premises microsoft AD (two way trust or AD connector)
+  -- external identity provider - saml2.0
+  - provides:
+  -- centralized permissions management across accounts
+  -- single sign on via SSO identity sources
+  -- integration w/ business applications
+  -- integration w/ saml applications
+  - workplace identities, not customer identities
+
