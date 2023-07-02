@@ -21,6 +21,13 @@ local packer_bootstrap = ensure_packer()
 return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim") -- have packer manage itself
 
+	-- key bindings
+	use({
+		"folke/which-key.nvim",
+		config = function()
+			require("config.which-key").setup()
+		end,
+	})
 	-- appearance
 	use({ "kyazdani42/nvim-web-devicons" }) -- Icons
 	use({
@@ -189,6 +196,9 @@ return require("packer").startup(function(use)
 	-- this is the most likely next broken thing
 	use({
 		"neovim/nvim-lspconfig",
+		requires = {
+			"hrsh7th/cmp-nvim-lsp", --lsp completions
+		},
 		config = function()
 			require("config.lsp").setup()
 		end,
@@ -278,7 +288,7 @@ return require("packer").startup(function(use)
 		config = function()
 			require("config.neorg").setup()
 		end,
-		wants = {
+		after = {
 			"nvim-cmp",
 		},
 	})

@@ -40,35 +40,35 @@ local opts = { noremap = true, silent = true }
 local keymap = vim.keymap.set
 
 -- Git
-keymap("n", "<leader>gg", ":lua _LAZYGIT_TOGGLE()<CR>", opts)
-keymap("n", "<Leader>gb", ":GBrowse<CR>", opts)
-keymap("n", "<Leader>gc", ":G commit<CR>", opts)
-keymap("n", "<Leader>gd", ":Gdiffsplit<CR>", opts)
-keymap("n", "<Leader>gp", ":G push<CR>", opts)
-keymap("n", "<Leader>gr", ":Gread<CR>", opts)
-keymap("n", "<Leader>gs", ":G<CR>", opts)
-keymap("n", "<Leader>gw", ":Gwrite<CR>", opts)
+-- keymap("n", "<leader>gg", ":lua _LAZYGIT_TOGGLE()<CR>", opts)
+-- keymap("n", "<Leader>gb", ":GBrowse<CR>", opts)
+-- keymap("n", "<Leader>gc", ":G commit<CR>", opts)
+-- keymap("n", "<Leader>gd", ":Gdiffsplit<CR>", opts)
+-- keymap("n", "<Leader>gp", ":G push<CR>", opts)
+-- keymap("n", "<Leader>gr", ":Gread<CR>", opts)
+-- keymap("n", "<Leader>gs", ":G<CR>", opts)
+-- keymap("n", "<Leader>gw", ":Gwrite<CR>", opts)
 
 -- highlighting
 keymap("n", "<leader>hg", ":TSHighlightCapturesUnderCursor <Return>")
 
 -- Telescope
 -- Find file
-keymap("n", "<Leader>ff", ":lua require('config.telescope').project_files()<CR>", opts)
--- Find text
-keymap("n", "<Leader>ft", ":Telescope live_grep<CR>", opts)
--- Find word
-keymap("n", "<Leader>fw", ":Telescope grep_string<CR>", opts)
--- Find buffer
-keymap("n", "<Leader>fb", ":Telescope buffers<CR>", opts)
--- Go to definition
-keymap("n", "<Leader>fd", ":lua require('telescope.builtin').lsp_definitions({ jump_type='vsplit' })<CR>", opts)
-keymap("n", "<Leader>fs", ":Telescope lsp_document_symbols<CR>", opts)
--- keymap("n", "<c-]>", ":lua require('telescope.builtin').lsp_definitions()<CR>", opts)
--- keymap("n", "<c-w><c-]>", ":lua require('telescope.builtin').lsp_definitions({ jump_type='vsplit' })<CR>", opts)
-keymap("n", "gs", ":lua require('telescope.builtin').lsp_definitions({ jump_type='split' })<CR>", opts)
--- Harpoon marks
-keymap("n", "<Leader>fh", ":Telescope harpoon marks<CR>", opts)
+-- keymap("n", "<Leader>ff", ":lua require('config.telescope').project_files()<CR>", opts)
+-- -- Find text
+-- keymap("n", "<Leader>ft", ":Telescope live_grep<CR>", opts)
+-- -- Find word
+-- keymap("n", "<Leader>fw", ":Telescope grep_string<CR>", opts)
+-- -- Find buffer
+-- keymap("n", "<Leader>fb", ":Telescope buffers<CR>", opts)
+-- -- Go to definition
+-- keymap("n", "<Leader>fd", ":lua require('telescope.builtin').lsp_definitions({ jump_type='vsplit' })<CR>", opts)
+-- keymap("n", "<Leader>fs", ":Telescope lsp_document_symbols<CR>", opts)
+-- -- keymap("n", "<c-]>", ":lua require('telescope.builtin').lsp_definitions()<CR>", opts)
+-- -- keymap("n", "<c-w><c-]>", ":lua require('telescope.builtin').lsp_definitions({ jump_type='vsplit' })<CR>", opts)
+-- keymap("n", "gs", ":lua require('telescope.builtin').lsp_definitions({ jump_type='split' })<CR>", opts)
+-- -- Harpoon marks
+-- keymap("n", "<Leader>fh", ":Telescope harpoon marks<CR>", opts)
 
 -- Harpoon
 keymap("n", "<Leader>hm", ":lua require('harpoon.mark').add_file()<CR>", opts)
