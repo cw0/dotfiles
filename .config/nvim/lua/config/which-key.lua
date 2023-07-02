@@ -13,6 +13,17 @@ function M.setup()
 	wk.setup({})
 
 	wk.register({
+		b = {
+			name = "buffer",
+			l = {
+				":ls<CR>",
+				"show all buffers and their status",
+			},
+			q = {
+				":bp <BAR> bd #<CR>",
+				"close current buffer and move to previous",
+			},
+		},
 		d = {
 			name = "dap",
 			b = {
@@ -154,6 +165,13 @@ function M.setup()
 			v = {
 				":OtherVSplit<CR>",
 				"other vsplit",
+			},
+		},
+		r = {
+			name = "run",
+			l = {
+				":r!<C-r><C-l><CR>",
+				"run command on line and paste output in buffer",
 			},
 		},
 		t = {
