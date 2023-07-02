@@ -9,10 +9,49 @@ function M.setup()
 	vim.o.timeout = true
 	vim.o.timeoutlen = 300
 
-	-- TODO remap popup srolling for consistency
+	-- TODO remap popup scrolling for consistency
 	wk.setup({})
 
 	wk.register({
+		d = {
+			name = "dap",
+			b = {
+				":lua require('dap').toggle_breakpoint()<cr>",
+				"toggle breakpoint",
+			},
+			c = {
+				":lua require('dap').continue()<cr>",
+				"continue",
+			},
+			i = {
+				":lua require('dap').step_into()<cr>",
+				"step into",
+			},
+			l = {
+				":lua require('dap').run_last()<cr>",
+				"run last",
+			},
+			o = {
+				":lua require('dap').step_over()<cr>",
+				"step over",
+			},
+			O = {
+				":lua require('dap').step_out()<cr>",
+				"step out",
+			},
+			r = {
+				":lua require('dap').repl.toggle()<cr>",
+				"toggle repl",
+			},
+			t = {
+				":lua require('dap').terminate()<cr>",
+				"terminate dap",
+			},
+			u = {
+				":lua require('dapui').toggle()<cr>",
+				"toggle dapui",
+			},
+		},
 		f = {
 			name = "find / file manager",
 			b = {
@@ -77,6 +116,44 @@ function M.setup()
 			w = {
 				":Gwrite<CR>",
 				"git write",
+			},
+		},
+		h = {
+			name = "harpoon",
+			h = {
+				":lua require('harpoon.ui').toggle_quick_menu()<CR>",
+				"toggle harpoon menu",
+			},
+			m = {
+				":lua require('harpoon.mark').add_file()<CR>",
+				"harpoon add file",
+			},
+		},
+		t = {
+			name = "neotest",
+			a = {
+				":lua require('neotest').run.attach()<CR>",
+				"attach to test",
+			},
+			d = {
+				":lua require('neotest').run.run({ strategy = 'dap' })<CR>",
+				"debug test",
+			},
+			f = {
+				":lua require('neotest').run.run(vim.fn.expand('%'))<CR>",
+				"test file",
+			},
+			n = {
+				"require('neotest').run.run()<CR>",
+				"test nearest",
+			},
+			o = {
+				":lua require('neotest').output.open({ enter = true })<CR>",
+				"open test output",
+			},
+			s = {
+				":lua require('neotest').run.stop()<CR>",
+				"stop neotest",
 			},
 		},
 	}, {

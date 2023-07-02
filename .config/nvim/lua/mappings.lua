@@ -71,8 +71,8 @@ keymap("n", "<leader>hg", ":TSHighlightCapturesUnderCursor <Return>")
 -- keymap("n", "<Leader>fh", ":Telescope harpoon marks<CR>", opts)
 
 -- Harpoon
-keymap("n", "<Leader>hm", ":lua require('harpoon.mark').add_file()<CR>", opts)
-keymap("n", "<Leader>hh", ":lua require('harpoon.ui').toggle_quick_menu()<CR>", opts)
+-- keymap("n", "<Leader>hm", ":lua require('harpoon.mark').add_file()<CR>", opts)
+-- keymap("n", "<Leader>hh", ":lua require('harpoon.ui').toggle_quick_menu()<CR>", opts)
 
 -- Related buffer navigation
 keymap("n", "<Leader>kk", ":Other<CR>", opts)

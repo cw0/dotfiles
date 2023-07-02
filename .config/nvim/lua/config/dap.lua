@@ -51,19 +51,6 @@ function M.setup()
 			},
 		}
 	end
-
-	-- Debugging
-	local opts = { noremap = true, silent = true }
-	local keymap = vim.keymap.set
-	keymap("n", "<leader>db", ":lua require('dap').toggle_breakpoint()<cr>", opts)
-	keymap("n", "<leader>dc", ":lua require('dap').continue()<cr>", opts)
-	keymap("n", "<leader>di", ":lua require('dap').step_into()<cr>", opts)
-	keymap("n", "<leader>do", ":lua require('dap').step_over()<cr>", opts)
-	keymap("n", "<leader>dO", ":lua require('dap').step_out()<cr>", opts)
-	keymap("n", "<leader>dr", ":lua require('dap').repl.toggle()<cr>", opts)
-	keymap("n", "<leader>dl", ":lua require('dap').run_last()<cr>", opts)
-	keymap("n", "<leader>du", ":lua require('dapui').toggle()<cr>", opts)
-	keymap("n", "<leader>dt", ":lua require('dap').terminate()<cr>", opts)
 end
 
 return M
