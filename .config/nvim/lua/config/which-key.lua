@@ -129,6 +129,33 @@ function M.setup()
 				"harpoon add file",
 			},
 		},
+		o = {
+			name = "related buffers/files (other)",
+			c = {
+				":OtherClear<CR>",
+				"clear other",
+			},
+			i = {
+				":OtherVSplit implementation<CR>",
+				"open implementation in vsplit",
+			},
+			k = {
+				":Other<CR>",
+				"other",
+			},
+			s = {
+				":OtherVSplit story<CR>",
+				"open stories in vsplit",
+			},
+			t = {
+				":OtherVSplit test<CR>",
+				"open tests in vsplit",
+			},
+			v = {
+				":OtherVSplit<CR>",
+				"other vsplit",
+			},
+		},
 		t = {
 			name = "neotest",
 			a = {
