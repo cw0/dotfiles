@@ -3,6 +3,7 @@
 *Advanced Identities and Federation*
 
 * SAML 2.0 Identity Federation
+  - For Enterprise Identity Federation
   - Stands for Security Assertion Markup Language
   - Used by microsoft for ADFS
   - Indirectly use on premises IDs with AWS
@@ -118,7 +119,7 @@
   - When configured with an on-prem AD
   -- each contains their own objects but can be configured to trust each other
 
-* AD Connector
+* AD Connector (directory connector mode)
   - provides a pair of directory endpoints running in aws (ENIs in a VPC)
   - supports directory-aware AWS products
   - redirects requests to an existing directory server or servers
@@ -133,3 +134,55 @@
   - requires one or more directory servers to be configured
   - requires a working network connection (no caching or data held locally)
   - connect via direct connect or VPN
+
+* AWS Control Tower
+  - allows the quick and easy set up of multi account aws environments
+  - orchestrates other aws services to provide this functionality
+  - provides:
+  -- landing zone
+  --- multi-account environment
+  --- think organizations on crack
+  --- provides single sign on and AD federation
+  --- centralized logging and auditing
+  -- guard rails
+  --- detect / mandate rules and standards across accounts
+  -- account factory
+  --- automates and standardises new account creation
+  -- dashboard
+  --- single page oversight of the entire environment
+  - uses cloudformation to create accounts so expect to see those stacks
+  - landing zone
+  -- well architected multi-account environment (has a home region)
+  -- built with aws organizations, aws config, and cloudformation
+  -- security OU - log archive  & audit accounts (cloudtrail & config logs)
+  -- sandbox OU - test / less rigid security
+  -- obviously you can create other OUs and accounts
+  -- uses IAM Identity center for SSO, multiple-accounts and ID federation
+  -- monitoring and notifications via cloudwatch and SNS
+  -- end user account provisioning via service catalog
+  - guard rails
+  -- 3 types:
+  --- Mandatory
+  --- Strongly recommended
+  --- Elective
+  -- Preventative - stop you from doing things
+  --- enforced or not enabled
+  --- allow or deny regions or dissallow bucket policy changes
+  -- detective - compliance checks (AWS config rules)
+  --- 3 statuses
+  ---- clear
+  ---- in violation
+  ---- not enabled
+  --- i.e. detect if cloudtrail is enabled or ec2 has a public ipv4
+  -- Preventative guard rails will stop things from happening, detective will only identify those things
+  - Account factory
+  -- automated account provisioning
+  --- cloud admins or end users with appropriate permissions
+  -- guard rails - automatically added
+  -- account admin given to a named user
+  -- accounts & network standard configuration
+  --- can be configured to use specific vpcs when provisioning accounts at scale
+  -- accounts can be closed or repurposed
+  -- can be fully integrated with a business sdlc
+
+
