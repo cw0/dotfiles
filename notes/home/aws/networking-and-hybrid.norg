@@ -191,6 +191,77 @@
   - frequently confused with CLOUDFRONT
   -- DOES NOT DO ANY CACHING
 
+* IPSec VPN Fundamentals
+  - group of protocols to set up secure tunnels across insecure networks
+  - between two peers (local & remote)
+  - provides authentication & encrypted
+  - tunnels are eventually torn down if there is no interesting traffic
+  -- re-established the next time interesting traffic is detected
+  - symmetric encryption is fast but key sharing is difficult
+  - asymmetric encryption is slow but you can easily exchange public keys
+  - 2 main phases
+  -- IKE phase 1 (slow and heavy)
+  --- exchanging keys
+  --- authenticate with pre-shared key (password / certificate)
+  --- using asymetric encryption to agree on and create a symmetric key
+  --- IKE SA Created (phase 1 tunnel)
+  --- Diffie-Hellman algorithm generates same shared Diffie-Hellman key in phase 1
+  -- IKE Phase 2 (Fast & Agile)
+  --- uses the keys agreed on in phase 1
+  --- agree on encryption method and keys used for bulk data transfer
+  --- create IPSEC SA phase 2 tunnel
+  - 2 types of VPN
+  -- policy based:
+  --- rule sets match traffic -> a pair of security association
+  --- different rules for different types of traffic
+  -- route based
+  --- target matching based on prefix
+  --- single pair of security associations per network prefix
+  --- all traffic types use the same rules
+  --- easier to set up but with less features
 
+* AWS Site-to-Site VPN
+  - VPNs offer the quickest way to connect between AWS and non AWS resources
+  - A logical connection between a VPC and on-premises network encrypted using IPSec, running over public internet
+  -- the exception to the public internet is if you are running a VPN over the top of direct connect
+  - fully highly available if designed and implemented correctly
+  - quick to provision (less than an hour)
+  - virtual private gateway (VGW)
+  - customer gateway (CGW)
+  - VPN Connection between the VGW and CGW
+  - the customer on prem router is a single point of failure
+  -- keeps VPN architecture from being truly highly available
+  -- aws side is still highly available
+  - partial highly available by default
+  - to be fully highly available must add a second customer gateway (diff location)
+  - 2 types of VPNs
+  -- static
+  --- uses static routes
+  --- networks are configured statically on the VPN connection
+  --- simple
+  --- restricted on:
+  ---- multiple connections
+  ---- load balancing
+  ---- can't use with direct connect
+  -- dynamic
+  --- uses BGP (border gateway protocol)
+  --- can adjust routing on the fly
+  --- can use mulitple links between the same locations
+  --- can still add static routes
+  --- can use route propagation in route tables
+  ---- while the vpn is active, any networks the vpns become aware of are automatically added as dynamically learned routes
+  ---- routes are learned from the virtual private gateway
+  - considerations
+  -- speed limitations (1.25Gbps)
+  --- AWS limit
+  -- virtual private gateway cap (1.25Gbps)
+  -- latency - inconsistent, public internet
+  -- cost - AWS hourly cost, GB out cost, data cap (on prem)
+  -- very quick to set up
+  --- hours
+  --- all software configuration
+  -- can be used as a backup for Direct Connect
+
+* AWS Transit Gateway
 
 
