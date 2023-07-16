@@ -263,5 +263,81 @@
   -- can be used as a backup for Direct Connect
 
 * AWS Transit Gateway
+  - network transit hub to connect VPCs to on premises networks
+  - significantly reduces network complexity
+  - network gateway object
+  - highly available and scalable
+  - attachments to other network types
+  - VPC, Site-to-Site VPN & Direct Connect Gateway
+  - can route between multiple VPCs
+  - transitive capable device
+  - can be peered with other transit gateways
+  -- cross account / region / etc
+  - can integrate with direct connect gateways
+  - have a default route table
+  -- can use multiple route table
+  - can create global networks
+  - can be shared between accounts
+  -- use aws RAM
+  - peer with diff regions same or cross accounts
+  - transitive routing
+  -- no need for full mesh topology
+  - less complex
 
+* Transit Gateway Deepdive
+  - hub and spoke architecture
+  - can peer with up to 50 other transit gateways
+  - by default it has one RT
+  - all attachments use this RT for routing decisions
+  - all attachments propagate (add) routes to it
+  - peering attachments dont share routes between gateways
+  - all attachments can route to all other attachments
+  - use uniques ASNs when making transit gateways
+  - static routes are required to allow each transit gateway to be aware of networks at the other side of the peer
+  - data is encrypted just like vpc peering
+  - attachments can only be associated with one route table
+  - a route table can be associated with many attachments
+  - attachments can propagate to many RTs
+  - even route tables they are not associated with
+  - can use custom route tables to perform network isolation
+
+* Advanced VPC Routing
+  - subnets are associated with 1 route table only
+  - either the vpc main RT or a custom RT
+  - RT can also be associated with an internet gateway or a virtual gateway
+  - IPv4 and IPv6 are handled separately within a RT
+  - Routes send traffic based on destination to a target
+  - Route tables have a default limit of 50 static routes and 100 propagated (dynamic) routes
+  - all routes are evaluated with highest priority matching
+  - it is not possible to have a subnet without a route table association
+  - priorities:
+  -- longest prefix wins /32 > /24 > /12
+  -- static Routes
+  -- propagated Routes
+  --- DX
+  --- VPN Static
+  --- VPN BGP
+  --- AS_PATH
+  - peering between overlapping CIDRs isn't supported
+  -- can either do a separate route table per subnet
+  -- or a more specific route on half of the addresses
+  - ingress routing
+  -- these are used on IGWs and VGWs
+  -- direct gateways to take action based on inbound traffic
+
+* Accelerated Site-to-Site VPN
+  - performance enhancement to the normal Site-to-Site VPN product that uses the same global network as Global Accelerator
+  - historically use VGW and CGW to create VPN connections
+  - create 2 IPSEC tunnels & transit data over public internet
+  - direct connect is faster but more expensive
+  - uses the AWS Global Accelerator network
+  - minimizes the amount of public internet usage for transit
+  - enables more performant VPNs
+  - higher quality connection
+  - can only be enabled when creating a TGW VPN attachment only
+  -- NOT compatible with VPNs using a VGW
+  - has a fixed accelerator cost and a transfer fee
+  - public internet only used until traffic reaches an edge location
+  - VGWs are becoming deprecated
+  - Transit gateway is the prefered product
 
