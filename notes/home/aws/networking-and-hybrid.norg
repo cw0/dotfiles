@@ -1,0 +1,343 @@
+= ToC
+
+* Public Vs Private Services
+  - public services
+  -- something accessed using public endpoints
+  - private services
+  -- sometihng accessed from within a vpc
+  - vpcs are isolated unless configured otherwise
+  - 3 zones
+  -- public internet zone
+  --- think gmail & other internet services
+  -- aws public zone
+  --- the zone where aws public services operate from (S3)
+  --- can be accessed from anywhere with an internet connection
+  -- aws private zone
+  --- vpcs & services within them
+  --- on premises can access vpcs only if configured via vpn or direct connect
+  --- you can also create and attach an internet gateway to a vpc
+  ---- allows private zone resources to access the internet
+  ---- can access aws public zone without ever using public internet
+
+* DHCP in a VPC
+  - DHCP -> dynamic host configuration protocol
+  -- allows for the automatic configuration of network resources
+  -- starts with L2 broadcast to get info from DHCP server
+  -- recieves IP address, subnet mask, & default gateway
+  --- minimum info needed to communicate on layer 3
+  -- configures DNS servers & domain name
+  -- configures NTP servers, NetBios name servers, and node type
+  -- can use AmazonProvidedDNS & custom DNS domain
+  - DHCP Option Sets are IMMUTABLE (cannot be changed after creation)
+  -- can be associated with 0 or more VPCs
+  -- each VPC can only have one DHCP option set associated with it
+  -- associating a new option set is immediate but changes require a DHCP Renew which takes time
+  - AWS Supply public and private DNS names. you can use custom domains if you provide custom DNS servers
+
+* VPC Router Deep Dive
+  - a virtual router within a VPC
+  - highly available across all AZs in a region
+  - scalable - no performance management required
+  - routes:
+  -- between subnets
+  -- from external networks into the vpc
+  -- from the vpc into external networks
+  - has an interface in every subnet within the vpc
+  -- subnet + 1 address
+  -- provided to resources within the vpc as the default gateway
+  - controlled using route tables
+  - every vpc is created with a Main route table
+  -- default for every subnet in the VPC
+  - custom route tables can be associated with subnets in the vpc - removing the main RT 
+  - Subnets are associated with ONE RT (main or custom)
+  - in general the Main RT should be left alone
+  -- because any subnets disassociated with a custom route table will automatically assume the main RT
+  -- saves on unintended side effects
+  - route tables contain routes (obviously) - most specific routes should be first
+  -- i.e. /32 beats /0
+  - route tables can be associated with gateways 
+  - it is possible to create a route table and not associate with a subnet
+  - it is not possible to create a subnet and not associate it with any route tables
+
+* Stateful vs Stateless Firewalls
+  - TCP
+  -- each side is sending ip packets back and forth
+  --- have a source and destination ips
+  -- layer 4 protocol
+  -- HTTP = port 80
+  -- HTTPS = port 443
+  -- broken into request and response
+  -- client forst picks an ephemeral port & initiates a connection to a server with a well known port number
+  -- then the server responds back to the ephemeral port on the client
+  - directionality
+  -- based on perspective
+  -- inbound
+  -- outbound
+  - stateless Firewall
+  -- doesn't understand the state of the connections
+  -- sees the request and response as two separate parts
+  -- need two rules for each request/response action
+  --- inbound
+  --- outbound
+  -- again inbound and outbound are dependent on perspective
+  -- response rules will need to allow full range of ephemeral ports
+  - stateful Firewall
+  -- intelligent enough to identify the request and response components of a connection as related
+  -- allowing the request automatically allows the response
+  -- reduces admin overhead and chance of mistakes
+  -- dont have to enable full range of ephemeral ports
+
+* Network Access Control Lists (NACL)
+  - a traditional firewall available within VPCs
+  - associated with subnets
+  - inbound and outbound connections are affected by nacls
+  - inter VPC traffic is NOT affected by NACL
+  - contains inbound and outbound rules
+  - offers both explicit allows and explicit denies
+  - rules are processed in order
+  -- starts with lowest rule number
+  -- once a match is found processing stops
+  --- so if you have an allow and a deny that both match, the lowest rule number one will be applied
+  - theres a catch all * explicit deny rule
+  - NACLs are stateless
+  -- both request and response parts need individual rules
+  - rule numbers are unique for inbound and outbound
+  -- can have a rule #110 on both inbound and outbound
+  - vpcs always have a default NACL
+  -- have a default catch all deny and also catch all allow
+  -- the default effect is that nacls are essentially bypassed
+  -- all traffic allowed
+  -- prefer using security group
+  - custom NACLs have only a default implicit deny by default
+  -- not immediately associated with any subnets
+  -- by default this is the opposite of the default NACL
+  --- deny all
+  - only impacts data crossing subnet boundary
+  - only use IPs/CIDR, ports and protocols - no logical resources
+  - can only be assigned to subnets not resources
+  - use together with security groups to add explicit DENY (bad IPS / networks)
+  - each subnet can only have one NACL, default or custom
+
+* VPC Security Groups
+  - Stateful - detect response traffic automatically
+  - allowed request = allowed response
+  - no need to worry about ephemeral ports
+  - limitations:
+  -- no explicit deny
+  -- can only allow or implicit deny
+  -- cant block specific bad actors
+  - operate above NACLs on the OSI 7 layer stack
+  -- have more features
+  -- support IP / CIDR resources
+  -- support logical resources including other security groups and itself
+  - attached to specific ENIs (elastic network interfaces)
+  - ATTACHED TO NETWORK INTERFACES NOT INSTANCES
+  - when you reference a security group from a security group you are referencing any resources which have that security group associated with them
+  -- reduces admin overhead
+  - self referencing is allowed
+  -- allows resources in the security group to allow inter SG traffic
+  -- handles ip changes automatically
+
+* AWS Local Zones
+  - edge computing location
+  - named by region-name-zone-#
+  -- e.g. us-west-2-las-1
+  -- e.g. us-west-2-lax-1a
+  - generally support direct connect
+  - connections to local zone resources offer really low latencies
+  - ebs snapshots use parent region
+  - have own private internet connection
+  - vpcs extend into local zones through subnets
+  - 1 zone so no built in resilience
+  - closer to you physically so lower latency
+  - not all products support local zones & most that do are opt in
+  - utilize parent region for some services
+  - needed when you need the highest level of performance
+
+* Border Gateway Protocol
+  - autonomous system - routers are controlled by one entity - a network in BGP
+  -- black box system that only concerns itself with network routing in and out of your autonomous system
+  - ASN are unique and allocated by IANA and are generally 16 bits in length with a range of 0-65535
+  -- 64512-65534 are private
+  - operates over TCP port 179 includes error correction and flow control
+  - not automatic - peering is manually configured
+  - BGP is a path-vector protocol:
+  -- exchanges the best path to a destination between peers
+  -- known as the ASPATH
+  - can be IBGP (internal BGP) or EBGP (external BGP)
+  -- IBGP focuses on routing within an AS
+  -- EBGP focuses on routing between AS's
+  - BGP by default uses the shortest physical distance as the best route
+  -- so even if a faster connection is available if the distance is longer it won't be first choice
+  -- can use AS path pre-pending to configure BGP to make a route look worse than it actually is
+
+* AWS Global Accelerator
+  - the more hops a connection has to make, the less optimal it is
+  - improves performance of your applications
+  - starts with 2 anycast IP addresses
+  -- normal ip addresses are unicast addresses (refer to one network device)
+  -- anycast ips are designed to allow muliple devices to use the same ip addresses
+  --- routers use the closes ones
+  - uses edge locations with the same pair of anycast ips
+  - public internet to edge location
+  - edge location communicates over AWS global backbone network. 
+  -- significantly better performance with less hops than internet
+  - when and where to use
+  -- moves the aws network closer to customers
+  -- the aim is to get customers onto the aws network as quickly as possible
+  -- transit over AWS backbone to 1+ location
+  - can be used for NON HTTP/S (TCP/UDP)
+  -- DIFFERENT FROM CLOUDFRONT
+  - frequently confused with CLOUDFRONT
+  -- DOES NOT DO ANY CACHING
+
+* IPSec VPN Fundamentals
+  - group of protocols to set up secure tunnels across insecure networks
+  - between two peers (local & remote)
+  - provides authentication & encrypted
+  - tunnels are eventually torn down if there is no interesting traffic
+  -- re-established the next time interesting traffic is detected
+  - symmetric encryption is fast but key sharing is difficult
+  - asymmetric encryption is slow but you can easily exchange public keys
+  - 2 main phases
+  -- IKE phase 1 (slow and heavy)
+  --- exchanging keys
+  --- authenticate with pre-shared key (password / certificate)
+  --- using asymetric encryption to agree on and create a symmetric key
+  --- IKE SA Created (phase 1 tunnel)
+  --- Diffie-Hellman algorithm generates same shared Diffie-Hellman key in phase 1
+  -- IKE Phase 2 (Fast & Agile)
+  --- uses the keys agreed on in phase 1
+  --- agree on encryption method and keys used for bulk data transfer
+  --- create IPSEC SA phase 2 tunnel
+  - 2 types of VPN
+  -- policy based:
+  --- rule sets match traffic -> a pair of security association
+  --- different rules for different types of traffic
+  -- route based
+  --- target matching based on prefix
+  --- single pair of security associations per network prefix
+  --- all traffic types use the same rules
+  --- easier to set up but with less features
+
+* AWS Site-to-Site VPN
+  - VPNs offer the quickest way to connect between AWS and non AWS resources
+  - A logical connection between a VPC and on-premises network encrypted using IPSec, running over public internet
+  -- the exception to the public internet is if you are running a VPN over the top of direct connect
+  - fully highly available if designed and implemented correctly
+  - quick to provision (less than an hour)
+  - virtual private gateway (VGW)
+  - customer gateway (CGW)
+  - VPN Connection between the VGW and CGW
+  - the customer on prem router is a single point of failure
+  -- keeps VPN architecture from being truly highly available
+  -- aws side is still highly available
+  - partial highly available by default
+  - to be fully highly available must add a second customer gateway (diff location)
+  - 2 types of VPNs
+  -- static
+  --- uses static routes
+  --- networks are configured statically on the VPN connection
+  --- simple
+  --- restricted on:
+  ---- multiple connections
+  ---- load balancing
+  ---- can't use with direct connect
+  -- dynamic
+  --- uses BGP (border gateway protocol)
+  --- can adjust routing on the fly
+  --- can use mulitple links between the same locations
+  --- can still add static routes
+  --- can use route propagation in route tables
+  ---- while the vpn is active, any networks the vpns become aware of are automatically added as dynamically learned routes
+  ---- routes are learned from the virtual private gateway
+  - considerations
+  -- speed limitations (1.25Gbps)
+  --- AWS limit
+  -- virtual private gateway cap (1.25Gbps)
+  -- latency - inconsistent, public internet
+  -- cost - AWS hourly cost, GB out cost, data cap (on prem)
+  -- very quick to set up
+  --- hours
+  --- all software configuration
+  -- can be used as a backup for Direct Connect
+
+* AWS Transit Gateway
+  - network transit hub to connect VPCs to on premises networks
+  - significantly reduces network complexity
+  - network gateway object
+  - highly available and scalable
+  - attachments to other network types
+  - VPC, Site-to-Site VPN & Direct Connect Gateway
+  - can route between multiple VPCs
+  - transitive capable device
+  - can be peered with other transit gateways
+  -- cross account / region / etc
+  - can integrate with direct connect gateways
+  - have a default route table
+  -- can use multiple route table
+  - can create global networks
+  - can be shared between accounts
+  -- use aws RAM
+  - peer with diff regions same or cross accounts
+  - transitive routing
+  -- no need for full mesh topology
+  - less complex
+
+* Transit Gateway Deepdive
+  - hub and spoke architecture
+  - can peer with up to 50 other transit gateways
+  - by default it has one RT
+  - all attachments use this RT for routing decisions
+  - all attachments propagate (add) routes to it
+  - peering attachments dont share routes between gateways
+  - all attachments can route to all other attachments
+  - use uniques ASNs when making transit gateways
+  - static routes are required to allow each transit gateway to be aware of networks at the other side of the peer
+  - data is encrypted just like vpc peering
+  - attachments can only be associated with one route table
+  - a route table can be associated with many attachments
+  - attachments can propagate to many RTs
+  - even route tables they are not associated with
+  - can use custom route tables to perform network isolation
+
+* Advanced VPC Routing
+  - subnets are associated with 1 route table only
+  - either the vpc main RT or a custom RT
+  - RT can also be associated with an internet gateway or a virtual gateway
+  - IPv4 and IPv6 are handled separately within a RT
+  - Routes send traffic based on destination to a target
+  - Route tables have a default limit of 50 static routes and 100 propagated (dynamic) routes
+  - all routes are evaluated with highest priority matching
+  - it is not possible to have a subnet without a route table association
+  - priorities:
+  -- longest prefix wins /32 > /24 > /12
+  -- static Routes
+  -- propagated Routes
+  --- DX
+  --- VPN Static
+  --- VPN BGP
+  --- AS_PATH
+  - peering between overlapping CIDRs isn't supported
+  -- can either do a separate route table per subnet
+  -- or a more specific route on half of the addresses
+  - ingress routing
+  -- these are used on IGWs and VGWs
+  -- direct gateways to take action based on inbound traffic
+
+* Accelerated Site-to-Site VPN
+  - performance enhancement to the normal Site-to-Site VPN product that uses the same global network as Global Accelerator
+  - historically use VGW and CGW to create VPN connections
+  - create 2 IPSEC tunnels & transit data over public internet
+  - direct connect is faster but more expensive
+  - uses the AWS Global Accelerator network
+  - minimizes the amount of public internet usage for transit
+  - enables more performant VPNs
+  - higher quality connection
+  - can only be enabled when creating a TGW VPN attachment only
+  -- NOT compatible with VPNs using a VGW
+  - has a fixed accelerator cost and a transfer fee
+  - public internet only used until traffic reaches an edge location
+  - VGWs are becoming deprecated
+  - Transit gateway is the prefered product
+
