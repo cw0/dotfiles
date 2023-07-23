@@ -341,3 +341,25 @@
   - VGWs are becoming deprecated
   - Transit gateway is the prefered product
 
+* AWS Client VPN
+  - a managed implementation of open vpn
+  - any client with open vpn is supported
+  - connect to a client VPN endpoint
+  - associated to ONE VPC
+  - 1+ target networks (high availability)
+  - billed based on network associations
+  - clients connect via:
+  -- certificates
+  -- federated identities
+  -- aws directory service
+  - integrates with cloudwatch
+  - by default all traffic is routed via ClientVPN
+  -- not ususally the optimal path if trying to access outside services from the client
+  -- enable split tunnel to fix
+  --- Split Tunnel means the ClientVPN routes are "Added" to existing ones
+
+
+*Random Sidenotes*
+  - To allow a VPC to connect to the public internet it must have a NAT gateway and an Internet Gateway
+
+
