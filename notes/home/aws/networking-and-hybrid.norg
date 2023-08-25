@@ -357,6 +357,7 @@
   -- not ususally the optimal path if trying to access outside services from the client
   -- enable split tunnel to fix
   --- Split Tunnel means the ClientVPN routes are "Added" to existing ones
+  - can use client based authentication or certificate based authentication
 
 
 *Random Sidenotes*
