@@ -172,9 +172,8 @@ return require("packer").startup(function(use)
 
 	use({
 		"glepnir/lspsaga.nvim", -- shows a popup for things like code actions
-		opt = true,
+		after = "nvim-lspconfig",
 		branch = "main",
-		event = "LspAttach",
 		config = function()
 			require("config.lspsaga").setup()
 		end,
