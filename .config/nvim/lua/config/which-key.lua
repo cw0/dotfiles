@@ -105,12 +105,20 @@ function M.setup()
 				"git commit",
 			},
 			d = {
-				":Gdiffsplit<CR>",
+				":Gvdiffsplit!<CR>",
 				"git diff split",
 			},
 			g = {
 				":lua _LAZYGIT_TOGGLE()<CR>",
 				"lazygit toggle",
+			},
+			m = {
+				":G mergetool<CR>",
+				"open git mergetool",
+			},
+			l = {
+				":G log<CR>",
+				"open git log",
 			},
 			p = {
 				":G push<CR>",
@@ -189,7 +197,7 @@ function M.setup()
 				"test file",
 			},
 			n = {
-				"require('neotest').run.run()<CR>",
+				":lua require('neotest').run.run()<CR>",
 				"test nearest",
 			},
 			o = {

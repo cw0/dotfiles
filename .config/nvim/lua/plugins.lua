@@ -139,9 +139,6 @@ return require("packer").startup(function(use)
 	}) -- Git integration for buffers
 	use({
 		"tpope/vim-fugitive",
-		config = function()
-			require("config.fugitive").setup()
-		end,
 	}) -- Git wrapper
 	use({ "shumphrey/fugitive-gitlab.vim" }) -- support GitLab in fugitive
 
