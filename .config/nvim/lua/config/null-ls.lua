@@ -7,6 +7,8 @@ function M.setup()
 
 	local formatting = null_ls.builtins.formatting -- to setup formatters
 	local diagnostics = null_ls.builtins.diagnostics -- to setup linters
+	local code_actions = null_ls.builtins.code_actions
+	local completion = null_ls.builtins.completion
 
 	-- to setup format on save
 	local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -17,9 +19,19 @@ function M.setup()
 		sources = {
 			--  to disable file types use
 			--  "formatting.prettier.with({disabled_filetypes: {}})" (see null-ls docs)
+			-- code_actions.eslint_d,
+			-- code_actions.refactoring,
+			-- completion.luasnip,
+			-- completion.spell,
 			formatting.prettier, -- js/ts formatter
 			formatting.stylua, -- lua formatter
 			diagnostics.eslint_d, -- eslint linter
+			-- diagnostics.golangci_lint,
+			-- diagnostics.markdownlint,
+			-- diagnostics.pylint,
+			-- diagnostics.terraform_validate,
+			-- diagnostics.yamllint,
+			-- diagnostics.zsh,
 		},
 		-- configure format on save
 		on_attach = function(current_client, bufnr)

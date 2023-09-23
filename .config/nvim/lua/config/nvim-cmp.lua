@@ -35,13 +35,14 @@ function M.setup()
 			["<C-l>"] = cmp.mapping.complete(), -- show completion suggestions
 		},
 		-- sources for autocompletion
-		sources = {
+		sources = cmp.config.sources({
 			{ name = "luasnip" }, -- snippets
 			-- { name = "copilot" },
 			{ name = "nvim_lsp" }, -- lsp
-			{ name = "buffer" }, -- text within current buffer
 			{ name = "path" }, -- file system paths
-		},
+		}, {
+			{ name = "buffer" },
+		}),
 		-- configure lspkind for vs-code like icons
 		formatting = {
 			format = lspkind.cmp_format({
@@ -57,12 +58,13 @@ function M.setup()
 			":",
 			{
 				mapping = cmp.mapping.preset.cmdline(),
-				sources = {
+				sources = cmp.config.sources({
+					{ name = "path" },
+				}, {
 					{ name = "buffer" },
-				},
+				}),
 			},
 		},
-
 		window = {
 			documentation = cmp.config.window.bordered({
 				border = "rounded",

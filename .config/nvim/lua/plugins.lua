@@ -169,7 +169,7 @@ return require("packer").startup(function(use)
 
 	use({
 		"glepnir/lspsaga.nvim", -- shows a popup for things like code actions
-		after = "nvim-lspconfig",
+		after = "nvim-cmp",
 		branch = "main",
 		config = function()
 			require("config.lspsaga").setup()
@@ -194,6 +194,9 @@ return require("packer").startup(function(use)
 		"neovim/nvim-lspconfig",
 		requires = {
 			"hrsh7th/cmp-nvim-lsp", --lsp completions
+		},
+		after = {
+			"nvim-cmp",
 		},
 		config = function()
 			require("config.lsp").setup()
