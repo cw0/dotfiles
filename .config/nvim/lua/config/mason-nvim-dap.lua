@@ -8,7 +8,9 @@ function M.setup()
 
 	mason_nvim_dap.setup({
 		ensure_installed = {
+			"debugpy",
 			"js-debug-adapter",
+			"go-debug-adapter",
 		},
 		automatic_installation = true,
 	})

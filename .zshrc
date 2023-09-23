@@ -205,3 +205,5 @@ export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
 
 export PATH="$HOME/.poetry/bin:$PATH"
 safe_load /usr/share/nvm/init-nvm.sh
+
+. /opt/asdf-vm/asdf.sh
