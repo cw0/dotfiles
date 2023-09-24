@@ -155,18 +155,18 @@ return require("packer").startup(function(use)
 
 	-- linting
 	use({
-	  'mfussenegger/nvim-lint',
-	config = function()
-	    require("config.nvim-lint").setup()
-  end,
+		"mfussenegger/nvim-lint",
+		config = function()
+			require("config.nvim-lint").setup()
+		end,
 	})
 
 	-- formatting
-	use ({
-	  'mhartington/formatter.nvim',
-	  config = function()
-	  require("config.formatter").setup()
-	  end,
+	use({
+		"mhartington/formatter.nvim",
+		config = function()
+			require("config.formatter").setup()
+		end,
 	})
 
 	-- telescope
@@ -244,6 +244,8 @@ return require("packer").startup(function(use)
 			"nvim-treesitter/nvim-treesitter",
 			"antoinemadec/FixCursorHold.nvim",
 			"haydenmeade/neotest-jest",
+			"nvim-neotest/neotest-go",
+			"nvim-neotest/neotest-python",
 		},
 		config = function()
 			require("config.neotest").setup()

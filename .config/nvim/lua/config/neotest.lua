@@ -17,6 +17,7 @@ function M.setup()
 
 	require("neotest").setup({
 		adapters = {
+			require("neotest-go"),
 			require("neotest-jest")({
 				env = { CI = true },
 				cwd = function(path)
@@ -25,6 +26,7 @@ function M.setup()
 					return cwd
 				end,
 			}),
+			require("neotest-python"),
 		},
 		output = {
 			enable = true,
