@@ -34,13 +34,6 @@ function M.setup()
 			":noh<CR><CR>",
 			"clear search highlighting",
 		},
-		g = {
-			name = "go to",
-		},
-	})
-
-	wk.register({
-		name = "tmux",
 	})
 
 	wk.register({
