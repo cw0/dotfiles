@@ -153,6 +153,22 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- linting
+	use({
+	  'mfussenegger/nvim-lint',
+	config = function()
+	    require("config.nvim-lint").setup()
+  end,
+	})
+
+	-- formatting
+	use ({
+	  'mhartington/formatter.nvim',
+	  config = function()
+	  require("config.formatter").setup()
+	  end,
+	})
+
 	-- telescope
 	use({ "ThePrimeagen/harpoon" }) -- mark files to navigate between
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- better sorting performance
@@ -164,8 +180,12 @@ return require("packer").startup(function(use)
 	}) -- fuzzy finder
 
 	use({
-		"jose-elias-alvarez/typescript.nvim",
-	}) -- for TypeScript LSP commands
+		"pmizio/typescript-tools.nvim",
+		requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+		config = function()
+			require("config.typescript-tools").setup()
+		end,
+	})
 
 	use({
 		"glepnir/lspsaga.nvim", -- shows a popup for things like code actions
@@ -203,52 +223,18 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- linting an formatting
 	use({
-		"jose-elias-alvarez/null-ls.nvim",
-		requires = {
-			"nvim-lua/plenary.nvim",
-		},
-		config = function()
-			require("config.null-ls").setup()
-		end,
-	})
-
-	use({
-		"williamboman/mason-lspconfig.nvim", -- automatic setup for lsp
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		requires = {
 			"williamboman/mason.nvim",
-			"neovim/nvim-lspconfig",
 		},
 		after = {
 			"mason.nvim",
 		},
 		config = function()
-			require("config.mason-lspconfig").setup()
+			require("config.mason-tool-installer").setup()
 		end,
 	})
-
-	use({
-		"jayp0521/mason-null-ls.nvim",
-		requires = {
-			"williamboman/mason.nvim",
-			"jose-elias-alvarez/null-ls.nvim",
-		},
-		config = function()
-			require("config.mason-null-ls").setup()
-		end,
-	})
-
-	use({
-		"jay-babu/mason-nvim-dap.nvim",
-		requires = {
-			"williamboman/mason.nvim",
-			"mfussenegger/nvim-dap",
-		},
-		config = function()
-			require("config.mason-nvim-dap").setup()
-		end,
-	}) -- automatic setup for dap
 
 	-- unit testing
 	use({

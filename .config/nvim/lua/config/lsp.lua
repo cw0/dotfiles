@@ -7,12 +7,6 @@ M.setup = function()
 		return
 	end
 
-	local typescript_setup, typescript = pcall(require, "typescript")
-	if not typescript_setup then
-		print("typescript died")
-		return
-	end
-
 	local cmp_nvim_lsp_status, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 	if not cmp_nvim_lsp_status then
 		print("cmp_nvim_lsp died")
@@ -31,22 +25,22 @@ M.setup = function()
 		local opts = { noremap = true, silent = true, buffer = bufnr }
 
 		-- set keybinds
-		keymap.set("n", "gf", "<cmd>Lspsaga lsp_finder<CR>", opts) -- show definition, references
-		keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts) -- see definition and make edits in window
-		keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-		keymap.set("n", "gT", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-		keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-		keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-		keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-		keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
-		keymap.set("n", "<leader>la", "<cmd>Lspsaga code_action<CR>", opts)
-		keymap.set("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
-		keymap.set("n", "<leader>lj", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
-		keymap.set("n", "<leader>lk", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
-		keymap.set("n", "<leader>lr", "<cmd>Lspsaga rename<CR>", opts)
-		keymap.set("n", "<leader>lq", "<cmd>LspRestart<CR>", opts)
-		keymap.set("n", "<leader>ls", "<cmd>Lspsaga signature_help<CR>", opts)
-		keymap.set("n", "<leader>lt", "<cmd>LSoutlineToggle<CR>", opts)
+		-- keymap.set("n", "gf", "<cmd>Lspsaga lsp_finder<CR>", opts) -- show definition, references
+		-- keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts) -- see definition and make edits in window
+		-- keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+		-- keymap.set("n", "gT", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+		-- keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+		-- keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+		-- keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+		-- keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
+		-- keymap.set("n", "<leader>la", "<cmd>Lspsaga code_action<CR>", opts)
+		-- keymap.set("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
+		-- keymap.set("n", "<leader>lj", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
+		-- keymap.set("n", "<leader>lk", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
+		-- keymap.set("n", "<leader>lr", "<cmd>Lspsaga rename<CR>", opts)
+		-- keymap.set("n", "<leader>lq", "<cmd>LspRestart<CR>", opts)
+		-- keymap.set("n", "<leader>ls", "<cmd>Lspsaga signature_help<CR>", opts)
+		-- keymap.set("n", "<leader>lt", "<cmd>LSoutlineToggle<CR>", opts)
 
 		-- typescript specific keymaps (e.g. rename file and update imports)
 		if client.name == "tsserver" then
@@ -141,14 +135,6 @@ M.setup = function()
 
 	vim.cmd([[let g:terraform_fmt_on_save=1]])
 	vim.cmd([[let g:terraform_align=1]])
-
-	-- configure typescript server with plugin
-	typescript.setup({
-		server = {
-			capabilities = capabilities,
-			on_attach = on_attach,
-		},
-	})
 
 	-- Show line diagnostics automatically in hover window
 	vim.o.updatetime = 250
