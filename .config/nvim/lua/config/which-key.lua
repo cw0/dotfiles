@@ -66,6 +66,17 @@ function M.setup()
 				":lua require('dap').run_last()<cr>",
 				"run last",
 			},
+			m = {
+				name = "debug nearest method",
+				g = {
+					":lua require('dap-go').debug_test()<cr>",
+					"go: test nearest method",
+				},
+				p = {
+					":lua require('dap-python').test_method()<cr>",
+					"python: test nearest method",
+				},
+			},
 			o = {
 				":lua require('dap').step_over()<cr>",
 				"step over",
@@ -172,7 +183,17 @@ function M.setup()
 				"git write",
 			},
 		},
-		h = {},
+		h = {
+			name = "harpoon",
+			h = {
+				":lua require('harpoon.ui').toggle_quick_menu()<CR>",
+				"toggle harpoon menu",
+			},
+			m = {
+				":lua require('harpoon.mark').add_file()<CR>",
+				"harpoon add file",
+			},
+		},
 		l = {
 			name = "lsp and lsp saga",
 			a = {
@@ -238,17 +259,6 @@ function M.setup()
 			T = {
 				"<cmd>lua vim.lsp.buf.type_definition()<CR>",
 				"go to type definition",
-			},
-		},
-		m = {
-			name = "marks / harpoon",
-			h = {
-				":lua require('harpoon.ui').toggle_quick_menu()<CR>",
-				"toggle harpoon menu",
-			},
-			m = {
-				":lua require('harpoon.mark').add_file()<CR>",
-				"harpoon add file",
 			},
 		},
 		o = {

@@ -9,6 +9,7 @@ function M.setup()
 	mason_tool_installer.setup({
 		ensure_installed = {
 			"css-lsp",
+			"delve", -- for go
 			"docker-compose-language-service",
 			"dockerfile-language-server",
 			"eslint_d",

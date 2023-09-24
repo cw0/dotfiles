@@ -257,6 +257,8 @@ return require("packer").startup(function(use)
 		"rcarriga/nvim-dap-ui",
 		requires = {
 			"mfussenegger/nvim-dap",
+			"leoluz/nvim-dap-go",
+			"mfussenegger/nvim-dap-python",
 		},
 		config = function()
 			require("config.dap").setup()
