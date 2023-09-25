@@ -207,3 +207,6 @@ export PATH="$HOME/.poetry/bin:$PATH"
 safe_load /usr/share/nvm/init-nvm.sh
 
 . /opt/asdf-vm/asdf.sh
+. ~/.asdf/plugins/golang/set-env.zsh
+
+# export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"

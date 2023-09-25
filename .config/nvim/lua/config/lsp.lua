@@ -27,6 +27,10 @@ M.setup = function()
 
 	lspconfig.golangci_lint_ls.setup({})
 
+	lspconfig.gopls.setup({
+		cmd = { "gopls", "--remote=auto" },
+	})
+
 	lspconfig.html.setup({
 		capabilities = capabilities,
 	})

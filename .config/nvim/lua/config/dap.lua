@@ -62,7 +62,8 @@ function M.setup()
 		}
 	end
 
-	dap_go.setup()
+	dap_go.setup({})
+
 	dap_python.setup("~/.venv/debugpy/bin/python")
 end
 

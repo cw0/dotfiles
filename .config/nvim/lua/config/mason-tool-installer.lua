@@ -14,7 +14,8 @@ function M.setup()
 			"dockerfile-language-server",
 			"eslint_d",
 			"golangci-lint",
-			"golangci-lint-ls",
+			"golangci-lint-langserver",
+			"gopls",
 			"html-lsp",
 			"js-debug-adapter",
 			"json-lsp",
@@ -34,7 +35,7 @@ function M.setup()
 		},
 		auto_update = false,
 		run_on_start = true,
-		debounce_hours = 5,
+		-- debounce_hours = 5,
 	})
 end
 
