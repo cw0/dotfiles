@@ -1,5 +1,8 @@
 local set = vim.opt
 
+-- enable fast plugin loading
+vim.loader.enable()
+
 --[[
   BASIC CONFIGURATION
 --]]
