@@ -208,3 +208,9 @@ safe_load /usr/share/nvm/init-nvm.sh
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+# Add asdf-vm
+. /opt/asdf-vm/asdf.sh
+. ~/.asdf/plugins/golang/set-env.zsh
+
+# export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"

@@ -1,8 +1,14 @@
 local set = vim.opt
 
+-- enable fast plugin loading
+vim.loader.enable()
+
 --[[
   BASIC CONFIGURATION
 --]]
+
+-- map leader to space
+vim.g.mapleader = " "
 
 -- disable netrw for nvim-tree
 vim.g.loaded_netrw = 1

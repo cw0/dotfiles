@@ -16,6 +16,16 @@ function M.setup()
 		return
 	end
 
+	local dap_go_status_ok, dap_go = pcall(require, "dap-go")
+	if not dap_go_status_ok then
+		return
+	end
+
+	local dap_python_status_ok, dap_python = pcall(require, "dap-python")
+	if not dap_python_status_ok then
+		return
+	end
+
 	dapui.setup()
 
 	vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "" })
@@ -51,6 +61,10 @@ function M.setup()
 			},
 		}
 	end
+
+	dap_go.setup({})
+
+	dap_python.setup("~/.venv/debugpy/bin/python")
 end
 
 return M
