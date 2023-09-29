@@ -147,6 +147,19 @@ return require("packer").startup(function(use)
     end,
   })
 
+-- Chat GPT
+use({
+  "jackMort/ChatGPT.nvim",
+    config = function()
+      require("config.chatgpt").setup()
+    end,
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim"
+    }
+})
+
   -- telescope
   use({ "ThePrimeagen/harpoon" })                                   -- mark files to navigate between
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- better sorting performance
