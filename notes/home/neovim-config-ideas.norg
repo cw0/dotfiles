@@ -1,0 +1,25 @@
+= ToC
+
+*Plugins what need configuring*
+
+- ( ) https://github.com/jackMort/ChatGPT.nvim
+- ( ) https://github.com/nvim-telescope/telescope.nvim
+
+*Plugins what need installing*
+- ( ) https://github.com/folke/todo-comments.nvim
+- ( ) https://github.com/aserowy/tmux.nvim
+- ( ) https://github.com/folke/trouble.nvim
+- ( ) https://github.com/RaafatTurki/hex.nvim
+- ( ) https://github.com/jamestthompson3/nvim-remote-containers
+- ( ) https://github.com/mrjones2014/legendary.nvim
+- ( ) https://github.com/anuvyklack/hydra.nvim
+- ( ) https://github.com/folke/lazy.nvim
+- ( ) https://github.com/folke/persistence.nvim
+- ( ) https://github.com/folke/noice.nvim
+
+*Make this Editor Agnostic*
+- ( ) https://github.com/jbyuki/instant.nvim
+
+*Workflow Tasks*
+- ( ) learn Editorconfig spec
+- ( ) learn sshfs
