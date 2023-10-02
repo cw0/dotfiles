@@ -116,6 +116,10 @@ function M.setup()
         ":Telescope harpoon marks<CR>",
         "Find Harpoon Marks in Files",
       },
+      m = {
+        ":NvimTreeToggle<CR>",
+        "toggle file browser"
+      },
       s = {
         ":Telescope lsp_document_symbols<CR>",
         "Find Symbols in Files",

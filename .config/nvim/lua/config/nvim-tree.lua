@@ -111,8 +111,6 @@ function M.setup()
 			dotfiles = false,
 		},
 	})
-
-	map("n", "<Leader>fm", ":NvimTreeToggle<CR>", { desc = "toggle NvimTree" })
 end
 
 return M
