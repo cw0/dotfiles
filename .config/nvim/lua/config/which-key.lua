@@ -14,22 +14,22 @@ function M.setup()
 
   wk.register({
     name = "global mappings",
-    ["<C-h>"] = {
-      ":lua require('nvim-tmux-navigation').NvimTmuxNavigateLeft()<CR>",
-      "move to left buffer or tmux pane",
-    },
-    ["<C-j>"] = {
-      ":lua require('nvim-tmux-navigation').NvimTmuxNavigateDown()<CR>",
-      "move to the buffer or tmux pane bellow",
-    },
-    ["<C-k>"] = {
-      ":lua require('nvim-tmux-navigation').NvimTmuxNavigateUp()<CR>",
-      "move to the buffer or tmux pane above",
-    },
-    ["<C-l>"] = {
-      ":lua require('nvim-tmux-navigation').NvimTmuxNavigateRight()<CR>",
-      "move to the right buffer or tmux pane",
-    },
+    -- ["<C-h>"] = {
+    --   ":lua require('tmux').move_left()<CR>",
+    --   "move to left buffer or tmux pane",
+    -- },
+    -- ["<C-j>"] = {
+    --   ":lua require('tmux').move_bottom()<CR>",
+    --   "move to the buffer or tmux pane bellow",
+    -- },
+    -- ["<C-k>"] = {
+    --   ":lua require('tmux').move_top()<CR>",
+    --   "move to the buffer or tmux pane above",
+    -- },
+    -- ["<C-l>"] = {
+    --   ":lua require('tmux').move_right()<CR>",
+    --   "move to the right buffer or tmux pane",
+    -- },
     ["<CR>"] = {
       ":noh<CR><CR>",
       "clear search highlighting",

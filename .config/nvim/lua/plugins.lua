@@ -54,7 +54,8 @@ local plugins = {
     end,
   },
   {
-    "alexghergh/nvim-tmux-navigation",
+    "aserowy/tmux.nvim",
+    priority = 1000,
     config = function()
       require("config.tmux").setup()
     end,
@@ -92,6 +93,11 @@ local plugins = {
     config = function()
       require("config.comment").setup()
     end,
+  },
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {}
   },
   {
     "JoosepAlviste/nvim-ts-context-commentstring"
