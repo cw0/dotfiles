@@ -1,3 +1,14 @@
+local settings_status_ok, settings = pcall(require, "settings")
+if not settings_status_ok then
+  print("settings file not found")
+  return
+end
+
+local autocommands_status_ok, autocommands = pcall(require, "autocommands")
+if not autocommands_status_ok then
+  print("autocommands file failed to load")
+end
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -12,19 +23,10 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-local plugins_status_ok, plugins = pcall(require, "plugins")
-if not plugins_status_ok then
-  print("plugins.lua failed to load")
-  return
-end
-
 local lazy_status_ok, lazy = pcall(require, "lazy")
 if not lazy_status_ok then
   print("lazy package manager failed to load")
   return
 end
 
-lazy.setup(plugins, {})
-
-require("settings")
-require("autocommands")
+lazy.setup("plugins")
