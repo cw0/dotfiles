@@ -2,6 +2,7 @@ return {
   "nvim-lualine/lualine.nvim",
   dependencies = {
     "nvim-tree/nvim-web-devicons",
+    "catppuccin/nvim",
   },
   config = function()
     local status_ok, lualine = pcall(require, "lualine")

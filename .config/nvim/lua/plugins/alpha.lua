@@ -1,5 +1,6 @@
 return {
   "goolord/alpha-nvim",
+  priority = 1000,
   config = function()
     local status_ok, alpha = pcall(require, "alpha")
     if not status_ok then
@@ -48,14 +49,14 @@ return {
     -- dashboard.section.header.opts.hl = pick_color()
 
     dashboard.section.buttons.val = {
-      button("f", " " .. " Find file", ":lua require('config.telescope').project_files()<CR>"),
+      button("f", " " .. " Find file", ":lua require('telescope.builtin').find_files()<CR>"),
       button("e", " " .. " New file", ":ene <BAR> startinsert<CR>"),
       button("r", " " .. " Recent files", ":Telescope oldfiles<CR>"),
       button("t", " " .. " Find text", ":Telescope live_grep<CR>"),
       button("h", " " .. " Open Home Neorg", ":e ~/notes/home/index.norg<CR>"),
       button("w", " " .. " Open Work Neorg", ":e ~/notes/work/index.norg<CR>"),
       button("c", " " .. " Config", ":e ~/.config/nvim/init.lua<CR>"),
-      button("u", " " .. " Update plugins", ":PackerSync<CR>"),
+      button("u", " " .. " Update plugins", ":Lazy sync<CR>"),
       button("q", " " .. " Quit", ":qa<CR>"),
     }
 

@@ -10,6 +10,10 @@ return {
     end
 
     configs.setup({
+      context_commentstring = {
+        enable = true,
+        enable_autocmd = false
+      },
       ensure_installed = {
         "bash",
         "css",
@@ -45,7 +49,14 @@ return {
       },
       autotag = {
         enable = true,
+        enable_rename = true,
+        enable_close = true,
+        enable_close_on_slash = true,
       },
     })
   end,
+  dependencies = {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    "windwp/nvim-ts-autotag",
+  }
 }

@@ -15,31 +15,45 @@ return {
     -- vim.g.catppuccin_flavour = "macchiato"
 
     catppuccin.setup({
-      -- transparent_background = true,
-      -- custom_highlights = {
-      -- 	Comment = { fg = colors.overlay1 },
-      -- 	LineNr = { fg = colors.overlay1 },
-      -- 	-- CursorLine = { bg = colors.none },
-      -- 	-- CursorLineNr = { fg = colors.lavender },
-      -- 	DiagnosticVirtualTextError = { bg = colors.none },
-      -- 	DiagnosticVirtualTextWarn = { bg = colors.none },
-      -- 	DiagnosticVirtualTextInfo = { bg = colors.none },
-      -- 	DiagnosticVirtualTextHint = { bg = colors.none },
-      -- 	HarpoonWindow = { ctermbg = 238 },
-      -- 	HarpoonBorder = { fg = "#8AADF4" },
-      -- },
       -- TODO: investigate integration with todo comments
       integrations = {
+        alpha = true,
         cmp = true,
+        dap = {
+          enabled = true,
+          enable_ui = true,
+        },
         gitsigns = true,
-        telescope = true,
-        treesitter = true,
-        notify = true,
-        -- Special integrations, see https://github.com/catppuccin/nvim#special-integrations
+        harpoon = true,
+        lsp_saga = true,
+        mason = true,
+        native_lsp = {
+          enabled = true,
+          virtual_text = {
+            errors = { "italic" },
+            hints = { "italic" },
+            warnings = { "italic" },
+            information = { "italic" },
+          },
+          underlines = {
+            errors = { "underline" },
+            hints = { "underline" },
+            warnings = { "underline" },
+            information = { "underline" },
+          },
+          inlay_hints = {
+            background = true,
+          },
+        },
         navic = {
           enabled = true,
           custom_bg = "NONE",
         },
+        neotest = true,
+        notify = true,
+        telescope = true,
+        treesitter = true,
+        which_key = true,
       },
     })
 
