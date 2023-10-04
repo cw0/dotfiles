@@ -110,7 +110,7 @@ return {
           "Find Definition",
         },
         f = {
-          "lua require('config.telescope').project_files()<CR>",
+          ":lua require('telescope.builtin').find_files()<CR>",
           "Find Files in Project",
         },
         h = {

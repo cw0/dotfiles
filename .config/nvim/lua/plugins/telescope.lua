@@ -38,4 +38,13 @@ return {
     telescope.load_extension("harpoon")
     telescope.load_extension("notify")
   end,
+  dependencies = {
+    {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      build = "make"
+    },
+    {
+      "ThePrimeagen/harpoon"
+    }
+  }
 }
