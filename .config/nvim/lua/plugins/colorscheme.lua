@@ -18,6 +18,7 @@ return {
       -- TODO: investigate integration with todo comments
       integrations = {
         alpha = true,
+        barbar = true,
         cmp = true,
         dap = {
           enabled = true,
