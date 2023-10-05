@@ -6,7 +6,6 @@ vim.loader.enable()
 --[[
   BASIC CONFIGURATION
 --]]
-
 -- map leader to space
 vim.g.mapleader = " "
 
@@ -32,7 +31,7 @@ set.fillchars:append("vert:│")
 
 set.wildmenu = true
 set.ttyfast = true
-set.lazyredraw = true
+set.lazyredraw = false -- NOTE: set to false for noice.nvim
 set.updatetime = 300
 
 set.mouse = "a"

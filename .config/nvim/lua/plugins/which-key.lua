@@ -38,6 +38,11 @@ return {
     })
 
     wk.register({
+      a = {
+        name = "aerial",
+        "<cmd>AerialToggle!<CR>",
+        "toggle aerial",
+      },
       b = {
         name = "buffer",
         l = {

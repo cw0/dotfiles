@@ -17,17 +17,25 @@ return {
     catppuccin.setup({
       -- TODO: investigate integration with todo comments
       integrations = {
+        aerial = true,
         alpha = true,
-        barbar = true,
         cmp = true,
         dap = {
           enabled = true,
           enable_ui = true,
         },
+        flash = true,
         gitsigns = true,
         harpoon = true,
+        indent_blankline = {
+          enabled = true,
+          scope_color = "", -- catppuccin color (eg. `lavender`) Default: text
+          colored_indent_levels = false,
+        },
         lsp_saga = true,
+        lsp_trouble = true,
         mason = true,
+        markdown = true,
         native_lsp = {
           enabled = true,
           virtual_text = {
@@ -51,7 +59,9 @@ return {
           custom_bg = "NONE",
         },
         neotest = true,
+        noice = true,
         notify = true,
+        nvimtree = true,
         telescope = true,
         treesitter = true,
         which_key = true,
