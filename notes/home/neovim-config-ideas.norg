@@ -7,6 +7,8 @@
 - ( ) https://github.com/folke/todo-comments.nvim
 
 *Plugins what need installing*
+- ( ) https://github.com/stevearc/aerial.nvim
+- ( ) https://github.com/stevearc/oil.nvim
 - (x) https://github.com/aserowy/tmux.nvim
 - ( ) https://github.com/folke/trouble.nvim
 - ( ) https://github.com/RaafatTurki/hex.nvim
