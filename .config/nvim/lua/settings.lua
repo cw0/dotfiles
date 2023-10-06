@@ -46,7 +46,9 @@ set.swapfile = false
 
 set.compatible = false
 
-set.foldmethod = "syntax"
+set.foldmethod = "expr"
+set.foldexpr = "nvim_treesitter#foldexpr()"
+set.foldenable = false
 set.foldlevel = 99
 set.foldcolumn = "1"
 
