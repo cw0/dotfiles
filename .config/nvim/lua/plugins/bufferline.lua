@@ -47,22 +47,22 @@ return {
     bufferline.setup({
       -- TODO: make this actually look pleasant
       highlights = require("catppuccin.groups.integrations.bufferline").get({
-        styles = { "bold" },
-        custom = {
-          mocha = {
-            fill = {
-              bg = mocha.base
-            },
-            background = {
-              fg = mocha.text,
-              bg = mocha.base
-            },
-          },
-        }
+        -- styles = { "bold" },
+        -- custom = {
+        --   mocha = {
+        --     fill = {
+        --       bg = mocha.base
+        --     },
+        --     background = {
+        --       fg = mocha.text,
+        --       bg = mocha.base
+        --     },
+        --   },
+        -- }
       }),
-      options = {
-        separator_style = "slant"
-      }
+      -- options = {
+      --   separator_style = "slant"
+      -- }
     })
   end,
   version = "*",
