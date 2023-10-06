@@ -50,7 +50,6 @@ set.foldmethod = "expr"
 set.foldexpr = "nvim_treesitter#foldexpr()"
 set.foldenable = false
 set.foldlevel = 99
-set.foldcolumn = "1"
 
 set.ignorecase = true
 set.smartcase = true
