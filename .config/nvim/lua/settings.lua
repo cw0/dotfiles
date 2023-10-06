@@ -61,30 +61,30 @@ set.backspace = { "indent", "eol", "start" }
 
 set.display:append("lastline")
 
-set.errorbells = false
-set.visualbell = false
-set.tm = 500
+set.errorbells     = false
+set.visualbell     = false
+set.tm             = 500
 
-set.history = 1000
+set.history        = 1000
 
 -- refresh buffer on external file write
-set.autoread = true
+set.autoread       = true
 
 -- show matching parenthesis
-set.showmatch = true
+set.showmatch      = true
 
 -- highlight current line numbers
-set.cursorline = true
+set.cursorline     = true
 
 -- set hidden characters
 set.list.listchars = { tab = "> ", trail = "-", eol = "$" }
-set.list = true
+set.list           = true
 
 -- add a colored column
 -- set.colorcolumn = "120"
 
 -- disable backup files
-set.backup = false
-set.writebackup = false
+set.backup         = false
+set.writebackup    = false
 
-set.updatetime = 300
+set.updatetime     = 300

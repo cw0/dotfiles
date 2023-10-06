@@ -30,9 +30,9 @@ local lol = {
 }
 
 return {
-  'akinsho/bufferline.nvim',
+  "akinsho/bufferline.nvim",
   dependencies = {
-    'nvim-tree/nvim-web-devicons',
+    "nvim-tree/nvim-web-devicons",
     "catppuccin/nvim",
   },
   config = function()
