@@ -5,13 +5,14 @@
 - ( ) https://github.com/jackMort/ChatGPT.nvim
 - ( ) https://github.com/nvim-telescope/telescope.nvim
 - ( ) https://github.com/folke/todo-comments.nvim
+- ( ) https://github.com/RaafatTurki/hex.nvim
+- ( ) https://github.com/kdheepak/lazygit.nvim
 
 *Plugins what need installing*
 - (x) https://github.com/stevearc/aerial.nvim
 - (x) https://github.com/stevearc/oil.nvim
 - (x) https://github.com/aserowy/tmux.nvim
 - (x) https://github.com/folke/trouble.nvim
-- ( ) https://github.com/RaafatTurki/hex.nvim
 - ( ) https://github.com/jamestthompson3/nvim-remote-containers
 - ( ) https://github.com/mrjones2014/legendary.nvim
 - ( ) https://github.com/anuvyklack/hydra.nvim
@@ -19,7 +20,7 @@
 - ( ) https://github.com/folke/persistence.nvim
 - (x) https://github.com/folke/noice.nvim
 - ( ) https://github.com/stevearc/overseer.nvim
-- ( ) https://github.com/pwntester/octo.nvim
+- (x) https://github.com/pwntester/octo.nvim
 
 *Make this Editor Agnostic*
 - ( ) https://github.com/jbyuki/instant.nvim

@@ -37,6 +37,7 @@ return {
     telescope.load_extension("fzf")
     telescope.load_extension("harpoon")
     telescope.load_extension("notify")
+    telescope.load_extension("lazygit")
   end,
   dependencies = {
     {
@@ -45,6 +46,9 @@ return {
     },
     {
       "ThePrimeagen/harpoon"
+    },
+    {
+      "kdheepak/lazygit.nvim",
     }
   }
 }

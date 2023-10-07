@@ -61,6 +61,7 @@ return {
         neotest = true,
         noice = true,
         notify = true,
+        octo = true,
         nvimtree = true,
         telescope = true,
         treesitter = true,
