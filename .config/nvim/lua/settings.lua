@@ -90,6 +90,9 @@ set.writebackup    = false
 
 set.updatetime     = 300
 
+-- for which key
+set.timeout        = true
+set.timeoutlen     = 300
 
 vim.diagnostic.config({
   -- virtual_text = {

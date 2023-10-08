@@ -7,10 +7,7 @@ return {
       return
     end
 
-    vim.o.timeout = true
-    vim.o.timeoutlen = 300
-
-    -- TODO remap popup scrolling for consistency
+    -- TODO: remap popup scrolling for consistency
     wk.setup({})
 
     wk.register({
@@ -22,11 +19,6 @@ return {
     })
 
     wk.register({
-      a = {
-        name = "aerial",
-        "<cmd>AerialToggle!<CR>",
-        "toggle aerial",
-      },
       b = {
         name = "buffer",
         l = {
@@ -40,52 +32,8 @@ return {
       },
       d = {
         name = "dap",
-        b = {
-          ":lua require('dap').toggle_breakpoint()<cr>",
-          "toggle breakpoint",
-        },
-        c = {
-          ":lua require('dap').continue()<cr>",
-          "continue",
-        },
-        i = {
-          ":lua require('dap').step_into()<cr>",
-          "step into",
-        },
-        l = {
-          ":lua require('dap').run_last()<cr>",
-          "run last",
-        },
         m = {
           name = "debug nearest method",
-          g = {
-            ":lua require('dap-go').debug_test()<cr>",
-            "go: test nearest method",
-          },
-          p = {
-            ":lua require('dap-python').test_method()<cr>",
-            "python: test nearest method",
-          },
-        },
-        o = {
-          ":lua require('dap').step_over()<cr>",
-          "step over",
-        },
-        O = {
-          ":lua require('dap').step_out()<cr>",
-          "step out",
-        },
-        r = {
-          ":lua require('dap').repl.toggle()<cr>",
-          "toggle repl",
-        },
-        t = {
-          ":lua require('dap').terminate()<cr>",
-          "terminate dap",
-        },
-        u = {
-          ":lua require('dapui').toggle()<cr>",
-          "toggle dapui",
         },
       },
       f = {

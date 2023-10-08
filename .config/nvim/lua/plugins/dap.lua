@@ -1,10 +1,5 @@
 return {
   "rcarriga/nvim-dap-ui",
-  dependencies = {
-    "mfussenegger/nvim-dap",
-    "leoluz/nvim-dap-go",
-    "mfussenegger/nvim-dap-python",
-  },
   config = function()
     local dap_status_ok, dap = pcall(require, "dap")
     if not dap_status_ok then
@@ -66,4 +61,23 @@ return {
 
     dap_python.setup("~/.venv/debugpy/bin/python")
   end,
+  dependencies = {
+    "mfussenegger/nvim-dap",
+    "leoluz/nvim-dap-go",
+    "mfussenegger/nvim-dap-python",
+  },
+  event = "VeryLazy",
+  keys = {
+    { "<leader>db",  "<cmd>lua require('dap').toggle_breakpoint()<cr>",  desc = "toggle breakpoint" },
+    { "<leader>dc",  "<cmd>lua require('dap').continue()<cr>",           desc = "continue" },
+    { "<leader>di",  "<cmd>lua require('dap').step_into()<cr>",          desc = "step into" },
+    { "<leader>dl",  "<cmd>lua require('dap').run_last()<cr>",           desc = "run last" },
+    { "<leader>dmg", "<cmd>lua require('dap-go').debug_test()<cr>",      desc = "go: test nearest method" },
+    { "<leader>dmp", "<cmd>lua require('dap-python').test_method()<cr>", desc = "python: test nearest method" },
+    { "<leader>do",  "<cmd>lua require('dap').step_over()<cr>",          desc = "step over" },
+    { "<leader>dO",  "<cmd>lua require('dap').step_out()<cr>",           desc = "step out" },
+    { "<leader>dr",  "<cmd>lua require('dap').repl.toggle()<cr>",        desc = "toggle repl" },
+    { "<leader>dt",  "<cmd>lua require('dap').terminate()<cr>",          desc = "terminate dap" },
+    { "<leader>du",  "<cmd>lua require('dapui').toggle()<cr>",           desc = "toggle dapui" },
+  },
 }
