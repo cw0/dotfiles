@@ -195,31 +195,7 @@ return {
         },
       },
       t = {
-        name = "neotest",
-        a = {
-          ":lua require('neotest').run.attach()<CR>",
-          "attach to test",
-        },
-        d = {
-          ":lua require('neotest').run.run({ strategy = 'dap' })<CR>",
-          "debug test",
-        },
-        f = {
-          ":lua require('neotest').run.run(vim.fn.expand('%'))<CR>",
-          "test file",
-        },
-        n = {
-          ":lua require('neotest').run.run()<CR>",
-          "test nearest",
-        },
-        o = {
-          ":lua require('neotest').output.open({ enter = true })<CR>",
-          "open test output",
-        },
-        s = {
-          ":lua require('neotest').run.stop()<CR>",
-          "stop neotest",
-        },
+        name = "test",
       },
       ["["] = {
         ":bprevious<CR>",

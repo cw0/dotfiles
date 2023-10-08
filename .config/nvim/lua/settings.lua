@@ -89,3 +89,17 @@ set.backup         = false
 set.writebackup    = false
 
 set.updatetime     = 300
+
+
+vim.diagnostic.config({
+  -- virtual_text = {
+  -- 	format = function(diagnostic)
+  -- 		local message = diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
+  -- 		return message
+  -- 	end,
+  -- },
+  virtual_text = false,
+  float = {
+    border = "rounded",
+  },
+})
