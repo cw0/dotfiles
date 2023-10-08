@@ -28,6 +28,7 @@ return {
         "markdown",
         "markdown_inline",
         "norg",
+        "regex",
         "python",
         "terraform",
         "tsx",

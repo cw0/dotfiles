@@ -1,6 +1,5 @@
 return {
   "nvim-telescope/telescope.nvim",
-  command = "Telescope",
   config = function()
     local telescope_setup, telescope = pcall(require, "telescope")
     if not telescope_setup then
