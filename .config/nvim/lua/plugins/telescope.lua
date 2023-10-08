@@ -139,10 +139,9 @@ return {
     { "<leader>sm",  "<cmd>Telescope marks<cr>",                                 desc = "Jump to Mark" },
     {
       "<leader>ss",
-      "Telescope lsp_document_symbols<cr>",
+      "<cmd>Telescope lsp_document_symbols symbols=Class,Function,Method,Interface,Constructor,Module,Struct,Trait,Field,Property,Variable<cr>",
       desc = "Goto Symbol",
     },
-
     { "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
     { "<leader>:", "<cmd>Telescope command_history<cr>",               desc = "Command History" },
   }
