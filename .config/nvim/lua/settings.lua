@@ -6,7 +6,6 @@ vim.loader.enable()
 --[[
   BASIC CONFIGURATION
 --]]
-
 -- map leader to space
 vim.g.mapleader = " "
 
@@ -32,8 +31,8 @@ set.fillchars:append("vert:│")
 
 set.wildmenu = true
 set.ttyfast = true
-set.lazyredraw = true
-set.updatetime = 300
+set.lazyredraw = false -- NOTE: set to false for noice.nvim
+set.updatetime = 250
 
 set.mouse = "a"
 
@@ -47,9 +46,10 @@ set.swapfile = false
 
 set.compatible = false
 
-set.foldmethod = "syntax"
+set.foldmethod = "expr"
+set.foldexpr = "nvim_treesitter#foldexpr()"
+set.foldenable = false
 set.foldlevel = 99
-set.foldcolumn = "1"
 
 set.ignorecase = true
 set.smartcase = true
@@ -62,30 +62,47 @@ set.backspace = { "indent", "eol", "start" }
 
 set.display:append("lastline")
 
-set.errorbells = false
-set.visualbell = false
-set.tm = 500
+set.errorbells     = false
+set.visualbell     = false
+set.tm             = 500
 
-set.history = 1000
+set.history        = 1000
 
 -- refresh buffer on external file write
-set.autoread = true
+set.autoread       = true
 
 -- show matching parenthesis
-set.showmatch = true
+set.showmatch      = true
 
 -- highlight current line numbers
-set.cursorline = true
+set.cursorline     = true
 
 -- set hidden characters
 set.list.listchars = { tab = "> ", trail = "-", eol = "$" }
-set.list = true
+set.list           = true
 
 -- add a colored column
 -- set.colorcolumn = "120"
 
 -- disable backup files
-set.backup = false
-set.writebackup = false
+set.backup         = false
+set.writebackup    = false
 
-set.updatetime = 300
+set.updatetime     = 300
+
+-- for which key
+set.timeout        = true
+set.timeoutlen     = 300
+
+vim.diagnostic.config({
+  -- virtual_text = {
+  -- 	format = function(diagnostic)
+  -- 		local message = diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
+  -- 		return message
+  -- 	end,
+  -- },
+  virtual_text = false,
+  float = {
+    border = "rounded",
+  },
+})
