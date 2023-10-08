@@ -1,8 +1,5 @@
 return {
   "neovim/nvim-lspconfig",
-  dependencies = {
-    "hrsh7th/cmp-nvim-lsp", --lsp completions
-  },
   config = function()
     local lspconfig_status, lspconfig = pcall(require, "lspconfig")
     if not lspconfig_status then
@@ -129,6 +126,9 @@ return {
     vim.o.updatetime = 250
     vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
   end,
+  dependencies = {
+    "hrsh7th/cmp-nvim-lsp", --lsp completions
+  },
   keys = {
     {
       "<leader>lc",

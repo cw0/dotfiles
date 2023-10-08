@@ -1,5 +1,8 @@
 return {
   "windwp/nvim-autopairs",
+  dependencies = {
+    "nvim-treesitter/nvim-treesitter",
+  },
   opts = {
     check_ts = true,                      -- enable treesitter
     ts_config = {
@@ -7,7 +10,4 @@ return {
       javascript = { "template_string" }, -- don't add pairs in javscript template_string treesitter nodes
     },
   },
-  dependencies = {
-    "nvim-treesitter/nvim-treesitter",
-  }
 }

@@ -66,7 +66,6 @@ return {
     "leoluz/nvim-dap-go",
     "mfussenegger/nvim-dap-python",
   },
-  event = "VeryLazy",
   keys = {
     { "<leader>db",  "<cmd>lua require('dap').toggle_breakpoint()<cr>",  desc = "toggle breakpoint" },
     { "<leader>dc",  "<cmd>lua require('dap').continue()<cr>",           desc = "continue" },

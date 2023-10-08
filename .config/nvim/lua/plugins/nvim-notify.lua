@@ -6,9 +6,7 @@ return {
       return
     end
 
-    notify.setup({
-      background_colour = "#24273A", -- match the Kitty theme (catppuccin)
-    })
+    notify.setup({})
 
     vim.notify = notify
   end,

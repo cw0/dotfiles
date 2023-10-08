@@ -3,6 +3,12 @@ local WIDTH_RATIO = 0.5  -- You can change this too
 
 return {
   "nvim-tree/nvim-tree.lua",
+  dependencies = {
+    "nvim-tree/nvim-web-devicons", -- optional, for file icons
+  },
+  keys = {
+    { "<leader>fm", "<cmd>NvimTreeToggle<cr>", desc = "toggle file browser" }
+  },
   opts = {
     disable_netrw = true,
     hijack_netrw = true,
@@ -42,11 +48,5 @@ return {
     renderer = {
       indent_width = 1,
     },
-  },
-  dependencies = {
-    "nvim-tree/nvim-web-devicons", -- optional, for file icons
-  },
-  keys = {
-    { "<leader>fm", "<cmd>NvimTreeToggle<cr>", desc = "toggle file browser" }
   },
 }

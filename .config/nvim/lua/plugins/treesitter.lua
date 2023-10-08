@@ -54,7 +54,7 @@ return {
         enable_close_on_slash = true,
       },
     })
-    require('ts_context_commentstring').setup {}
+    require('ts_context_commentstring').setup({})
   end,
   dependencies = {
     "JoosepAlviste/nvim-ts-context-commentstring",
