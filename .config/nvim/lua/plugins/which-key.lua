@@ -15,22 +15,6 @@ return {
 
     wk.register({
       name = "global mappings",
-      -- ["<C-h>"] = {
-      --   ":lua require('tmux').move_left()<CR>",
-      --   "move to left buffer or tmux pane",
-      -- },
-      -- ["<C-j>"] = {
-      --   ":lua require('tmux').move_bottom()<CR>",
-      --   "move to the buffer or tmux pane bellow",
-      -- },
-      -- ["<C-k>"] = {
-      --   ":lua require('tmux').move_top()<CR>",
-      --   "move to the buffer or tmux pane above",
-      -- },
-      -- ["<C-l>"] = {
-      --   ":lua require('tmux').move_right()<CR>",
-      --   "move to the right buffer or tmux pane",
-      -- },
       ["<CR>"] = {
         ":noh<CR><CR>",
         "clear search highlighting",
@@ -106,37 +90,9 @@ return {
       },
       f = {
         name = "find / file manager",
-        b = {
-          ":Telescope buffers<CR>",
-          "Find Buffer",
-        },
-        d = {
-          ":lua require('telescope.builtin').lsp_definitions()<CR>",
-          "Find Definition",
-        },
-        f = {
-          ":lua require('telescope.builtin').find_files()<CR>",
-          "Find Files in Project",
-        },
-        h = {
-          ":Telescope harpoon marks<CR>",
-          "Find Harpoon Marks in Files",
-        },
         m = {
           ":NvimTreeToggle<CR>",
           "toggle file browser"
-        },
-        s = {
-          ":Telescope lsp_document_symbols<CR>",
-          "Find Symbols in Files",
-        },
-        t = {
-          ":Telescope live_grep<CR>",
-          "Find Text in Files",
-        },
-        w = {
-          ":Telescope grep_string<CR>",
-          "Find Word in Files",
         },
       },
       g = {

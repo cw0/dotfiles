@@ -1,5 +1,6 @@
 return {
   "nvim-telescope/telescope.nvim",
+  command = "Telescope",
   config = function()
     local telescope_setup, telescope = pcall(require, "telescope")
     if not telescope_setup then
@@ -18,6 +19,21 @@ return {
           i = {
             ["<C-k>"] = actions.move_selection_previous, -- move to prev result
             ["<C-j>"] = actions.move_selection_next,     -- move to next result
+            ["<c-t>"] = function(...)
+              return require("trouble.providers.telescope").open_with_trouble(...)
+            end,
+            ["<C-i>"] = function()
+              telescope("find_files", { no_ignore = true })()
+            end,
+            ["<C-h>"] = function()
+              telescope("find_files", { hidden = true })()
+            end,
+            ["<C-Down>"] = function(...)
+              return actions.cycle_history_next(...)
+            end,
+            ["<C-Up>"] = function(...)
+              return actions.cycle_history_prev(...)
+            end,
           },
         },
       },
@@ -41,14 +57,52 @@ return {
   end,
   dependencies = {
     {
-      "nvim-telescope/telescope-fzf-native.nvim",
-      build = "make"
-    },
-    {
       "ThePrimeagen/harpoon"
     },
     {
       "kdheepak/lazygit.nvim",
-    }
+    },
+    {
+      "rcarriga/nvim-notify",
+    },
+    {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      build = "make"
+    },
+  },
+  keys = {
+    { "<leader>/",  "<cmd>Telescope live_grep<cr>",                 desc = "Find in Files (Grep)" },
+    { "<leader>fb", "<cmd>Telescope buffers<cr>",                   desc = "Buffers" },
+    { "<leader>fd", "<cmd>Telescope builtin lsp_definitions<cr>" },
+    { "<leader>ff", "<cmd>Telescope find_files<cr>",                desc = "Find Files (root dir)" },
+    { "<leader>fF", "<cmd>Telescope find_files cwd=false<cr>",      desc = "Find Files (cwd)" },
+    { "<leader>fr", "<cmd>Telescope oldfiles<cr>",                  desc = "Recent" },
+    { "<leader>ft", "<cmd>Telescope live_grep<cr>",                 desc = "Find Text In Files" },
+    { "<leader>fw", "<cmd>Telescope grep_string<cr>",               desc = "Find Word In Files" },
+    { "<leader>gc", "<cmd>Telescope git_commits<cr>",               desc = "commits" },
+    { "<leader>gs", "<cmd>Telescope git_status<cr>",                desc = "status" },
+    { "<leader>ha", "<cmd>Telescope autocommands<cr>",              desc = "Auto Commands" },
+    { "<leader>hc", "<cmd>Telescope commands<cr>",                  desc = "Commands" },
+    { "<leader>hf", "<cmd>Telescope filetypes<cr>",                 desc = "File Types" },
+    { "<leader>hh", "<cmd>Telescope help_tags<cr>",                 desc = "Help Pages" },
+    { "<leader>hk", "<cmd>Telescope keymaps<cr>",                   desc = "Key Maps" },
+    { "<leader>hm", "<cmd>Telescope man_pages<cr>",                 desc = "Man Pages" },
+    { "<leader>ho", "<cmd>Telescope vim_options<cr>",               desc = "Options" },
+    { "<leader>hs", "<cmd>Telescope highlights<cr>",                desc = "Search Highlight Groups" },
+    { "<leader>ht", "<cmd>Telescope builtin<cr>",                   desc = "Telescope" },
+    { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
+    { "<leader>sc", "<cmd>Telescope command_history<cr>",           desc = "Command History" },
+    { "<leader>sg", "<cmd>Telescope live_grep<cr>",                 desc = "Grep (root dir)" },
+    { "<leader>sG", "<cmd>Telescope live_grep cwd=false<cr>",       desc = "Grep (cwd)" },
+    { "<leader>sh", "<cmd>Telescope harpoon marks<cr>" },
+    { "<leader>sm", "<cmd>Telescope marks<cr>",                     desc = "Jump to Mark" },
+    {
+      "<leader>ss",
+      "Telescope lsp_document_symbols<cr>",
+      desc = "Goto Symbol",
+    },
+
+    { "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
+    { "<leader>:", "<cmd>Telescope command_history<cr>",               desc = "Command History" },
   }
 }
