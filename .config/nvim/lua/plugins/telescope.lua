@@ -13,7 +13,6 @@ return {
 
     telescope.setup({
       defaults = {
-        -- TODO: move to keys for lazy
         mappings = {
           i = {
             ["<C-k>"] = actions.move_selection_previous, -- move to prev result
