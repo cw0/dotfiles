@@ -97,14 +97,6 @@ return {
       },
       g = {
         name = "git integration",
-        b = {
-          ":GBrowse<CR>",
-          "git browse",
-        },
-        c = {
-          ":G commit<CR>",
-          "git commit",
-        },
         d = {
           name = "diff",
           h = {
@@ -115,34 +107,6 @@ return {
             ":diffget //3<CR>",
             "choose right side change",
           },
-          v = {
-            ":Gvdiffsplit!<CR>",
-            "git diff split",
-          },
-        },
-        m = {
-          ":G mergetool<CR>",
-          "open git mergetool",
-        },
-        l = {
-          ":G log<CR>",
-          "open git log",
-        },
-        p = {
-          ":G push<CR>",
-          "git push",
-        },
-        r = {
-          ":Gread<CR>",
-          "git read",
-        },
-        s = {
-          ":G<CR>",
-          "git status (open fugitive.vim)",
-        },
-        w = {
-          ":Gwrite<CR>",
-          "git write",
         },
       },
       h = {
