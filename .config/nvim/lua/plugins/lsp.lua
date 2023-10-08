@@ -1,7 +1,7 @@
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
-    "hrsh7th/cmp-nvim-lsp",   --lsp completions
+    "hrsh7th/cmp-nvim-lsp", --lsp completions
   },
   config = function()
     local lspconfig_status, lspconfig = pcall(require, "lspconfig")
@@ -129,4 +129,61 @@ return {
     vim.o.updatetime = 250
     vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
   end,
+  keys = {
+    {
+      "<leader>lc",
+      "<cmd>lua vim.lsp.buf.code_action()<cr>",
+      desc = "code actions"
+    },
+    {
+      "<leader>ld",
+      "<cmd>lua vim.lsp.buf.definition()<cr>",
+      desc = "go to definition"
+    },
+    {
+      "<leader>lD",
+      "<cmd>lua vim.lsp.buf.declaration()<cr>",
+      desc = "go to declaration"
+    },
+    {
+      "<leader>lf",
+      "<cmd>lua vim.lsp.buf.format()<cr>",
+      desc = "format buffer"
+    },
+    {
+      "<leader>li",
+      "<cmd>lua vim.lsp.buf.implementation()<cr>",
+      desc = "go to implementation"
+    },
+    {
+      "<leader>ll",
+      "<cmd>lua vim.diagnostic.open_float()<cr>",
+      desc = "open floating diagnostic menu"
+    },
+    {
+      "<leader>lk",
+      "<cmd>lua vim.lsp.buf.signature_help()<cr>",
+      desc = "signature help"
+    },
+    {
+      "<leader>lK",
+      "<cmd>lua vim.lsp.buf.hover()<cr>",
+      desc = "hover doc"
+    },
+    {
+      "<leader>lr",
+      "<cmd>lua vim.lsp.buf.references()<cr>",
+      desc = "show references"
+    },
+    {
+      "<leader>lR",
+      "<cmd>lua vim.lsp.buf.rename()<cr>",
+      desc = "rename"
+    },
+    {
+      "<leader>lT",
+      "<cmd>lua vim.lsp.buf.type_definition()<cr>",
+      desc = "go to type definition"
+    },
+  }
 }

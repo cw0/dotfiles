@@ -38,10 +38,6 @@ return {
       },
       f = {
         name = "find / file manager",
-        m = {
-          ":NvimTreeToggle<CR>",
-          "toggle file browser"
-        },
       },
       g = {
         name = "git",
@@ -62,41 +58,6 @@ return {
       },
       l = {
         name = "lsp",
-        D = {
-          "<cmd>lua vim.lsp.buf.declaration()<CR>",
-          "go to declaration",
-        },
-        F = {
-          "<cmd>lua vim.lsp.buf.format()<CR>",
-          "format buffer",
-        },
-        i = {
-          "<cmd>lua vim.lsp.buf.implementation()<CR>",
-          "go to implementation",
-        },
-        l = {
-          "<cmd>lua vim.diagnostic.open_float()<CR>",
-          "open floating diagnostic menu",
-        },
-        q = {
-          "<cmd>LspRestart<CR>",
-          "restart lsp",
-        },
-        r = {
-          "<cmd>lua vim.lsp.buf.references()<CR>",
-          "show references",
-        },
-        s = {
-          name = "lsp saga"
-        },
-        t = {
-          "<cmd>LSoutlineToggle<CR>",
-          "toggle language server outline",
-        },
-        T = {
-          "<cmd>lua vim.lsp.buf.type_definition()<CR>",
-          "go to type definition",
-        },
       },
       r = {
         name = "run",
