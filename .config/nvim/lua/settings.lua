@@ -32,7 +32,7 @@ set.fillchars:append("vert:│")
 set.wildmenu = true
 set.ttyfast = true
 set.lazyredraw = false -- NOTE: set to false for noice.nvim
-set.updatetime = 300
+set.updatetime = 250
 
 set.mouse = "a"
 

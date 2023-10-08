@@ -17,7 +17,6 @@ return {
     catppuccin.setup({
       -- TODO: investigate integration with todo comments
       integrations = {
-        aerial = true,
         alpha = true,
         cmp = true,
         dap = {

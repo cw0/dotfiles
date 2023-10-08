@@ -123,7 +123,6 @@ return {
     vim.cmd([[let g:terraform_align=1]])
 
     -- Show line diagnostics automatically in hover window
-    vim.o.updatetime = 250
     vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
   end,
   dependencies = {
