@@ -120,10 +120,6 @@ return {
             "git diff split",
           },
         },
-        g = {
-          ":lua _LAZYGIT_TOGGLE()<CR>",
-          "lazygit toggle",
-        },
         m = {
           ":G mergetool<CR>",
           "open git mergetool",

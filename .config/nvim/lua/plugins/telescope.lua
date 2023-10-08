@@ -22,12 +22,12 @@ return {
             ["<c-t>"] = function(...)
               return require("trouble.providers.telescope").open_with_trouble(...)
             end,
-            ["<C-i>"] = function()
-              telescope("find_files", { no_ignore = true })()
-            end,
-            ["<C-h>"] = function()
-              telescope("find_files", { hidden = true })()
-            end,
+            -- ["<C-i>"] = function()
+            --   telescope("find_files", { no_ignore = true })()
+            -- end,
+            -- ["<C-h>"] = function()
+            --   telescope("find_files", { hidden = true })()
+            -- end,
             ["<C-Down>"] = function(...)
               return actions.cycle_history_next(...)
             end,
@@ -50,38 +50,70 @@ return {
       },
     })
 
+    telescope.load_extension("dap")
+    telescope.load_extension("docker")
     telescope.load_extension("fzf")
     telescope.load_extension("harpoon")
     telescope.load_extension("notify")
+    telescope.load_extension("lazy")
     telescope.load_extension("lazygit")
+    telescope.load_extension("luasnip")
+    telescope.load_extension("media_files")
+    telescope.load_extension('telescope-alternate')
     telescope.load_extension("terraform_doc")
   end,
   dependencies = {
     {
-      "ThePrimeagen/harpoon"
+      "otavioschwanck/telescope-alternate"
+      -- TODO: configure this for golang
+      -- TODO: configure this for python
+      -- TODO: configure this for javascript
+      -- TODO: configure this for typescript
     },
-    {
-      "kdheepak/lazygit.nvim",
-    },
-    {
-      "rcarriga/nvim-notify",
-    },
+    { "nvim-telescope/telescope-dap.nvim" },
+    { "lpoto/telescope-docker.nvim" },
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make"
     },
+    { "ThePrimeagen/harpoon" },
+    { "tsakirist/telescope-lazy.nvim" },
+    { "kdheepak/lazygit.nvim" },
+    { "benfowler/telescope-luasnip.nvim" },
+    {
+      "nvim-telescope/telescope-media-files.nvim"
+      -- NOTE: requires chafa, imagemagick, fd, ripgrep, find, ffmpegthumbnailer, poppler, epub-thumbnailer, fontpreview
+    },
+    { "rcarriga/nvim-notify" },
+    { "nvim-lua/plenary.nvim" },
+    { "nvim-lua/popup.nvim" },
     { "ANGkeith/telescope-terraform-doc.nvim" },
   },
   keys = {
     { "<leader>/",   "<cmd>Telescope live_grep<cr>",                             desc = "Find in Files (Grep)" },
+    { "<leader>cdd", "<cmd>Telescope docker<cr>",                                desc = "Docker" },
+    { "<leader>cdc", "<cmd>Telescope docker containers<cr>",                     desc = "Docker Containers" },
+    { "<leader>cdi", "<cmd>Telescope docker images<cr>",                         desc = "Docker Images" },
+    { "<leader>cdn", "<cmd>Telescope docker networks<cr>",                       desc = "Docker Networks" },
+    { "<leader>cdv", "<cmd>Telescope docker volumes<cr>",                        desc = "Docker Volumes" },
+    { "<leader>cdx", "<cmd>Telescope docker contexts<cr>",                       desc = "Docker Contexts" },
+    { "<leader>cds", "<cmd>Telescope docker swarm<cr>",                          desc = "Docker Swarm" },
+    { "<leader>cdm", "<cmd>Telescope docker machines<cr>",                       desc = "Docker Machines" },
+    { "<leader>cdo", "<cmd>Telescope docker compose<cr>",                        desc = "Docker Compose" },
+    { "<leader>cdf", "<cmd>Telescope docker files<cr>",                          desc = "Docker Files" },
+    { "<leader>cl",  "<cmd>Telescope lazy<cr>",                                  desc = "Lazy Plugins" },
+    { "<leader>fa",  "<cmd>Telescope telescope-alternate alternate_file<cr>",    desc = "Alternate Files" },
     { "<leader>fb",  "<cmd>Telescope buffers<cr>",                               desc = "Buffers" },
-    { "<leader>fd",  "<cmd>Telescope builtin lsp_definitions<cr>" },
+    { "<leader>fd",  "<cmd>Telescope builtin lsp_definitions<cr>",               desc = "LSP Definitions" },
     { "<leader>ff",  "<cmd>Telescope find_files<cr>",                            desc = "Find Files (root dir)" },
     { "<leader>fF",  "<cmd>Telescope find_files cwd=false<cr>",                  desc = "Find Files (cwd)" },
+    { "<leader>fM",  "<cmd>Telescope media_files<cr>",                           desc = "Media Files" },
     { "<leader>fr",  "<cmd>Telescope oldfiles<cr>",                              desc = "Recent" },
+    { "<leader>fs",  "<cmd>Telescope luasnip<cr>",                               desc = "Luasnip" },
     { "<leader>ft",  "<cmd>Telescope live_grep<cr>",                             desc = "Find Text In Files" },
     { "<leader>fw",  "<cmd>Telescope grep_string<cr>",                           desc = "Find Word In Files" },
     { "<leader>gc",  "<cmd>Telescope git_commits<cr>",                           desc = "commits" },
+    { "<leader>gg", "<cmd>Telescope lazygit<cr>", desc = "lazygit"},
     { "<leader>gs",  "<cmd>Telescope git_status<cr>",                            desc = "status" },
     { "<leader>ha",  "<cmd>Telescope autocommands<cr>",                          desc = "Auto Commands" },
     { "<leader>hc",  "<cmd>Telescope commands<cr>",                              desc = "Commands" },
@@ -96,6 +128,11 @@ return {
     { "<leader>otm", "<cmd>Telescope terraform_doc modules<cr>",                 desc = "Terraform Docs Modules" },
     { "<leader>ott", "<cmd>Telescope terraform_doc<cr>",                         desc = "Terraform Docs" },
     { "<leader>sb",  "<cmd>Telescope current_buffer_fuzzy_find<cr>",             desc = "Buffer" },
+    { "<leader>dfb", "<cmd>Telescope dap list_breakpoints<cr>",                  desc = "List Breakpoints" },
+    { "<leader>dfc", "<cmd>Telescope dap commands<cr>",                          desc = "Dap Commands" },
+    { "<leader>dfo", "<cmd>Telescope dap configurations<cr>",                    desc = "Dap Configurations" },
+    { "<leader>dfv", "<cmd>Telescope dap variables<cr>",                         desc = "Dap Variables" },
+    { "<leader>dff", "<cmd>Telescope dap frames<cr>",                            desc = "Dap Frames" },
     { "<leader>sc",  "<cmd>Telescope command_history<cr>",                       desc = "Command History" },
     { "<leader>sg",  "<cmd>Telescope live_grep<cr>",                             desc = "Grep (root dir)" },
     { "<leader>sG",  "<cmd>Telescope live_grep cwd=false<cr>",                   desc = "Grep (cwd)" },
