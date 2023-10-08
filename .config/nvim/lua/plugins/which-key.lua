@@ -44,7 +44,7 @@ return {
         },
       },
       g = {
-        name = "git integration",
+        name = "git",
         d = {
           name = "diff",
           h = {
@@ -57,16 +57,8 @@ return {
           },
         },
       },
-      h = {
-        name = "harpoon",
-        h = {
-          ":lua require('harpoon.ui').toggle_quick_menu()<CR>",
-          "toggle harpoon menu",
-        },
-        m = {
-          ":lua require('harpoon.mark').add_file()<CR>",
-          "harpoon add file",
-        },
+      m = {
+        name = "mark",
       },
       l = {
         name = "lsp and lsp saga",
