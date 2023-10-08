@@ -61,22 +61,10 @@ return {
         name = "mark",
       },
       l = {
-        name = "lsp and lsp saga",
-        a = {
-          "<cmd>Lspsaga code_action<CR>",
-          "execute code action",
-        },
-        d = {
-          "<cmd>Lspsaga peek_definition<CR>",
-          "see definitions and make edits in window",
-        },
+        name = "lsp",
         D = {
           "<cmd>lua vim.lsp.buf.declaration()<CR>",
           "go to declaration",
-        },
-        f = {
-          "<cmd>Lspsaga lsp_finder<CR>",
-          "show definition & references",
         },
         F = {
           "<cmd>lua vim.lsp.buf.format()<CR>",
@@ -86,21 +74,9 @@ return {
           "<cmd>lua vim.lsp.buf.implementation()<CR>",
           "go to implementation",
         },
-        j = {
-          "<cmd>Lspsaga diagnostic_jump_next<CR>",
-          "jump to next diagnostic message",
-        },
-        k = {
-          "<cmd>Lspsaga diagnostic_jump_prev<CR>",
-          "jump to previous diagnostic message",
-        },
         l = {
           "<cmd>lua vim.diagnostic.open_float()<CR>",
           "open floating diagnostic menu",
-        },
-        K = {
-          "<cmd>Lspsaga hover_doc<CR>",
-          "open hover doc",
         },
         q = {
           "<cmd>LspRestart<CR>",
@@ -110,13 +86,8 @@ return {
           "<cmd>lua vim.lsp.buf.references()<CR>",
           "show references",
         },
-        R = {
-          "<cmd>Lspsaga rename<CR>",
-          "rename",
-        },
         s = {
-          "<cmd>Lspsaga signature_help<CR>",
-          "signature help",
+          name = "lsp saga"
         },
         t = {
           "<cmd>LSoutlineToggle<CR>",
