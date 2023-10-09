@@ -14,14 +14,18 @@ return {
     lualine.setup({
       options = {
         theme = "catppuccin",
-        section_separators = { left = "", right = "" },
+        component_separators = "│",
+        section_separators = { left = "", right = "" },
+        -- section_separators = { left = "█", right = "█" },
+        -- section_separators = { left = "", right = "" },
         disabled_filetypes = {
           "alpha",
         },
       },
       sections = {
         lualine_a = {
-          { "mode", separator = { left = "" }, right_padding = 2 },
+          { "mode", separator = { left = "", right = "" } },
+          -- { "mode", separator = { left = "█" }, right_padding = 2 },
         },
         lualine_c = {
           { "filename" },
@@ -46,6 +50,7 @@ return {
   dependencies = {
     "nvim-tree/nvim-web-devicons",
     "catppuccin/nvim",
+    "SmiteshP/nvim-navic",
   },
   event = "VeryLazy",
 }

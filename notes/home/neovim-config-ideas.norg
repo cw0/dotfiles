@@ -7,6 +7,7 @@
 - (x) https://github.com/folke/todo-comments.nvim
 - ( ) https://github.com/RaafatTurki/hex.nvim
 - (x) https://github.com/kdheepak/lazygit.nvim
+- ( ) https://github.com/SmiteshP/nvim-navic (doesn't seem to integrate correctly)
 
 *Plugins what need installing*
 - (x) https://github.com/stevearc/aerial.nvim
