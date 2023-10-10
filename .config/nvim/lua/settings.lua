@@ -94,6 +94,10 @@ set.updatetime     = 300
 set.timeout        = true
 set.timeoutlen     = 300
 
+-- enable spell check
+set.spelllang      = 'en_us'
+set.spell          = true
+
 vim.diagnostic.config({
   -- virtual_text = {
   -- 	format = function(diagnostic)
