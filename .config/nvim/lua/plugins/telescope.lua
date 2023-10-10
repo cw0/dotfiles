@@ -36,6 +36,22 @@ return {
         },
       },
       pickers = {
+        find_files = {
+          -- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
+          find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+          mappings = {
+            -- TODO: see if this can be used elsewhere
+            n = {
+              ["cd"] = function(prompt_bufnr)
+                local selection = require("telescope.actions.state").get_selected_entry()
+                local dir = vim.fn.fnamemodify(selection.path, ":p:h")
+                require("telescope.actions").close(prompt_bufnr)
+                -- Depending on what you want put `cd`, `lcd`, `tcd`
+                vim.cmd(string.format("silent cd %s", dir))
+              end
+            }
+          }
+        },
         live_grep = {
           additional_args = function()
             -- Dotfiles are getting hidden because they're technically hidden files.

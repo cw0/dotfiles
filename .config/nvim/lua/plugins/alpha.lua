@@ -50,7 +50,7 @@ return {
     dashboard.section.buttons.val = {
       button("f", " " .. " Find file", ":lua require('telescope.builtin').find_files()<CR>"),
       button("e", " " .. " New file", ":ene <BAR> startinsert<CR>"),
-      button("r", " " .. " Recent files", ":Telescope oldfiles<CR>"),
+      button("r", " " .. " Recent files", ":Telescope oldfiles<CR>"),
       button("t", " " .. " Find text", ":Telescope live_grep<CR>"),
       button("h", " " .. " Open Home Neorg", ":e ~/notes/home/index.norg<CR>"),
       button("w", " " .. " Open Work Neorg", ":e ~/notes/work/index.norg<CR>"),
