@@ -54,10 +54,20 @@ return {
         enable_close = true,
         enable_close_on_slash = true,
       },
+      matchup = {
+        enable = true, -- mandatory, false will disable the whole extension
+        disable = {},  -- optional, list of language that will be disabled
+      },
     })
     require('ts_context_commentstring').setup({})
   end,
   dependencies = {
+    {
+      'andymass/vim-matchup',
+      config = function()
+        vim.g.matchup_matchparen_offscreen = { method = "popup" }
+      end
+    },
     "JoosepAlviste/nvim-ts-context-commentstring",
     "windwp/nvim-ts-autotag",
   },
