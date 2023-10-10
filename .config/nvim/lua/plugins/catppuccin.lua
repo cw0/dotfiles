@@ -61,6 +61,7 @@ return {
         notify = true,
         octo = true,
         nvimtree = true,
+        symbols_outline = true,
         telescope = true,
         treesitter = true,
         which_key = true,
