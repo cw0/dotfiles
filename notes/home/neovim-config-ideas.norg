@@ -3,10 +3,11 @@
 *Plugins what need configuring*
 
 - (x) https://github.com/jackMort/ChatGPT.nvim
-- ( ) https://github.com/nvim-telescope/telescope.nvim
+- (x) https://github.com/nvim-telescope/telescope.nvim
 - (x) https://github.com/folke/todo-comments.nvim
 - ( ) https://github.com/RaafatTurki/hex.nvim
 - (x) https://github.com/kdheepak/lazygit.nvim
+- ( ) https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 
 *Plugins what need installing*
 - (x) https://github.com/stevearc/aerial.nvim
