@@ -52,6 +52,14 @@ return {
             "choose right side change",
           },
         },
+        h = {
+          name = "octo",
+          i = {
+            name = "issue"
+          },
+          p = {
+            name = "pr"
+        }
       },
       m = {
         name = "mark",
