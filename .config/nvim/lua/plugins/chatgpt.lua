@@ -18,84 +18,84 @@ return {
     end
   end,
   keys = {
-    { "<leader>aa", "<cmd>ChatGPTActAs<cr>", desc = "Open Chat GPT with Awesome Prompts" },
+    { "<leader>ca", "<cmd>ChatGPTActAs<cr>", desc = "Open Chat GPT with Awesome Prompts" },
+    { "<leader>cc", "<cmd>ChatGPT<cr>",      desc = "Open Chat GPT Prompt" },
     {
-      "<leader>ae",
-      "<cmd>ChatGPTEditWithInstructions<cr>",
-      desc = "Chat GPT Edit With Instructions",
-      mode = { "n", "v" }
-    },
-    { "<leader>ag", "<cmd>ChatGPT<cr>",      desc = "Open Chat GPT Prompt" },
-    {
-      "<leader>arc",
+      "<leader>cC",
       "<cmd>ChatGPTRun complete_code<cr>",
       desc = "Chat GPT Complete Code",
       mode = { "n", "v" }
     },
     {
-      "<leader>ard",
+      "<leader>cd",
       "<cmd>ChatGPTRun docstring<cr>",
       desc = "Chat GPT Docstring",
       mode = { "n", "v" }
     },
     {
-      "<leader>arg",
-      "<cmd>ChatGPTRun grammar_correction<cr>",
-      desc = "Chat GPT Correct Grammar",
+      "<leader>ce",
+      "<cmd>ChatGPTEditWithInstructions<cr>",
+      desc = "Chat GPT Edit With Instructions",
       mode = { "n", "v" }
     },
     {
-      "<leader>arf",
+      "<leader>cE",
+      "<cmd>ChatGPTRun explain_code<cr>",
+      desc = "Chat GPT Explain Code",
+      mode = { "n", "v" }
+    },
+    {
+      "<leader>cf",
       "<cmd>ChatGPTRun fix_bugs<cr>",
       desc = "Chat GPT Fix Bugs",
       mode = { "n", "v" }
     },
     {
-      "<leader>ark",
+      "<leader>cg",
+      "<cmd>ChatGPTRun grammar_correction<cr>",
+      desc = "Chat GPT Correct Grammar",
+      mode = { "n", "v" }
+    },
+    {
+      "<leader>ck",
       "<cmd>ChatGPTRun keywords<cr>",
       desc = "Chat GPT Keywords",
       mode = { "n", "v" }
     },
     {
-      "<leader>aro",
+      "<leader>co",
       "<cmd>ChatGPTRun optimize_code<cr>",
       desc = "Chat GPT Optimize Code",
       mode = { "n", "v" }
     },
     {
-      "<leader>arr",
+      "<leader>cr",
       "<cmd>ChatGPTRun code_readability_analysis<cr>",
       desc = "Chat GPT Code Readability Analysis",
       mode = { "n", "v" }
     },
     {
-      "<leader>arR",
+      "<leader>cR",
       "<cmd>ChatGPTRun roxygen_edit<cr>",
       desc = "Chat GPT Roxygen Edit",
       mode = { "n", "v" }
     },
     {
-      "<leader>ars",
+      "<leader>cs",
       "<cmd>ChatGPTRun summarize<cr>",
       desc = "Chat GPT Summarize",
       mode = { "n", "v" }
     },
     {
-      "<leader>art",
+      "<leader>ct",
       "<cmd>ChatGPTRun add_tests<cr>",
       desc = "Chat GPT Add Tests",
       mode = { "n", "v" }
     },
     {
-      "<leader>arT",
+      "<leader>cT",
       "<cmd>ChatGPTRun translate<cr>",
       desc = "Chat GPT Translate",
-      mode = { "n", "v" }
-    },
-    {
-      "<leader>are",
-      "<cmd>ChatGPTRun explain_code<cr>",
-      desc = "Chat GPT Explain Code",
       mode = { "n", "v" }
     },
   }

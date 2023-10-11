@@ -24,9 +24,6 @@ return {
 
     wk.register(
       {
-        a = {
-          name = "chat gpt"
-        },
         b = {
           name = "buffer",
           l = {
@@ -37,6 +34,9 @@ return {
             ":bp <BAR> bd #<CR>",
             "close current buffer and move to previous",
           },
+        },
+        c = {
+          name = "chat gpt"
         },
         d = {
           name = "dap",
@@ -77,7 +77,13 @@ return {
           name = "help"
         },
         l = {
-          name = "lsp"
+          name = "lsp",
+          p = {
+            name = "swap next parameter"
+          },
+          P = {
+            name = "swap prev parameter"
+          }
         },
         m = {
           name = "mark",
