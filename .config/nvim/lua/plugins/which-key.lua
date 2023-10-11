@@ -8,7 +8,11 @@ return {
     end
 
     -- TODO: remap popup scrolling for consistency
-    wk.setup({})
+    wk.setup({
+      window = {
+        border = "single"
+      }
+    })
 
     wk.register({
       name = "global mappings",
@@ -69,6 +73,9 @@ return {
             }
           },
         },
+        h = {
+          name = "help"
+        },
         l = {
           name = "lsp"
         },
@@ -82,11 +89,20 @@ return {
             "run command on line and paste output in buffer",
           },
         },
+        s = {
+          name = "search"
+        },
         t = {
           name = "test",
         },
         v = {
-          name = "view"
+          name = "view",
+          d = {
+            name = "docker"
+          },
+          t = {
+            name = "terraform docs"
+          }
         },
         ["["] = {
           ":bprevious<CR>",
