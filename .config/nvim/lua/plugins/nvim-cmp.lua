@@ -2,9 +2,9 @@ return {
   "hrsh7th/nvim-cmp",
   event = "InsertEnter",
   dependencies = {
-    "hrsh7th/cmp-buffer",     --buffer completions
-    "hrsh7th/cmp-nvim-lsp",   --lsp completions
-    "hrsh7th/cmp-path",       --path completions
+    "hrsh7th/cmp-buffer",   --buffer completions
+    "hrsh7th/cmp-nvim-lsp", --lsp completions
+    "hrsh7th/cmp-path",     --path completions
     "onsails/lspkind.nvim",
     "saadparwaiz1/cmp_luasnip",
     {
@@ -12,20 +12,20 @@ return {
       dependencies = { "friendly-snippets" },
       config = function()
         -- TODO: this is gross
-	      local luasnip_status, luasnip = pcall(require, "luasnip")
-	      if not luasnip_status then
-		      return
-	      end
+        local luasnip_status, luasnip = pcall(require, "luasnip")
+        if not luasnip_status then
+          return
+        end
 
-	      luasnip.config.set_config({
-		      history = false,
-		      updateevents = "TextChanged,TextChangedI",
-	      })
+        luasnip.config.set_config({
+          history = false,
+          updateevents = "TextChanged,TextChangedI",
+        })
 
-	      require("luasnip/loaders/from_vscode").load()
+        require("luasnip/loaders/from_vscode").load()
       end,
     },
-    "rafamadriz/friendly-snippets",   -- snippets collection
+    "rafamadriz/friendly-snippets", -- snippets collection
   },
   config = function()
     local cmp_status, cmp = pcall(require, "cmp")
@@ -50,10 +50,10 @@ return {
         end,
       },
       mapping = {
-        ["<Tab>"] = cmp.mapping.select_next_item(), -- next suggestion
-        ["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
+        ["<Tab>"] = cmp.mapping.select_next_item(),   -- next suggestion
+        ["<C-j>"] = cmp.mapping.select_next_item(),   -- next suggestion
         ["<S-Tab>"] = cmp.mapping.select_prev_item(), -- previous suggestion
-        ["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
+        ["<C-k>"] = cmp.mapping.select_prev_item(),   -- previous suggestion
         ["<C-d>"] = cmp.mapping.scroll_docs(-4),
         ["<C-u>"] = cmp.mapping.scroll_docs(4),
         ["<C-n>"] = cmp.mapping.abort(), -- close completion window
@@ -63,10 +63,10 @@ return {
       },
       -- sources for autocompletion
       sources = cmp.config.sources({
-        { name = "luasnip" }, -- snippets
+        { name = "luasnip" },  -- snippets
         -- { name = "copilot" },
         { name = "nvim_lsp" }, -- lsp
-        { name = "path" }, -- file system paths
+        { name = "path" },     -- file system paths
       }, {
         { name = "buffer" },
       }),
@@ -94,12 +94,12 @@ return {
       },
       window = {
         documentation = cmp.config.window.bordered({
-          border = "rounded",
+          border = "single",
           winhighlight = "Normal:Pmenu,CursorLine:PmenuSel,FloatBorder:String",
           max_width = 10,
         }),
         completion = cmp.config.window.bordered({
-          border = "rounded",
+          border = "single",
           winhighlight = "Normal:Pmenu,CursorLine:PmenuSel,FloatBorder:String",
           side_padding = 1,
           col_offset = 3,
