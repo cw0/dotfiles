@@ -135,7 +135,6 @@ return {
       "Find Files (root dir)"
     },
     { "<leader>fF", "<cmd>Telescope find_files cwd=false<cr>", desc = "Find Files (cwd)" },
-    { "<leader>fM", "<cmd>Telescope media_files<cr>",          desc = "Media Files" },
     { "<leader>fr", "<cmd>Telescope oldfiles<cr>",             desc = "Recent" },
     { "<leader>fs", "<cmd>Telescope luasnip<cr>",              desc = "Luasnip" },
     { "<leader>ft", "<cmd>Telescope live_grep<cr>",            desc = "Find Text In Files" },
@@ -212,7 +211,8 @@ return {
       "<cmd>Telescope lsp_document_symbols symbols=Class,Function,Method,Interface,Constructor,Module,Struct,Trait,Field,Property,Variable<cr>",
       desc = "Goto Symbol",
     },
-    { "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
-    { "<leader>:", "<cmd>Telescope command_history<cr>",               desc = "Command History" },
+    { "<leader>vM", "<cmd>Telescope media_files<cr>",                   desc = "Media Files" },
+    { "<leader>,",  "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
+    { "<leader>:",  "<cmd>Telescope command_history<cr>",               desc = "Command History" },
   }
 }

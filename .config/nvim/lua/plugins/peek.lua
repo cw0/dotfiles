@@ -4,7 +4,7 @@ return {
   build = "deno task --quiet build:fast",
   keys = {
     {
-      "<leader>cp",
+      "<leader>vm",
       function()
         local peek = require("peek")
         if peek.is_open() then
@@ -13,7 +13,7 @@ return {
           peek.open()
         end
       end,
-      desc = "Peek (Markdown Preview)",
+      desc = "Markdown",
     },
   },
   opts = {
