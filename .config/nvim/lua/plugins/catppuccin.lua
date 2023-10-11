@@ -31,7 +31,6 @@ return {
           scope_color = "", -- catppuccin color (eg. `lavender`) Default: text
           colored_indent_levels = false,
         },
-        lsp_trouble = true,
         mason = true,
         markdown = true,
         native_lsp = {

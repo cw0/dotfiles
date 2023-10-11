@@ -85,10 +85,12 @@ return {
         ":bnext<CR>",
         "switch to next buffer",
       },
-    }, {
+    },
+    {
       prefix = "<leader>",
       noremap = true,
       silent = true,
-    })
+    }
+  })
   end,
 }
