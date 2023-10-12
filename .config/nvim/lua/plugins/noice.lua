@@ -19,6 +19,33 @@ return {
       inc_rename = false,           -- enables an input dialog for inc-rename.nvim
       lsp_doc_border = false,       -- add a border to hover docs and signature help
     },
+    views = {
+      cmdline = {
+        border = {
+          style = "single"
+        }
+      },
+      cmdline_popup = {
+        border = {
+          style = "single"
+        }
+      },
+      cmdline_popupmenu = {
+        border = {
+          style = "single"
+        }
+      },
+      popup = {
+        border = {
+          style = "single"
+        }
+      },
+      popupmenu = {
+        border = {
+          style = "single"
+        }
+      }
+    }
   },
   dependencies = {
     "MunifTanjim/nui.nvim",
