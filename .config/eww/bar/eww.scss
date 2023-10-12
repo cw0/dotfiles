@@ -8,8 +8,7 @@ Created by saimoom **/
 
 /** General **/
 .bar_class {
-  background-color: #0f0f17;
-  border-radius: 16px;
+  background-color: #11111b;
 }
 .module {
   margin: 0px 0px 0px 0px;
@@ -21,7 +20,7 @@ tooltip.background {
   background-color: #0f0f17;
   font-size: 18;
   border-radius: 10px;
-  color: #bfc9db;
+  color: #cdd6f4;
 }
 
 tooltip label {
@@ -32,7 +31,7 @@ tooltip label {
 
 .clock_time_sep {
   font-size: 16;
-  color: #bfc9db;
+  color: #cdd6f4;
   margin: 0px 4px 1px 4px;
 }
 .clock_time_class,
@@ -46,11 +45,11 @@ tooltip label {
 }
 .clock_minute_class {
   margin: 0px 20px 0px 3px;
-  color: #bfc9db;
+  color: #cdd6f4;
 }
 
 .clock_time_class {
-  color: #bfc9db;
+  color: #cdd6f4;
   font-weight: bold;
   margin: 0px 5px 0px 0px;
 }
@@ -150,7 +149,7 @@ scale trough {
   font-size: 27px;
   font-weight: normal;
   margin: 5px 0px 0px 20px;
-  background-color: #0f0f17;
+  background-color: #11111b;
 }
 
 .0,
@@ -181,7 +180,7 @@ scale trough {
 .04,
 .05,
 .06 {
-  color: #bfc9db;
+  color: #cdd6f4;
 }
 
 /* Focused */
@@ -218,20 +217,20 @@ scale trough {
 
 .song_btn_prev,
 .song_btn_next {
-  color: #bfc9db;
+  color: #cdd6f4;
   font-size: 24px;
   margin: 3px 0px 0px 5px;
 }
 // Calendar
 .cal {
-  background-color: #0f0f17;
+  background-color: #11111b;
   font-family: JetBrainsMono Nerd Font;
   font-size: 18px;
   font-weight: normal;
 
   .cal-in {
     padding: 0px 10px 0px 10px;
-    color: #bfc9db;
+    color: #cdd6f4;
 
     .cal {
       &.highlight {
@@ -245,7 +244,7 @@ scale trough {
 }
 
 calender {
-  color: #bfc9db;
+  color: #cdd6f4;
 }
 calendar:selected {
   color: #a1bdce;
@@ -266,7 +265,7 @@ calendar.highlight {
 }
 
 calendar:indeterminate {
-  color: #bfc9db;
+  color: #cdd6f4;
 }
 
 .sys_sep {
@@ -292,7 +291,7 @@ calendar:indeterminate {
   margin: 30px;
 }
 .sys_win {
-  background-color: #0f0f17;
+  background-color: #11111b;
 }
 .sys_bat {
   color: #afbea2;
@@ -322,7 +321,7 @@ calendar:indeterminate {
 }
 
 .music_pop {
-  background-color: #0f0f17;
+  background-color: #11111b	;
   border-radius: 16px;
 }
 .music_cover_art {
@@ -336,14 +335,14 @@ calendar:indeterminate {
 }
 
 .music {
-  color: #a1bdce;
+  color: #cdd6f4;
   font-size: 20px;
   font-weight: bold;
   margin: 20px 0px 0px -15px;
 }
 
 .music_artist {
-  color: #bbc5d7;
+  color: #bac2de;
   font-size: 16px;
   font-weight: normal;
   margin: 0px 0px 0px 0px;
