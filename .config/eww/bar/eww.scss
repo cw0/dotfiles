@@ -55,22 +55,17 @@ tooltip label {
 }
 
 .membar {
-  color: #e0b089;
+  color: #eba0ac;
   background-color: #38384d;
   border-radius: 10px;
 }
 .batbar {
-  color: #afbea2;
+  color: #a6e3a1;
   background-color: #38384d;
   border-radius: 10px;
 }
 .brightbar trough highlight {
-  background-image: linear-gradient(
-    to right,
-    #e4c9af 30%,
-    #f2cdcd 50%,
-    #e0b089 100% * 50
-  );
+  background-color: #eba0ac;
   border-radius: 10px;
 }
 .volbar trough highlight {
@@ -101,10 +96,10 @@ tooltip label {
 }
 
 .iconmem {
-  color: #e0b089;
+  color: #eba0ac;
 }
 .iconbat {
-  color: #afbea2;
+  color: #a6e3a1;
 }
 .iconbat,
 .iconmem {
@@ -113,7 +108,7 @@ tooltip label {
 }
 .bright_icon {
   font-size: 22;
-  color: #e4c9af;
+  color: #eba0ac;
   margin: 0px 10px 0px 10px;
 }
 
@@ -170,7 +165,7 @@ scale trough {
 
 /* Unoccupied */
 .0 {
-  color: #3e424f;
+  color: #89b4fa;
 }
 
 /* Occupied */
@@ -180,7 +175,7 @@ scale trough {
 .04,
 .05,
 .06 {
-  color: #cdd6f4;
+  color: #f9e2af;
 }
 
 /* Focused */
@@ -190,7 +185,7 @@ scale trough {
 .044,
 .055,
 .066 {
-  color: #a1bdce;
+  color: #fab387;
 }
 
 .song_cover_art {
@@ -224,7 +219,7 @@ scale trough {
 // Calendar
 .cal {
   background-color: #11111b;
-  font-family: JetBrainsMono Nerd Font;
+  font-family: MesloLGL Nerd Font Mono;
   font-size: 18px;
   font-weight: normal;
 
@@ -256,7 +251,7 @@ calendar.header {
 }
 
 calendar.button {
-  color: #afbea2;
+  color: #a6e3a1;
 }
 
 calendar.highlight {
@@ -294,22 +289,22 @@ calendar:indeterminate {
   background-color: #11111b;
 }
 .sys_bat {
-  color: #afbea2;
+  color: #a6e3a1;
   background-color: #38384d;
   border-radius: 10px;
 }
 .sys_mem {
-  color: #e4c9af;
+  color: #eba0ac;
   background-color: #38384d;
   border-radius: 10px;
 }
 .sys_icon_bat,
 .sys_text_bat {
-  color: #afbea2;
+  color: #a6e3a1;
 }
 .sys_icon_mem,
 .sys_text_mem {
-  color: #e4c9af;
+  color: #eba0ac;
 }
 .sys_bat_box {
   border-radius: 16px;
@@ -351,7 +346,8 @@ calendar:indeterminate {
 .music_btn_prev,
 .music_btn_play,
 .music_btn_next {
-  font-family: Iosevka Nerd Font;
+  font-family: MesloLGL Nerd Font Mono;
+  font-family: Symbols Nerd Font;
 }
 .music_btn_prev {
   color: #bbc5d7;
