@@ -17,12 +17,12 @@ return {
     catppuccin.setup({
       -- TODO: investigate integration with todo comments
       integrations = {
-        alpha = true,
         cmp = true,
         dap = {
           enabled = true,
           enable_ui = true,
         },
+        dashboard = true,
         flash = true,
         gitsigns = true,
         harpoon = true,
