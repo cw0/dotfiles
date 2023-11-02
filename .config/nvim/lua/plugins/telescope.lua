@@ -14,7 +14,7 @@ return {
     telescope.setup({
       defaults = {
         border = true,
-        borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
+        -- borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
         mappings = {
           i = {
             ["<C-k>"] = actions.move_selection_previous, -- move to prev result

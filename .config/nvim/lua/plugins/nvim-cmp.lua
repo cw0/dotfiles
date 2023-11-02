@@ -94,12 +94,12 @@ return {
       },
       window = {
         documentation = cmp.config.window.bordered({
-          border = "single",
+          border = "rounded",
           winhighlight = "Normal:Pmenu,CursorLine:PmenuSel,FloatBorder:String",
           max_width = 10,
         }),
         completion = cmp.config.window.bordered({
-          border = "single",
+          border = "rounded",
           winhighlight = "Normal:Pmenu,CursorLine:PmenuSel,FloatBorder:String",
           side_padding = 1,
           col_offset = 3,

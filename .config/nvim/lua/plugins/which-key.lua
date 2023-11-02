@@ -10,7 +10,7 @@ return {
     -- TODO: remap popup scrolling for consistency
     wk.setup({
       window = {
-        border = "single"
+        border = "rounded"
       }
     })
 
