@@ -25,10 +25,11 @@ fi
 # update existing packages
 echo "updating packages..."
 
-pacman -Syu --noconfirm
+sudo pacman -Syu --noconfirm
 
 # install yay
-pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
+cd ~/
+sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 
 cd ..
 rm -rf yay
