@@ -1,82 +1,36 @@
 #!/bin/bash
 
-echo "Updating Packages"
-apt update && apt upgrade -y
+# check user permissions first
+echo "checking permissions..."
 
-echo "Installing Utils from APT"
-apt install -y git tmux build-essential gcc procps curl file universal-ctags ruby-full kitty zsh
+is_sudoer() {
+    ## Define error code
+    E_NOTROOT=87 # Non-root exit error.
 
-source ~/.bashrc
+    ## check if is sudoer
+    if ! $(sudo -l &> /dev/null); then
+        echo 'Error: root privileges are needed to run this script'
+        return $E_NOTROOT
+    fi
+    return  0
+}
 
-echo "Installing Homebrew"
-export CI=1
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.bashrc
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if is_sudoer; then
+    echo "sudo permissions detected, continuing..."
+else
+    echo "retry with sudo permissions."
+    exit 87
+fi
 
-echo "Updating Homebrew"
-brew update
+# update existing packages
+echo "updating packages..."
 
-echo "Installing oh-my-zsh"
-git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+pacman -Syu --noconfirm
 
-echo "Installing zsh-syntax-highlighting"
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+# install yay
+pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 
-echo "Installing zsh-autosuggestions"
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+cd ..
+rm -rf yay
 
-echo "Installing powerlevel10k"
-git clone https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
 
-echo "Installing ls colors"
-gem install --user-install colorls
-
-echo "Installing nerd font"
-mkdir -p ~/.local/share/fonts/truetype
-install -m644 'Roboto Mono Nerd Font Complete Mono.ttf' ~/.local/share/fonts/truetype/
-fc-cache -fv
-
-echo "Installing nvm"
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-
-# TODO install a version of node
-nvm install --lts
-
-echo "Installing vim"
-brew install vim
-
-echo "Installing AG"
-brew install the_silver_searcher
-
-# TODO mac only
-echo "Installing coreutils"
-brew install coreutils
-
-echo "Updating configs"
-rm -f ~/.p10k.zsh
-ln -sr .p10k.zsh ~/.p10k.zsh
-
-rm -f ~/.zshrc
-ln -sr .zshrc ~/.zshrc
-
-rm -f ~/.vimrc
-ln -sr .vimrc ~/.vimrc
-
-rm -f ~/.config/kitty/kitty.conf
-mkdir ~/.config/kitty
-ln -sr kitty.conf ~/.config/kitty/kitty.conf
-
-rm -f ~/.tmux.conf
-ln -sr .tmux.conf ~/.tmux.conf
-
-echo "Changing default shell to ZSH"
-# command -v zsh | sudo tee -a /etc/shells
-chsh -s "$(command -v zsh)" $USER
-
-# Install pynvim
-# TODO untested
- pip3 install --user pynvim
