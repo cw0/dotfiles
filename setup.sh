@@ -61,3 +61,11 @@ echo "installing programs..."
 
 LANG=C yay --provides=false --answerdiff None --answerclean None --mflags "--noconfirm" -S $(cat package-list.txt)
 
+# move configuration files
+./aliases.sh
+
+# set shell to zsh
+echo "changing shell to zsh..."
+chsh -s $(which zsh)
+
+echo "you must restart for this change to take effect"
