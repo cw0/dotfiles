@@ -29,7 +29,6 @@ return {
         "lua",
         "markdown",
         "markdown_inline",
-        "norg",
         "regex",
         "python",
         "sql",
