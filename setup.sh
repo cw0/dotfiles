@@ -34,9 +34,9 @@ cd ..
 rm -rf yay
 
 # installing development env manager
-LANG=C yay --noprovides --answerdiff None --answerclean None --mflags "--noconfirm" -S asdf-vm
+echo "Y" | LANG=C yay --provides=false --answerdiff None --answerclean None --mflags "--noconfirm" -S asdf-vm
 
-. "$HOME/.asdf/asdf.sh"
+. /opt/asdf-vm/asdf.sh
 asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 asdf plugin-add poetry https://github.com/asdf-community/asdf-poetry.git
 asdf plugin-add python
@@ -59,5 +59,5 @@ asdf global terraform-ls latest
 # install programs
 echo "installing programs..."
 
-LANG=C yay --noprovides --answerdiff None --answerclean None --mflags "--noconfirm" -S $(cat package-list.txt)
+LANG=C yay --provides=false --answerdiff None --answerclean None --mflags "--noconfirm" -S $(cat package-list.txt)
 
