@@ -28,10 +28,12 @@ echo "updating packages..."
 sudo pacman -Syu --noconfirm
 
 # install yay
-cd ~/
 sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm
 
 cd ..
 rm -rf yay
 
+# install programs
+echo "installing programs..."
 
+yes | LANG=C yay --noprovides --answerdiff None --answerclean None --mflags "--noconfirm" -S $(cat package-list.txt)
