@@ -10,10 +10,6 @@ return {
     end
 
     configs.setup({
-      context_commentstring = {
-        enable = true,
-        enable_autocmd = false
-      },
       ensure_installed = {
         "bash",
         "css",
@@ -122,8 +118,6 @@ return {
         },
       },
     })
-
-    require('ts_context_commentstring').setup({})
   end,
   dependencies = {
     {
@@ -132,7 +126,6 @@ return {
         vim.g.matchup_matchparen_offscreen = { method = "popup" }
       end
     },
-    "JoosepAlviste/nvim-ts-context-commentstring",
     "windwp/nvim-ts-autotag",
     "nvim-treesitter/nvim-treesitter-textobjects"
   },
