@@ -6,15 +6,7 @@ return {
       return
     end
 
-    notify.setup({
-      on_open = function(win)
-        -- TODO: see if there is a way to do this system wide
-        local config = vim.api.nvim_win_get_config(win)
-        -- NOTE: technically redundant
-        config.border = "rounded"
-        vim.api.nvim_win_set_config(win, config)
-      end
-    })
+    notify.setup({})
 
     vim.notify = notify
   end,
