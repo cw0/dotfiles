@@ -4,22 +4,22 @@
 echo "checking permissions..."
 
 is_sudoer() {
-    ## Define error code
-    E_NOTROOT=87 # Non-root exit error.
+	## Define error code
+	E_NOTROOT=87 # Non-root exit error.
 
-    ## check if is sudoer
-    if ! $(sudo -l &> /dev/null); then
-        echo 'Error: root privileges are needed to run this script'
-        return $E_NOTROOT
-    fi
-    return  0
+	## check if is sudoer
+	if ! $(sudo -l &>/dev/null); then
+		echo 'Error: root privileges are needed to run this script'
+		return $E_NOTROOT
+	fi
+	return 0
 }
 
 if is_sudoer; then
-    echo "sudo permissions detected, continuing..."
+	echo "sudo permissions detected, continuing..."
 else
-    echo "retry with sudo permissions."
-    exit 87
+	echo "retry with sudo permissions."
+	exit 87
 fi
 
 # update existing packages
@@ -68,4 +68,5 @@ LANG=C yay --provides=false --answerdiff None --answerclean None --mflags "--noc
 echo "changing shell to zsh..."
 chsh -s $(which zsh)
 
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 echo "you must restart for this change to take effect"
