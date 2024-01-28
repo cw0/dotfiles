@@ -4,6 +4,9 @@ echo "Updating configs"
 rm -f ~/.p10k.zsh
 ln -sr .p10k.zsh ~/.p10k.zsh
 
+rm -rf ~/.oh-my-zsh
+ln -sr .oh-my-zsh ~/.oh-my-zsh
+
 rm -f ~/.zshrc
 ln -sr .zshrc ~/.zshrc
 

@@ -8,9 +8,6 @@ fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
-
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -86,6 +83,10 @@ safe_load /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git vi-mode)
 
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# Launch oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -180,39 +181,39 @@ bindkey -M vicmd ys add-surround
 bindkey -M visual S add-surround
 
 # Path Settings
-export PATH="/usr/local/bin:$PATH"
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+# export PATH="/usr/local/bin:$PATH"
+# export PYENV_ROOT="$HOME/.pyenv"
+# command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init -)"
 
 ZIONRC=~/.zion/zion-dev-tools/zionrc/.zionrc
 if test -f "$ZIONRC"; then
 	source ~/.zion/zion-dev-tools/zionrc/.zionrc
 fi
 
-export PATH="$PATH:~/go/bin"
-export PATH="$PATH:$(python3 -m site --user-base)/bin"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# export PATH="$PATH:~/go/bin"
+# export PATH="$PATH:$(python3 -m site --user-base)/bin"
+#
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # added by Snowflake SnowSQL installer v1.2
-export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH
+# export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH
 
 # coreutils fix
-export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+# export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
 
-export PATH="$HOME/.poetry/bin:$PATH"
-safe_load /usr/share/nvm/init-nvm.sh
+# export PATH="$HOME/.poetry/bin:$PATH"
+# safe_load /usr/share/nvm/init-nvm.sh
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+# export PATH="$PATH:$HOME/.rvm/bin"
 
-source ~/.rvm/scripts/rvm
+# source ~/.rvm/scripts/rvm
 
 # Add asdf-vm
-. /opt/asdf-vm/asdf.sh
-. ~/.asdf/plugins/golang/set-env.zsh
+source /opt/asdf-vm/asdf.sh
+source ~/.asdf/plugins/golang/set-env.zsh
 
 # export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
