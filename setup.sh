@@ -68,5 +68,4 @@ LANG=C yay --provides=false --answerdiff None --answerclean None --mflags "--noc
 echo "changing shell to zsh..."
 chsh -s $(which zsh)
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 echo "you must restart for this change to take effect"
