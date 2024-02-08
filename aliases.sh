@@ -39,3 +39,6 @@ ln -sr .config/sc-im ~/.config/sc-im
 
 rm -rf ~/.config/neofetch
 ln -sr .config/neofetch ~/.config/neofetch
+
+rm -rf ~/.config/easyeffects
+ln -sr .config/easyeffects ~/.config/easyeffects
