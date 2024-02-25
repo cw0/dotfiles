@@ -213,7 +213,12 @@ fi
 # source ~/.rvm/scripts/rvm
 
 # Add asdf-vm
-source /opt/asdf-vm/asdf.sh
+ASDF_VM_AUR=/opt/asdf-vm/asdf.sh
+if test -f "$ASDF_VM_AUR"; then
+	source $ASDF_VM_AUR
+else
+  source ~/.asdf/asdf.sh
+fi
 source ~/.asdf/plugins/golang/set-env.zsh
 
 # export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
