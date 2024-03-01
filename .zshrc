@@ -1,8 +1,8 @@
 function safe_load() {
-  [ -a $1 ] && source $1
+  [ -f $1 ] && source $1
 }
 
-safe_load "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+safe_load ${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh
 safe_load /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 safe_load /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
