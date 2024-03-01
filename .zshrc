@@ -105,7 +105,7 @@ export PATH="/usr/local/bin:$PATH"
 
 # Add asdf-vm
 safe_load /opt/asdf-vm/asdf.sh
+safe_load ~/.asdf/asdf.sh
 safe_load ~/.asdf/plugins/golang/set-env.zsh
 
-export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
-
+#export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
