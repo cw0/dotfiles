@@ -63,3 +63,6 @@ git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 
 # install catpuccin for tmux
 git clone https://github.com/catppuccin/tmux tmux
+
+# install rustup
+# TODO: this when i get home
