@@ -33,12 +33,6 @@ safe_load $HOME/.zshsecrets
 # export MANPATH="/usr/local/man:$MANPATH"
 # export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='nvim'
-# fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -60,9 +54,6 @@ autoload -U compinit; compinit
 _comp_options+=(globdots) # With hidden files
 
 # Binds
-# vim mode
-export KEYTIMEOUT=1
-
 # Use hjlk in menu selection (during completion)
 # Doesn't work well with interactive mode
 bindkey -M menuselect 'h' vi-backward-char
@@ -100,18 +91,13 @@ bindkey -M vicmd ds delete-surround
 bindkey -M vicmd ys add-surround
 bindkey -M visual S add-surround
 
-# Path Settings
-export PATH="/usr/local/bin:$PATH"
-
 # Add asdf-vm
 safe_load /opt/asdf-vm/asdf.sh
 safe_load ~/.asdf/asdf.sh
 safe_load ~/.asdf/plugins/golang/set-env.zsh
-
-#export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
-
 safe_load ~/.zion/zion-dev-tools/zionrc/.zionrc
 
+# TDOD Move all of this to something more worky
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
@@ -136,4 +122,3 @@ export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$PATH:$HOME/.rvm/bin"
 
 safe_load ~/.rvm/scripts/rvm
-

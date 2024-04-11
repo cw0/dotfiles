@@ -64,6 +64,9 @@ LANG=C yay --provides=false --answerdiff None --answerclean None --mflags "--noc
 # move configuration files
 ./aliases.sh
 
+# setup rustup
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
 # set shell to zsh
 echo "changing shell to zsh..."
 chsh -s $(which zsh)
