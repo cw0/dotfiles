@@ -98,29 +98,3 @@ safe_load ~/.asdf/plugins/golang/set-env.zsh
 safe_load ~/.zion/zion-dev-tools/zionrc/.zionrc
 
 safe_load ~/.zshwork
-
-# TDOD Move all of this to something more worky
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
-export PATH="$PATH:~/go/bin"
-export PATH="$PATH:$(python3 -m site --user-base)/bin"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# added by Snowflake SnowSQL installer v1.2
-export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH
-
-# coreutils fix
-export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
-
-export PATH="$HOME/.poetry/bin:$PATH"
-# safe_load /usr/share/nvm/init-nvm.sh
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
-safe_load ~/.rvm/scripts/rvm
