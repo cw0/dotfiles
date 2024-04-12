@@ -97,6 +97,8 @@ safe_load ~/.asdf/asdf.sh
 safe_load ~/.asdf/plugins/golang/set-env.zsh
 safe_load ~/.zion/zion-dev-tools/zionrc/.zionrc
 
+safe_load ~/.zshwork
+
 # TDOD Move all of this to something more worky
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
