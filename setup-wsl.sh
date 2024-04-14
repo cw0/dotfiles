@@ -65,4 +65,4 @@ git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 git clone https://github.com/catppuccin/tmux tmux
 
 # install rustup
-# TODO: this when i get home
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
