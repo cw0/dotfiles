@@ -29,14 +29,6 @@ safe_load $HOME/.zshaliases
 # Source secrets
 safe_load $HOME/.zshsecrets
 
-
-# export MANPATH="/usr/local/man:$MANPATH"
-# export LANG=en_US.UTF-8
-
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
 # ZSH Options, see: https://zsh.sourceforge.io/Doc/Release/Options.html
 setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
 # unsetopt HIST_SAVE_NO_DUPS     # Write a duplicate event to the history file
