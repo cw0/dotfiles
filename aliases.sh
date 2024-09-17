@@ -7,6 +7,9 @@ ln -sr .p10k.zsh ~/.p10k.zsh
 rm -rf ~/.oh-my-zsh
 ln -sr .oh-my-zsh ~/.oh-my-zsh
 
+rm -rf ~/.asdfrc
+ln -sr .asdfrc ~/.asdfrc
+
 rm -f ~/.zshrc
 ln -sr .zshrc ~/.zshrc
 

@@ -26,7 +26,6 @@ alias gj="git-jump"                                                             
 alias dif="git diff --no-index"
 
 #ls
-alias ls='exa --icons'
 alias lsl='ls -l'
 alias ll='ls -lahF'
 alias lls='ls -lahFtr'
