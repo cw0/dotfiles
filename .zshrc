@@ -84,6 +84,7 @@ bindkey -M vicmd ys add-surround
 bindkey -M visual S add-surround
 
 # Add asdf-vm
+export ASDF_GOLANG_MOD_VERSION_ENABLED=true
 safe_load /opt/asdf-vm/asdf.sh
 safe_load ~/.asdf/asdf.sh
 safe_load ~/.asdf/plugins/golang/set-env.zsh

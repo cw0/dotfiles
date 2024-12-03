@@ -4,16 +4,17 @@ sudo apt upgrade
 
 #install most packages
 sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
-	libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
-	xz-utils tk-dev libffi-dev liblzma-dev git unzip exa zsh neofetch libcurl4-openssl-dev
+  libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
+  xz-utils tk-dev libffi-dev liblzma-dev git unzip exa zsh neofetch libcurl4-openssl-dev \
+  luarocks fd-find ripgrep
 
 # install github cli
 type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg &&
-	sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg &&
-	echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list >/dev/null &&
-	sudo apt update &&
-	sudo apt install gh -y
+  sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg &&
+  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list >/dev/null &&
+  sudo apt update &&
+  sudo apt install gh -y
 
 # install lazygit
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
