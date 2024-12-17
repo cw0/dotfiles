@@ -6,9 +6,6 @@ safe_load ${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh
 safe_load /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 safe_load /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
@@ -19,9 +16,6 @@ export ZSH="$HOME/.oh-my-zsh"
 
 # Launch oh-my-zsh
 safe_load $ZSH/oh-my-zsh.sh
-#
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-safe_load ~/.p10k.zsh
 
 # Source aliases
 safe_load $HOME/.zshaliases
@@ -91,3 +85,8 @@ safe_load ~/.asdf/plugins/golang/set-env.zsh
 safe_load ~/.zion/zion-dev-tools/zionrc/.zionrc
 
 safe_load ~/.zshwork
+
+# starship
+# to install / update run
+# curl -sS https://starship.rs/install.sh | sh
+eval "$(starship init zsh)"
