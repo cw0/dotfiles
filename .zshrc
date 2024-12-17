@@ -75,6 +75,9 @@ safe_load ~/.zion/zion-dev-tools/zionrc/.zionrc
 
 safe_load ~/.zshwork
 
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 # PLUGINS
 # NOTE: IF YOU WANT THIS TO WORK GO CLONE THESE
 safe_load /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -88,3 +91,4 @@ safe_load /usr/share/zsh/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
 # to install / update run
 # curl -sS https://starship.rs/install.sh | sh
 eval "$(starship init zsh)"
+
