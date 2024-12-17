@@ -2,20 +2,9 @@ function safe_load() {
   [ -f $1 ] && source $1
 }
 
-safe_load ${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh
-safe_load /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-safe_load /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
-
-plugins=(git vi-mode)
-
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
-
-# Launch oh-my-zsh
-safe_load $ZSH/oh-my-zsh.sh
 
 # Source aliases
 safe_load $HOME/.zshaliases
@@ -85,6 +74,15 @@ safe_load ~/.asdf/plugins/golang/set-env.zsh
 safe_load ~/.zion/zion-dev-tools/zionrc/.zionrc
 
 safe_load ~/.zshwork
+
+# PLUGINS
+# NOTE: IF YOU WANT THIS TO WORK GO CLONE THESE
+safe_load /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# git clone https://github.com/zsh-users/zsh-autosuggestions
+safe_load /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+safe_load /usr/share/zsh/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
+# git clone https://github.com/softmoth/zsh-vim-mode.git
 
 # starship
 # to install / update run

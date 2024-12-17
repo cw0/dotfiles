@@ -53,12 +53,6 @@ asdf global terraform-ls latest
 mkdir ~/.config
 source aliases.sh
 
-# install oh-my-zsh
-git clone https://github.com/ohmyzsh/ohmyzsh .oh-my-zsh
-
-# install powerlevel10k
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-
 # install tpm for tmux
 git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 
