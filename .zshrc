@@ -25,7 +25,9 @@ setopt PUSHD_SILENT         # Do not print the directory stack after pushd or po
 
 # enable completion
 zmodload zsh/complist
-autoload -U compinit; compinit
+# autoload -U compinit; compinit
+autoload -U +X bashcompinit && bashcompinit
+autoload -U +X compinit && compinit
 _comp_options+=(globdots) # With hidden files
 
 # Binds
