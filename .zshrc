@@ -68,6 +68,8 @@ bindkey -M vicmd ds delete-surround
 bindkey -M vicmd ys add-surround
 bindkey -M visual S add-surround
 
+bindkey -r '^H'
+
 # Add asdf-vm
 export ASDF_GOLANG_MOD_VERSION_ENABLED=true
 safe_load /opt/asdf-vm/asdf.sh
