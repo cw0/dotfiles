@@ -75,7 +75,6 @@ export ASDF_GOLANG_MOD_VERSION_ENABLED=true
 safe_load /opt/asdf-vm/asdf.sh
 safe_load ~/.asdf/asdf.sh
 safe_load ~/.asdf/plugins/golang/set-env.zsh
-safe_load ~/.zion/zion-dev-tools/zionrc/.zionrc
 
 safe_load ~/.zshwork
 
