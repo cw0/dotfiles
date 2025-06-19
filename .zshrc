@@ -72,6 +72,8 @@ bindkey -r '^H'
 
 # Add asdf-vm
 export ASDF_GOLANG_MOD_VERSION_ENABLED=true
+export ASDF_NODEJS_LEGACY_FILE_DYNAMIC_STRATEGY=latest_available
+
 safe_load /opt/asdf-vm/asdf.sh
 safe_load ~/.asdf/asdf.sh
 safe_load ~/.asdf/plugins/golang/set-env.zsh
