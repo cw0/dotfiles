@@ -40,3 +40,6 @@ ln -sr .config/neofetch ~/.config/neofetch
 
 rm -rf ~/.config/easyeffects
 ln -sr .config/easyeffects ~/.config/easyeffects
+
+rm -rf ~/.config/ranger
+ln -sr .config/ranger ~/.config/ranger
