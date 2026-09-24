@@ -1,0 +1,15 @@
+# Starship prompt tuning
+# - command_timeout prevents warnings from slower runtimes (pyenv/java)
+# - scan_timeout limits filesystem scanning overhead per prompt render
+command_timeout = 5000
+scan_timeout = 30
+
+[python]
+# Show python info only in python project contexts.
+detect_extensions = ["py"]
+detect_files = ["pyproject.toml", "requirements.txt", ".python-version", "Pipfile"]
+
+[java]
+# Show java info only in java project contexts.
+detect_extensions = ["java", "kt", "gradle"]
+detect_files = ["pom.xml", "build.gradle", "build.gradle.kts"]

@@ -23,6 +23,9 @@ ln -sr .config/eww ~/.config/eww
 rm -f ~/.config/kitty
 ln -sr .config/kitty ~/.config/kitty
 
+rm -f ~/.config/starship.toml
+ln -sr .config/starship.toml ~/.config/starship.toml
+
 rm -f ~/.config/hypr
 ln -sr .config/hypr ~/.config/hypr
 
