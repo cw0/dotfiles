@@ -1,48 +1,31 @@
 #!/bin/bash
+set -euo pipefail
 
 echo "setting config aliases"
 
-rm -rf ~/.asdfrc
-ln -sr .asdfrc ~/.asdfrc
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+mkdir -p "$HOME/.config"
 
-rm -f ~/.zshrc
-ln -sr .zshrc ~/.zshrc
+link_path() {
+  local src="$1"
+  local dst="$2"
+  rm -rf "$dst"
+  ln -s "$SCRIPT_DIR/$src" "$dst"
+}
 
-rm -f ~/.zshenv
-ln -sr .zshenv ~/.zshenv
+link_path ".asdfrc" "$HOME/.asdfrc"
+link_path ".zshrc" "$HOME/.zshrc"
+link_path ".zshenv" "$HOME/.zshenv"
+link_path ".zshaliases" "$HOME/.zshaliases"
+link_path ".vimrc" "$HOME/.vimrc"
 
-rm -f ~/.zshaliases
-ln -sr .zshaliases ~/.zshaliases
-
-rm -f ~/.vimrc
-ln -sr .vimrc ~/.vimrc
-
-rm -f ~/.config/eww
-ln -sr .config/eww ~/.config/eww
-
-rm -f ~/.config/kitty
-ln -sr .config/kitty ~/.config/kitty
-
-rm -f ~/.config/starship.toml
-ln -sr .config/starship.toml ~/.config/starship.toml
-
-rm -f ~/.config/hypr
-ln -sr .config/hypr ~/.config/hypr
-
-rm -rf ~/.config/nvim
-ln -sr .config/nvim ~/.config/nvim
-
-rm -rf ~/.config/tmux
-ln -sr .config/tmux ~/.config/tmux
-
-rm -rf ~/.config/sc-im
-ln -sr .config/sc-im ~/.config/sc-im
-
-rm -rf ~/.config/neofetch
-ln -sr .config/neofetch ~/.config/neofetch
-
-rm -rf ~/.config/easyeffects
-ln -sr .config/easyeffects ~/.config/easyeffects
-
-rm -rf ~/.config/ranger
-ln -sr .config/ranger ~/.config/ranger
+link_path ".config/eww" "$HOME/.config/eww"
+link_path ".config/kitty" "$HOME/.config/kitty"
+link_path ".config/starship.toml" "$HOME/.config/starship.toml"
+link_path ".config/hypr" "$HOME/.config/hypr"
+link_path ".config/nvim" "$HOME/.config/nvim"
+link_path ".config/tmux" "$HOME/.config/tmux"
+link_path ".config/sc-im" "$HOME/.config/sc-im"
+link_path ".config/neofetch" "$HOME/.config/neofetch"
+link_path ".config/easyeffects" "$HOME/.config/easyeffects"
+link_path ".config/ranger" "$HOME/.config/ranger"

@@ -8,7 +8,7 @@ is_sudoer() {
 	E_NOTROOT=87 # Non-root exit error.
 
 	## check if is sudoer
-	if ! $(sudo -l &>/dev/null); then
+	if ! sudo -v; then
 		echo 'Error: root privileges are needed to run this script'
 		return $E_NOTROOT
 	fi
@@ -62,6 +62,7 @@ echo "installing programs..."
 LANG=C yay --provides=false --answerdiff None --answerclean None --mflags "--noconfirm" -S $(cat package-list.txt)
 
 # move configuration files
+mkdir -p ~/.config
 ./aliases.sh
 
 # setup rustup

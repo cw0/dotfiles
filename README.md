@@ -1,59 +1,59 @@
 # Dotfiles
 
-## Summary:
+## Summary
 
-The setup.sh script updates packages and then installs the following utilities:
+This repo is currently tuned for Arch Linux and uses:
 
-- git
-- tmux
-- build-essential
-- gcc
-- procps
-- curl
-- file
-- ruby-full
+- `kitty` as terminal
+- `tmux` with catppuccin
+- `vim` + nerd font UI plugins
+- `MesloLGSDZ Nerd Font Mono` as the terminal font
 
-Afterwards it installs homebrew and then installs:
+If Nerd Font symbols are missing in `vim`/`tmux`, the terminal font is usually the cause.
 
-- zsh
-- oh my zsh
-- roboto mono nerd font
-- powerlevel 10k
-- colorls
-- nvm
-- vim w/ python3 support
+## Arch Linux Setup
 
-Finally it deletes existing config files and replaces the following config files with symlinks to config files in this repo.
-
-- ~/.zshrc
-- ~/.p10k.zsh
-- ~/.vimrc
-- ~/.config/kitty/kitty.conf
-
-> NOTE: If you plan on adding environment variables to your .zshrc please remove the symlink and copy the file manually instead
-
-## Setup:
-
-### Linux:
+From the repo root:
 
 ```bash
-chmod +x setup.sh
+chmod +x setup.sh aliases.sh
 ./setup.sh
 ```
 
-### Docker:
+What this does:
+
+- updates system packages
+- installs `yay`
+- installs packages from `package-list.txt` (including `ttf-meslo-nerd`)
+- links dotfiles into `$HOME` via `aliases.sh`
+
+## Meslo Nerd Font Verification
+
+After install, verify the font exists:
 
 ```bash
-docker build -t 'dev-env' .
+fc-list | rg -i "Meslo.*Nerd.*Mono"
 ```
 
-### TODO
+Verify `kitty` is configured to use Meslo:
 
-- install i3-gaps
-- install polybar
-- install neofetch
-- install calcurse
-- install asciiquarium
-- install weatherspect
-- install wtfutils
-- arrange configs specific to os / computer
+```bash
+rg "^font_family" ~/.config/kitty/kitty.conf
+```
+
+Expected:
+
+```text
+font_family MesloLGSDZ Nerd Font Mono
+```
+
+Optional glyph test (should show icons, not boxes):
+
+```bash
+printf '\ue0b0 \ue0b2 \uf013 \uf0e7 \uf659 \uf121\n'
+```
+
+## Notes
+
+- `setup.sh` is Arch-focused (`pacman` + `yay`).
+- If you customize env vars heavily, copy `.zshrc` instead of symlinking it.
