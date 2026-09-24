@@ -8,7 +8,7 @@ is_sudoer() {
 	E_NOTROOT=87 # Non-root exit error.
 
 	## check if is sudoer
-	if ! sudo -n true 2>/dev/null; then
+	if ! sudo -v; then
 		echo 'Error: root privileges are needed to run this script'
 		return $E_NOTROOT
 	fi

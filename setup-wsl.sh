@@ -1,6 +1,9 @@
-#update packages
-sudo apt udate
-sudo apt upgrade
+#!/bin/bash
+set -euo pipefail
+
+# update packages
+sudo apt update
+sudo apt upgrade -y
 
 #install most packages
 sudo apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
@@ -23,9 +26,10 @@ tar xf lazygit.tar.gz lazygit
 sudo install lazygit /usr/local/bin
 
 # install neovim
-$ sudo add-apt-repository ppa:neovim-ppa/unstable
-$ sudo apt update
-$ sudo apt install neovim
+sudo apt install -y software-properties-common
+sudo add-apt-repository -y ppa:neovim-ppa/unstable
+sudo apt update
+sudo apt install -y neovim
 
 # install asdf
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
@@ -50,14 +54,15 @@ asdf global terraform latest
 asdf global terraform-ls latest
 
 # create ~/.config
-mkdir ~/.config
-source aliases.sh
+mkdir -p ~/.config
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+bash "$SCRIPT_DIR/aliases.sh"
 
 # install tpm for tmux
 git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 
-# install catpuccin for tmux
-git clone https://github.com/catppuccin/tmux tmux
+# install catppuccin for tmux
+git clone https://github.com/catppuccin/tmux ~/.config/tmux/plugins/catppuccin
 
 # install rustup
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
