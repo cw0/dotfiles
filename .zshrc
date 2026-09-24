@@ -25,9 +25,15 @@ setopt PUSHD_SILENT         # Do not print the directory stack after pushd or po
 
 # enable completion
 zmodload zsh/complist
-# autoload -U compinit; compinit
+# Use cached compinit data when available to reduce startup time.
+autoload -U compinit
+if [[ -f "${ZDOTDIR:-$HOME}/.zcompdump" ]]; then
+  compinit -C
+else
+  compinit
+fi
+# Required for bash-style completion scripts sourced in ~/.zshwork.
 autoload -U +X bashcompinit && bashcompinit
-autoload -U +X compinit && compinit
 _comp_options+=(globdots) # With hidden files
 
 # Binds
@@ -91,6 +97,16 @@ safe_load /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting
 # git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
 safe_load /usr/share/zsh/plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
 # git clone https://github.com/softmoth/zsh-vim-mode.git
+
+# Final PATH cleanup for interactive shells.
+typeset -U path PATH
+for i in {1..$#path}; do
+  path[$i]="${path[$i]/#\~/$HOME}"
+done
+path=(${path:#$HOME/.pyenv/shims})
+path=($HOME/.asdf/shims $path)
+typeset -U path PATH
+export PATH
 
 # starship
 # to install / update run
