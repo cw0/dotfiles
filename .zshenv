@@ -23,7 +23,14 @@ export VI_MODE_SET_CURSOR=true
 export VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
 
 export MANPAGER="nvim +Man! -c ':set signcolumn=auto'"
-. "$HOME/.cargo/env"
+[[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
 
-# Path Settings
-export PATH="/usr/local/bin:$PATH"
+# Path settings: normalize, prefer asdf shims over pyenv, and dedupe entries.
+typeset -U path PATH
+for i in {1..$#path}; do
+  path[$i]="${path[$i]/#\~/$HOME}"
+done
+path=(${path:#$HOME/.pyenv/shims})
+path=($HOME/.asdf/shims /usr/local/bin $path)
+typeset -U path PATH
+export PATH
